@@ -4,134 +4,216 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Website Maker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;padding:20px}
-.container{max-width:740px;margin:0 auto}
-h1{font-size:32px;margin-bottom:4px;display:flex;align-items:center;gap:10px}
-h1 span{background:#238636;font-size:13px;padding:2px 10px;border-radius:99px;font-weight:500}
-.sub{color:#8b949e;margin-bottom:24px;font-size:15px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-bottom:12px}
-.card-title{font-size:13px;font-weight:600;margin-bottom:12px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.row>*{flex:1;min-width:140px}
-label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
-input,textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #30363d;background:#0d1117;color:#e6edf3;font-size:14px;font-family:inherit}
-input:focus,textarea:focus{outline:none;border-color:#58a6ff}
-textarea{min-height:80px;resize:vertical}
-.hint{font-size:12px;color:#8b949e;margin-top:3px}
-.pill-group{display:flex;gap:6px;flex-wrap:wrap}
-.pill{padding:6px 16px;border-radius:99px;border:1px solid #30363d;font-size:13px;cursor:pointer;transition:all .15s;background:transparent;color:#c9d1d9}
-.pill:hover{border-color:#58a6ff;color:#58a6ff}
-.pill.active{background:#1f6feb;border-color:#1f6feb;color:#fff}
-.btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;background:#238636;color:#fff;transition:all .2s}
-.btn:hover{background:#2ea043;transform:translateY(-1px)}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-#output{margin-top:12px;padding:16px;border-radius:10px;display:none}
-#output.success{display:block;background:#0d2818;border:1px solid #2ea043}
-#output.error{display:block;background:#290a0a;border:1px solid #da3633}
-#output a{color:#58a6ff}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fafafa;color:#111;min-height:100vh}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06)}
+nav .inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:14px 24px}
+nav .logo{font-size:20px;font-weight:800;letter-spacing:-.5px}
+nav .logo span{color:#6366f1}
+nav .nav-right{display:flex;align-items:center;gap:24px}
+nav .nav-right a{text-decoration:none;font-size:14px;font-weight:500;color:#555;transition:color .2s}
+nav .nav-right a:hover{color:#111}
+nav .btn-nav{padding:8px 20px;background:#111;color:#fff!important;border-radius:8px;font-weight:600}
+nav .btn-nav:hover{background:#333!important;color:#fff!important}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 60px;background:linear-gradient(180deg,#f0f0ff 0%,#fff 40%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(99,102,241,.08),transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:800px;width:100%;text-align:center}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#eef2ff;color:#4f46e5;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:24px}
+.hero .badge i{font-size:14px}
+.hero h1{font-size:clamp(36px,5vw,60px);font-weight:900;line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,#6366f1,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:#666;max-width:600px;margin:0 auto 40px;line-height:1.6}
+
+/* INPUT AREA */
+.input-area{background:#fff;border:2px solid #e5e7eb;border-radius:16px;padding:8px;transition:all .2s;margin-bottom:16px}
+.input-area:focus-within{border-color:#6366f1;box-shadow:0 0 0 4px rgba(99,102,241,.1)}
+.input-area textarea{width:100%;border:none;outline:none;font-size:16px;font-family:'Inter',sans-serif;padding:12px 16px;min-height:64px;resize:none;color:#111;background:transparent}
+.input-area textarea::placeholder{color:#aaa}
+.input-bottom{display:flex;justify-content:space-between;align-items:center;padding:4px 16px 8px}
+.prompt-examples{display:flex;gap:6px;flex-wrap:wrap}
+.prompt-examples button{font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;color:#666;transition:all .2s;font-family:'Inter',sans-serif;font-weight:500}
+.prompt-examples button:hover{border-color:#6366f1;color:#6366f1}
+.btn-build{padding:10px 28px;background:#111;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+.btn-build:hover{background:#333;transform:translateY(-1px)}
+.btn-build:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* SETTINGS ROW */
+.settings-row{display:flex;gap:12px;margin-top:24px;text-align:left;flex-wrap:wrap;justify-content:center}
+.setting-group{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:6px 12px}
+.setting-group label{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.setting-group select{border:none;background:transparent;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;color:#111;outline:none;cursor:pointer;padding:4px 0}
+.token-field{margin-top:24px;display:flex;gap:8px;max-width:480px;margin-left:auto;margin-right:auto}
+.token-field input{flex:1;padding:10px 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;background:#fff}
+.token-field input:focus{border-color:#6366f1}
+.token-field input::placeholder{color:#bbb}
+.site-name-input{padding:10px 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:'Inter',sans-serif;outline:none;background:#fff;width:160px;transition:border-color .2s}
+.site-name-input:focus{border-color:#6366f1}
+.site-name-input::placeholder{color:#bbb}
+
+/* FEATURES SECTION */
+.features{padding:80px 24px;max-width:1100px;margin:0 auto}
+.features h2{font-size:32px;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+.features .sub{color:#666;text-align:center;font-size:16px;margin-bottom:48px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.feature-card{padding:28px;border:1px solid #e5e7eb;border-radius:14px;background:#fff;transition:all .3s}
+.feature-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.04);border-color:#d1d5db;transform:translateY(-2px)}
+.feature-card .icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;color:#fff}
+.feature-card:nth-child(1) .icon{background:linear-gradient(135deg,#6366f1,#a78bfa)}
+.feature-card:nth-child(2) .icon{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+.feature-card:nth-child(3) .icon{background:linear-gradient(135deg,#10b981,#34d399)}
+.feature-card:nth-child(4) .icon{background:linear-gradient(135deg,#ef4444,#f87171)}
+.feature-card:nth-child(5) .icon{background:linear-gradient(135deg,#8b5cf6,#a78bfa)}
+.feature-card:nth-child(6) .icon{background:linear-gradient(135deg,#06b6d4,#22d3ee)}
+.feature-card h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.feature-card p{font-size:14px;color:#666;line-height:1.6}
+
+/* TEMPLATE EXAMPLES */
+.templates-section{padding:0 24px 80px;max-width:1100px;margin:0 auto}
+.templates-section h2{font-size:28px;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+.templates-section .sub{color:#666;text-align:center;font-size:15px;margin-bottom:36px}
+.template-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.template-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 16px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;cursor:pointer;transition:all .2s;font-size:13px;font-weight:500}
+.template-card:hover{border-color:#6366f1;box-shadow:0 4px 20px rgba(99,102,241,.08);transform:translateY(-2px)}
+.template-card .emoji{font-size:28px}
+.template-card.active{border-color:#6366f1;background:#f5f3ff}
+
+/* STATUS */
+.status-bar{margin-top:20px}
+.status-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:14px;margin-bottom:4px;background:#f9fafb;border:1px solid #f0f0f0;opacity:.4;transition:all .3s}
+.status-item.active{opacity:1;border-color:#e5e7eb}
+.status-item.done{opacity:1;border-color:#10b981;background:#f0fdf4}
+.status-item.fail{opacity:1;border-color:#ef4444;background:#fef2f2}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;background:#e5e7eb;transition:all .3s}
+.status-item.active .dot{background:#6366f1;box-shadow:0 0 8px rgba(99,102,241,.4)}
+.status-item.done .dot{background:#10b981}
+.status-item.fail .dot{background:#ef4444}
+
+/* OUTPUT */
+#output{margin-top:16px;padding:20px;border-radius:14px;display:none}
+#output.success{display:block;background:#f0fdf4;border:2px solid #10b981}
+#output.error{display:block;background:#fef2f2;border:2px solid #ef4444}
+#output a{color:#6366f1;font-weight:600}
 #output .url{font-size:20px;font-weight:700;margin:10px 0;word-break:break-all}
-.status-bar{margin-top:12px}
-.status-item{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:8px;font-size:14px;margin-bottom:4px;background:#0d1117;border:1px solid #21262d;opacity:.4}
-.status-item.active{opacity:1;border-color:#30363d}
-.status-item.done{opacity:1;border-color:#2ea043}
-.status-item.fail{opacity:1;border-color:#da3633}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;background:#30363d;transition:all .3s}
-.status-item.active .dot{background:#d29922;box-shadow:0 0 8px #d2992266}
-.status-item.done .dot{background:#2ea043}
-.status-item.fail .dot{background:#da3633}
+#output .url a{color:#111;text-decoration:none}
+
+/* FOOTER */
+footer{text-align:center;padding:40px 24px;color:#999;font-size:13px;border-top:1px solid #f0f0f0}
+
+@media(max-width:640px){.settings-row{flex-direction:column;align-items:stretch}.setting-group{justify-content:space-between}.token-field{flex-direction:column}.site-name-input{width:100%}}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>AI Website Maker <span>Free</span></h1>
-  <p class="sub">Pick a template, describe your site. Professional result instantly.</p>
 
-  <div class="card">
-    <div class="card-title">1. Template</div>
-    <div class="pill-group" id="siteType">
-      <button class="pill active" data-value="portfolio">Portfolio</button>
-      <button class="pill" data-value="landing">Landing Page</button>
-      <button class="pill" data-value="business">Business</button>
-      <button class="pill" data-value="blog">Blog</button>
-      <button class="pill" data-value="store">Store</button>
-      <button class="pill" data-value="app">Web App</button>
-    </div>
-  </div>
+<nav>
+<div class="inner">
+<div class="logo">AI<span>Maker</span></div>
+<div class="nav-right">
+<a href="#">Features</a>
+<a href="#">Templates</a>
+<a href="#" class="btn-nav">Get Started</a>
+</div>
+</div>
+</nav>
 
-  <div class="card">
-    <div class="card-title">2. Style</div>
-    <div class="pill-group" id="designStyle">
-      <button class="pill active" data-value="modern">Modern</button>
-      <button class="pill" data-value="minimal">Minimal</button>
-      <button class="pill" data-value="bold">Bold</button>
-      <button class="pill" data-value="elegant">Elegant</button>
-      <button class="pill" data-value="playful">Playful</button>
-      <button class="pill" data-value="dark">Dark</button>
-    </div>
-  </div>
+<div class="hero">
+<div class="hero-inner">
+<div class="badge">Turn your ideas into websites</div>
+<h1>Describe what you want.<br><span>AI builds it instantly.</span></h1>
+<p>No coding. No setup. Just type what kind of website you need and get a live published link in seconds.</p>
 
-  <div class="card">
-    <div class="card-title">3. Describe your site</div>
-    <textarea id="prompt" placeholder="e.g. Photography portfolio. Name: Alex. I shoot landscapes and portraits. Include a gallery, about section, and booking form."></textarea>
-  </div>
-
-  <div class="card">
-    <div class="card-title">4. Credentials</div>
-    <div class="row">
-      <div>
-        <label for="ghToken">GitHub Token</label>
-        <input id="ghToken" type="password" placeholder="ghp_...">
-        <div class="hint">Classic token with <strong>repo</strong> scope</div>
-      </div>
-      <div>
-        <label for="siteName">Site name</label>
-        <input id="siteName" placeholder="my-site">
-        <div class="hint">Leave blank to auto-generate</div>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn" id="genBtn" onclick="generate()">Generate & Publish</button>
-
-  <div class="status-bar" id="status">
-    <div class="status-item" id="s1"><span class="dot"></span> AI is customizing your template...</div>
-    <div class="status-item" id="s2"><span class="dot"></span> Creating GitHub repository...</div>
-    <div class="status-item" id="s3"><span class="dot"></span> Publishing to GitHub Pages...</div>
-  </div>
-
-  <div id="output"></div>
+<div class="input-area">
+<textarea id="prompt" placeholder="e.g. A modern portfolio for a UX designer named Alex with a gallery, case studies, and a contact form..."></textarea>
+<div class="input-bottom">
+<div class="prompt-examples">
+<button onclick="fillPrompt('A personal portfolio with dark theme, project gallery, and contact form')">Portfolio</button>
+<button onclick="fillPrompt('A startup landing page with hero, features, testimonials, and pricing')">Landing Page</button>
+<button onclick="fillPrompt('A business site for a law firm with services, team, and contact')">Business</button>
+</div>
+</div>
 </div>
 
+<div class="settings-row">
+<div class="setting-group">
+<label>Type</label>
+<select id="siteType">
+<option value="portfolio">Portfolio</option>
+<option value="landing">Landing Page</option>
+<option value="business">Business</option>
+<option value="blog">Blog</option>
+<option value="store">Store</option>
+<option value="app">Web App</option>
+</select>
+</div>
+<div class="setting-group">
+<label>Style</label>
+<select id="designStyle">
+<option value="modern">Modern</option>
+<option value="minimal">Minimal</option>
+<option value="bold">Bold</option>
+<option value="elegant">Elegant</option>
+<option value="playful">Playful</option>
+<option value="dark">Dark</option>
+</select>
+</div>
+<div class="setting-group">
+<input class="site-name-input" id="siteName" placeholder="site-name (optional)">
+</div>
+</div>
+
+<div class="token-field">
+<input id="ghToken" type="password" placeholder="GitHub classic token (ghp_...)">
+<button class="btn-build" id="genBtn" onclick="generate()">Start the build</button>
+</div>
+
+<div class="status-bar" id="status">
+<div class="status-item" id="s1"><span class="dot"></span> AI is building your site...</div>
+<div class="status-item" id="s2"><span class="dot"></span> Creating GitHub repository...</div>
+<div class="status-item" id="s3"><span class="dot"></span> Publishing to GitHub Pages...</div>
+</div>
+
+<div id="output"></div>
+</div>
+</div>
+
+<div class="features">
+<h2>Why use AI Website Maker?</h2>
+<p class="sub">Everything you need to launch a professional website — completely free</p>
+<div class="feature-grid">
+<div class="feature-card"><div class="icon">1</div><h3>Professional Templates</h3><p>Hand-crafted by designers. Portfolio, landing pages, business sites, blogs, stores, and web apps — all production quality out of the box.</p></div>
+<div class="feature-card"><div class="icon">2</div><h3>AI Customization</h3><p>Describe your vision and AI fills in the content, colors, and layout. Every site is unique and tailored to your needs.</p></div>
+<div class="feature-card"><div class="icon">3</div><h3>Instant Publishing</h3><p>One click deploys your site to GitHub Pages. Get a live URL immediately — no hosting setup, no config files.</p></div>
+<div class="feature-card"><div class="icon">4</div><h3>Free Forever</h3><p>Powered by GitHub Models free tier. No credit card, no subscription, no hidden costs. Zero cost forever.</p></div>
+<div class="feature-card"><div class="icon">5</div><h3>6 Design Styles</h3><p>Modern, Minimal, Bold, Elegant, Playful, or Dark. Pick the vibe that fits your brand and the AI adapts the entire site.</p></div>
+<div class="feature-card"><div class="icon">6</div><h3>Responsive by Default</h3><p>Every generated site looks beautiful on desktop, tablet, and phone. Mobile-first design built into every template.</p></div>
+</div>
+</div>
+
+<div class="templates-section">
+<h2>Ready-to-use templates</h2>
+<p class="sub">Start with a proven structure. AI makes it yours.</p>
+<div class="template-grid">
+<div class="template-card" onclick="selectTmpl(this,'portfolio')"><span class="emoji">🎨</span>Portfolio</div>
+<div class="template-card" onclick="selectTmpl(this,'landing')"><span class="emoji">🚀</span>Landing</div>
+<div class="template-card" onclick="selectTmpl(this,'business')"><span class="emoji">🏢</span>Business</div>
+<div class="template-card" onclick="selectTmpl(this,'blog')"><span class="emoji">📝</span>Blog</div>
+<div class="template-card" onclick="selectTmpl(this,'store')"><span class="emoji">🛍️</span>Store</div>
+<div class="template-card" onclick="selectTmpl(this,'app')"><span class="emoji">📊</span>Web App</div>
+</div>
+</div>
+
+<footer>AI Website Maker &mdash; Free forever. Built with GitHub Models and GitHub Pages.</footer>
+
 <script>
-const $ = id => document.getElementById(id);
-
-document.querySelectorAll('.pill-group').forEach(g => {
-  g.querySelectorAll('.pill').forEach(p => {
-    p.addEventListener('click', () => {
-      g.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
-      p.classList.add('active');
-    });
-  });
-});
-
-function sel(id) {
-  const a = document.querySelector(`#${id} .pill.active`);
-  return a ? a.dataset.value : '';
-}
-
-function status(n, s) {
-  const e = $('s' + n);
-  e.classList.remove('active','done','fail');
-  if(s) e.classList.add(s);
-}
-
-// ===== PROFESSIONAL TEMPLATES =====
-
 const TEMPLATES = {
 
-portfolio: `<!DOCTYPE html>
+portfolio:`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -139,10 +221,7 @@ portfolio: `<!DOCTYPE html>
 <title>{{NAME}} | Portfolio</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root{
-  --bg:#0a0a0a; --bg2:#111; --text:#f5f5f5; --text2:#aaa;
-  --accent:#6366f1; --accent2:#818cf8; --font:'Inter',system-ui,sans-serif;
-}
+:root{--bg:#0a0a0a;--bg2:#111;--text:#f5f5f5;--text2:#aaa;--accent:#6366f1;--accent2:#818cf8;--font:'Inter',system-ui,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
@@ -152,8 +231,8 @@ nav .logo{font-size:22px;font-weight:700;color:var(--text)}
 nav .logo span{color:var(--accent)}
 nav a{color:var(--text2);text-decoration:none;margin-left:28px;font-size:14px;transition:color .2s}
 nav a:hover{color:var(--accent)}
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px}
-.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);pointer-events:none}
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%)}
 .hero-content{position:relative;z-index:1}
 .hero .tag{color:var(--accent);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
 .hero h1{font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1.1;margin-bottom:20px}
@@ -167,17 +246,18 @@ nav a:hover{color:var(--accent)}
 section{padding:100px 0}
 .section-title{font-size:32px;font-weight:700;margin-bottom:8px}
 .section-sub{color:var(--text2);font-size:16px;margin-bottom:48px;max-width:600px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
 .card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:28px;transition:all .3s}
 .card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(99,102,241,.1)}
 .card i{font-size:28px;color:var(--accent);margin-bottom:16px}
 .card h3{font-size:18px;margin-bottom:8px}
 .card p{font-size:14px;color:var(--text2);line-height:1.6}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.gallery-item{aspect-ratio:4/3;background:var(--bg2);border-radius:12px;overflow:hidden;position:relative;cursor:pointer;border:1px solid rgba(255,255,255,.06);transition:all .3s;display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--text2)}
+.gallery-item{aspect-ratio:4/3;background:var(--bg2);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--text2);border:1px solid rgba(255,255,255,.06);transition:all .3s}
 .gallery-item:hover{border-color:var(--accent);transform:scale(1.02)}
 .gallery-item .label{position:absolute;bottom:16px;left:16px;font-size:14px;font-weight:600;color:var(--text)}
-.contact-form{max-width:600px}.contact-form input,.contact-form textarea,.contact-form button{width:100%;padding:14px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--bg2);color:var(--text);font-size:15px;font-family:var(--font);margin-bottom:16px}
+.contact-form{max-width:600px}
+.contact-form input,.contact-form textarea,.contact-form button{width:100%;padding:14px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--bg2);color:var(--text);font-size:15px;font-family:var(--font);margin-bottom:16px}
 .contact-form textarea{min-height:140px;resize:vertical}
 .contact-form button{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:600;cursor:pointer;border:none;transition:all .3s}
 .contact-form button:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(99,102,241,.4)}
@@ -189,77 +269,16 @@ footer .social a:hover{color:var(--accent)}
 </style>
 </head>
 <body>
-<nav>
-<div class="container">
-<div class="logo">{{NAME}}<span>.</span></div>
-<div>
-<a href="#work">Work</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-</div>
-</div>
-</nav>
-<section class="hero">
-<div class="container hero-content">
-<div class="tag">{{TAG}}</div>
-<h1>Hi, I'm <span>{{NAME}}</span></h1>
-<p>{{HERO_TEXT}}</p>
-<div>
-<a href="#work" class="btn btn-primary">View My Work</a>
-<a href="#contact" class="btn btn-outline">Get in Touch</a>
-</div>
-</div>
-</section>
-<section id="work">
-<div class="container">
-<h2 class="section-title">My Work</h2>
-<p class="section-sub">{{WORK_SUB}}</p>
-<div class="gallery">
-<div class="gallery-item"><i class="fas fa-image"></i><span class="label">{{PROJ1}}</span></div>
-<div class="gallery-item"><i class="fas fa-image"></i><span class="label">{{PROJ2}}</span></div>
-<div class="gallery-item"><i class="fas fa-image"></i><span class="label">{{PROJ3}}</span></div>
-<div class="gallery-item"><i class="fas fa-image"></i><span class="label">{{PROJ4}}</span></div>
-</div>
-</div>
-</section>
-<section id="about" style="background:var(--bg2)">
-<div class="container">
-<h2 class="section-title">About Me</h2>
-<p class="section-sub">{{ABOUT_SUB}}</p>
-<div class="grid">
-<div class="card"><i class="fas fa-code"></i><h3>{{SKILL1_TITLE}}</h3><p>{{SKILL1_DESC}}</p></div>
-<div class="card"><i class="fas fa-paint-brush"></i><h3>{{SKILL2_TITLE}}</h3><p>{{SKILL2_DESC}}</p></div>
-<div class="card"><i class="fas fa-camera"></i><h3>{{SKILL3_TITLE}}</h3><p>{{SKILL3_DESC}}</p></div>
-</div>
-</div>
-</section>
-<section id="contact">
-<div class="container">
-<h2 class="section-title">Let's Work Together</h2>
-<p class="section-sub">{{CONTACT_SUB}}</p>
-<div class="contact-form">
-<input type="text" placeholder="Your Name">
-<input type="email" placeholder="Your Email">
-<textarea placeholder="Tell me about your project"></textarea>
-<button type="button">Send Message</button>
-</div>
-</div>
-</section>
-<footer>
-<div class="container">
-<div class="social">
-<a href="#"><i class="fab fa-github"></i></a>
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-linkedin"></i></a>
-<a href="#"><i class="fab fa-instagram"></i></a>
-</div>
-<p>&copy; 2026 {{NAME}}. All rights reserved.</p>
-</div>
-</footer>
+<nav><div class="container"><div class="logo">{{NAME}}<span>.</span></div><div><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div></div></nav>
+<section class="hero"><div class="container hero-content"><div class="tag">{{TAG}}</div><h1>Hi, I'm <span>{{NAME}}</span></h1><p>{{HERO_TEXT}}</p><div><a href="#work" class="btn btn-primary">View My Work</a><a href="#contact" class="btn btn-outline">Get in Touch</a></div></div></section>
+<section id="work"><div class="container"><h2 class="section-title">My Work</h2><p class="section-sub">{{WORK_SUB}}</p><div class="gallery"><div class="gallery-item">{{P1_ICON}}<span class="label">{{P1_NAME}}</span></div><div class="gallery-item">{{P2_ICON}}<span class="label">{{P2_NAME}}</span></div><div class="gallery-item">{{P3_ICON}}<span class="label">{{P3_NAME}}</span></div><div class="gallery-item">{{P4_ICON}}<span class="label">{{P4_NAME}}</span></div></div></div></section>
+<section id="about" style="background:var(--bg2)"><div class="container"><h2 class="section-title">About Me</h2><p class="section-sub">{{ABOUT_SUB}}</p><div class="grid"><div class="card"><i class="fas fa-code"></i><h3>{{S1_NAME}}</h3><p>{{S1_DESC}}</p></div><div class="card"><i class="fas fa-paint-brush"></i><h3>{{S2_NAME}}</h3><p>{{S2_DESC}}</p></div><div class="card"><i class="fas fa-camera"></i><h3>{{S3_NAME}}</h3><p>{{S3_DESC}}</p></div></div></div></section>
+<section id="contact"><div class="container"><h2 class="section-title">Let's Work Together</h2><p class="section-sub">{{CONTACT_SUB}}</p><div class="contact-form"><input type="text" placeholder="Your Name"><input type="email" placeholder="Your Email"><textarea placeholder="Tell me about your project"></textarea><button type="button">Send Message</button></div></div></section>
+<footer><div class="container"><div class="social"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div><p>&copy; 2026 {{NAME}}. All rights reserved.</p></div></footer>
 </body>
 </html>`,
 
-landing: `<!DOCTYPE html>
+landing:`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -273,13 +292,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
 nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid #eee}
 nav .container{display:flex;justify-content:space-between;align-items:center;padding:16px 24px}
-nav .logo{font-size:22px;font-weight:700}
+nav .logo{font-size:22px;font-weight:700;color:var(--text)}
 nav .logo span{color:var(--accent)}
 nav a{color:var(--text2);text-decoration:none;margin-left:28px;font-size:14px;transition:color .2s}
 nav a:hover{color:var(--accent)}
-nav .btn-nav{padding:8px 20px;border-radius:6px;background:var(--accent);color:#fff!important;margin-left:28px}
-.hero{min-height:90vh;display:flex;align-items:center;padding-top:80px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe)}
-.hero-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero{min-height:90vh;display:flex;align-items:center;padding-top:80px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe)}.hero-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .hero h1{font-size:clamp(36px,5vw,56px);font-weight:800;line-height:1.15;margin-bottom:16px}
 .hero h1 span{color:var(--accent)}
 .hero p{font-size:18px;color:var(--text2);margin-bottom:28px;line-height:1.7}
@@ -287,405 +304,181 @@ nav .btn-nav{padding:8px 20px;border-radius:6px;background:var(--accent);color:#
 .btn-primary{background:var(--accent);color:#fff}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,99,235,.3)}
 .btn-outline{background:transparent;border:2px solid var(--text);color:var(--text);margin-left:12px}
-.btn-outline:hover{background:var(--text);color:#fff}
 .hero-visual{background:linear-gradient(135deg,var(--accent),#7c3aed);border-radius:20px;height:400px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:80px}
 section{padding:100px 0}
 .section-title{font-size:32px;font-weight:700;margin-bottom:8px;text-align:center}
-.section-sub{color:var(--text2);font-size:16px;margin-bottom:48px;text-align:center;max-width:600px;margin-left:auto;margin-right:auto}
+.section-sub{color:var(--text2);font-size:16px;margin-bottom:48px;text-align:center;max-width:600px;margin:0 auto 48px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
 .card{background:var(--bg);border:1px solid #e5e7eb;border-radius:12px;padding:32px 24px;transition:all .3s;text-align:center}
 .card:hover{box-shadow:0 12px 40px rgba(0,0,0,.08);transform:translateY(-4px);border-color:var(--accent)}
 .card i{font-size:36px;color:var(--accent);margin-bottom:16px}
 .card h3{font-size:18px;margin-bottom:8px}
 .card p{font-size:14px;color:var(--text2)}
-.testimonial{background:var(--bg2);border-radius:16px;padding:48px;text-align:center;max-width:700px;margin:0 auto}
-.testimonial i{font-size:32px;color:var(--accent);margin-bottom:16px;opacity:.5}
+.testimonial{max-width:700px;margin:0 auto;background:var(--bg2);border-radius:16px;padding:48px;text-align:center}
+.testimonial i{font-size:32px;color:var(--accent);opacity:.5;margin-bottom:16px}
 .testimonial blockquote{font-size:20px;font-style:italic;color:var(--text2);line-height:1.7;margin-bottom:16px}
-.testimonial .author{font-weight:600;color:var(--text)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
 .stat-number{font-size:48px;font-weight:800;color:var(--accent)}
-.stat-label{font-size:14px;color:var(--text2);margin-top:4px}
 .cta-section{background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;text-align:center;padding:80px 0}
 .cta-section h2{font-size:36px;margin-bottom:12px}
-.cta-section p{opacity:.9;margin-bottom:28px;font-size:18px}
+.cta-section p{opacity:.9;font-size:18px;margin-bottom:28px}
 .cta-section .btn-primary{background:#fff;color:var(--accent)}
 footer{text-align:center;padding:40px 0;color:var(--text2);font-size:14px}
-footer .social{margin-bottom:16px}
-footer .social a{color:var(--text2);font-size:20px;margin:0 10px;transition:color .2s}
-footer .social a:hover{color:var(--accent)}
-@media(max-width:768px){.hero-content{grid-template-columns:1fr;gap:40px}.hero h1{font-size:32px}.btn-outline{margin-left:0;margin-top:12px}.stats{grid-template-columns:1fr}}
-</style>
-</head>
+@media(max-width:768px){.hero-content{grid-template-columns:1fr}.stats{grid-template-columns:1fr}}
+</style></head>
 <body>
-<nav>
-<div class="container">
-<div class="logo">{{NAME}}<span>.</span></div>
-<div>
-<a href="#features">Features</a>
-<a href="#testimonials">Testimonials</a>
-<a href="#contact" class="btn-nav">Get Started</a>
-</div>
-</div>
-</nav>
-<section class="hero">
-<div class="container hero-content">
-<div>
-<div class="tag" style="color:var(--accent);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">{{TAG}}</div>
-<h1><span>{{NAME}}</span><br>{{HERO_SUB}}</h1>
-<p>{{HERO_TEXT}}</p>
-<div>
-<a href="#features" class="btn btn-primary">Learn More</a>
-<a href="#contact" class="btn btn-outline">Get Started</a>
-</div>
-</div>
-<div class="hero-visual"><i class="fas fa-rocket"></i></div>
-</div>
-</section>
-<section id="features">
-<div class="container">
-<h2 class="section-title">{{FEATURES_TITLE}}</h2>
-<p class="section-sub">{{FEATURES_SUB}}</p>
-<div class="grid">
-<div class="card"><i class="fas fa-bolt"></i><h3>{{FEAT1_TITLE}}</h3><p>{{FEAT1_DESC}}</p></div>
-<div class="card"><i class="fas fa-shield"></i><h3>{{FEAT2_TITLE}}</h3><p>{{FEAT2_DESC}}</p></div>
-<div class="card"><i class="fas fa-chart-line"></i><h3>{{FEAT3_TITLE}}</h3><p>{{FEAT3_DESC}}</p></div>
-</div>
-</div>
-</section>
-<section id="testimonials" style="background:var(--bg2)">
-<div class="container">
-<h2 class="section-title">{{TESTI_TITLE}}</h2>
-<p class="section-sub">{{TESTI_SUB}}</p>
-<div class="testimonial">
-<i class="fas fa-quote-left"></i>
-<blockquote>{{QUOTE}}</blockquote>
-<p class="author">{{AUTHOR}}</p>
-</div>
-</div>
-</section>
-<section id="stats" style="background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff">
-<div class="container">
-<div class="stats">
-<div><div class="stat-number">{{STAT1_NUM}}</div><div class="stat-label">{{STAT1_LABEL}}</div></div>
-<div><div class="stat-number">{{STAT2_NUM}}</div><div class="stat-label">{{STAT2_LABEL}}</div></div>
-<div><div class="stat-number">{{STAT3_NUM}}</div><div class="stat-label">{{STAT3_LABEL}}</div></div>
-</div>
-</div>
-</section>
-<section id="contact" class="cta-section">
-<div class="container">
-<h2>{{CTA_TITLE}}</h2>
-<p>{{CTA_TEXT}}</p>
-<a href="#" class="btn btn-primary">Get Started Now</a>
-</div>
-</section>
-<footer>
-<div class="container">
-<div class="social">
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-linkedin"></i></a>
-<a href="#"><i class="fab fa-github"></i></a>
-</div>
-<p>&copy; 2026 {{NAME}}. All rights reserved.</p>
-</div>
-</footer>
-</body>
-</html>`,
-
-business: `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{NAME}} | Business</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-:root{--bg:#fff;--bg2:#f8f9fa;--text:#111;--text2:#666;--accent:#059669;--accent2:#10b981;--font:'Inter',system-ui,sans-serif}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
-.container{max-width:1100px;margin:0 auto;padding:0 24px}
-nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid #eee}
-nav .container{display:flex;justify-content:space-between;align-items:center;padding:16px 24px}
-nav .logo{font-size:22px;font-weight:700}
-nav .logo span{color:var(--accent)}
-nav a{color:var(--text2);text-decoration:none;margin-left:28px;font-size:14px;transition:color .2s}
-nav a:hover{color:var(--accent)}
-.hero{min-height:85vh;display:flex;align-items:center;padding-top:80px;background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
-.hero-content{max-width:700px}
-.hero h1{font-size:clamp(36px,5vw,56px);font-weight:800;line-height:1.1;margin-bottom:16px}
-.hero h1 span{color:var(--accent)}
-.hero p{font-size:18px;color:var(--text2);margin-bottom:32px;line-height:1.7;max-width:540px}
-.btn{display:inline-block;padding:14px 36px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;transition:all .3s;cursor:pointer;border:none}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(5,150,105,.3)}
-.btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent);margin-left:12px}
-.btn-outline:hover{background:var(--accent);color:#fff}
-section{padding:100px 0}
-.section-title{font-size:32px;font-weight:700;margin-bottom:8px;text-align:center}
-.section-sub{color:var(--text2);font-size:16px;margin-bottom:48px;text-align:center;max-width:600px;margin-left:auto;margin-right:auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.card{background:var(--bg);border:1px solid #e5e7eb;border-radius:12px;padding:32px 24px;transition:all .3s}
-.card:hover{box-shadow:0 12px 40px rgba(0,0,0,.08);transform:translateY(-4px)}
-.card i{font-size:32px;color:var(--accent);margin-bottom:14px}
-.card h3{font-size:18px;margin-bottom:6px}
-.card p{font-size:14px;color:var(--text2)}
-.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;text-align:center}
-.team-member .avatar{width:80px;height:80px;border-radius:50%;background:var(--accent);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:600}
-.team-member h4{font-size:16px;margin-bottom:2px}
-.team-member p{font-size:13px;color:var(--text2)}
-footer{text-align:center;padding:40px 0;border-top:1px solid #e5e7eb;color:var(--text2);font-size:14px}
-@media(max-width:768px){.grid-2{grid-template-columns:1fr;gap:32px}.hero h1{font-size:32px}}
-</style>
-</head>
-<body>
-<nav>
-<div class="container">
-<div class="logo"><span>{{NAME}}</span></div>
-<div>
-<a href="#services">Services</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-</div>
-</div>
-</nav>
-<section class="hero">
-<div class="container hero-content">
-<h1><span>{{NAME}}</span><br>{{HERO_SUB}}</h1>
-<p>{{HERO_TEXT}}</p>
-<div>
-<a href="#services" class="btn btn-primary">Our Services</a>
-<a href="#contact" class="btn btn-outline">Contact Us</a>
-</div>
-</div>
-</section>
-<section id="services">
-<div class="container">
-<h2 class="section-title">{{SERVICES_TITLE}}</h2>
-<p class="section-sub">{{SERVICES_SUB}}</p>
-<div class="grid">
-<div class="card"><i class="fas fa-cogs"></i><h3>{{SERV1_TITLE}}</h3><p>{{SERV1_DESC}}</p></div>
-<div class="card"><i class="fas fa-lightbulb"></i><h3>{{SERV2_TITLE}}</h3><p>{{SERV2_DESC}}</p></div>
-<div class="card"><i class="fas fa-handshake"></i><h3>{{SERV3_TITLE}}</h3><p>{{SERV3_DESC}}</p></div>
-</div>
-</div>
-</section>
-<section id="about" style="background:var(--bg2)">
-<div class="container">
-<h2 class="section-title">{{ABOUT_TITLE}}</h2>
-<p class="section-sub">{{ABOUT_SUB}}</p>
-<div class="team">
-<div class="team-member"><div class="avatar">{{T1_INIT}}</div><h4>{{T1_NAME}}</h4><p>{{T1_ROLE}}</p></div>
-<div class="team-member"><div class="avatar">{{T2_INIT}}</div><h4>{{T2_NAME}}</h4><p>{{T2_ROLE}}</p></div>
-<div class="team-member"><div class="avatar">{{T3_INIT}}</div><h4>{{T3_NAME}}</h4><p>{{T3_ROLE}}</p></div>
-</div>
-</div>
-</section>
-<section id="contact">
-<div class="container">
-<h2 class="section-title">{{CONTACT_TITLE}}</h2>
-<p class="section-sub">{{CONTACT_SUB}}</p>
-<div style="max-width:500px;margin:0 auto">
-<div style="margin-bottom:12px"><i class="fas fa-envelope" style="color:var(--accent);width:24px"></i> {{EMAIL}}</div>
-<div style="margin-bottom:12px"><i class="fas fa-phone" style="color:var(--accent);width:24px"></i> {{PHONE}}</div>
-<div><i class="fas fa-map-marker-alt" style="color:var(--accent);width:24px"></i> {{ADDRESS}}</div>
-</div>
-</div>
-</section>
-<footer><p>&copy; 2026 {{NAME}}. All rights reserved.</p></footer>
-</body>
-</html>`,
-
-blog: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}}</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--bg:#fafafa;--bg2:#fff;--text:#1a1a2e;--text2:#666;--accent:#e11d48;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7}.container{max-width:1100px;margin:0 auto;padding:0 24px}nav{background:var(--bg2);border-bottom:1px solid #e5e7eb;padding:20px 0}nav .container{display:flex;justify-content:space-between;align-items:center}nav .logo{font-size:24px;font-weight:800}nav .logo span{color:var(--accent)}nav a{color:var(--text2);text-decoration:none;margin-left:24px;font-size:14px;transition:color .2s}nav a:hover{color:var(--accent)}.hero{text-align:center;padding:80px 0 60px}.hero h1{font-size:clamp(32px,5vw,52px);font-weight:800;margin-bottom:12px}.hero p{color:var(--text2);font-size:18px;max-width:600px;margin:0 auto}.featured{background:var(--bg2);border-radius:16px;overflow:hidden;margin-bottom:48px;display:grid;grid-template-columns:1fr 1fr;gap:0}.featured-img{background:linear-gradient(135deg,var(--accent),#f43f5e);min-height:300px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#fff}.featured-content{padding:40px}.featured-content .tag{color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}.featured-content h2{font-size:28px;margin-bottom:12px}.featured-content p{color:var(--text2);font-size:15px;margin-bottom:16px}.featured-content .meta{font-size:13px;color:var(--text2)}.articles{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}.article-card{background:var(--bg2);border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;transition:all .3s}.article-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.08)}.article-card .thumb{height:180px;background:linear-gradient(135deg,var(--accent),#f43f5e);display:flex;align-items:center;justify-content:center;font-size:40px;color:#fff}.article-card .body{padding:24px}.article-card .tag{color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}.article-card h3{font-size:18px;margin-bottom:8px;line-height:1.4}.article-card p{font-size:14px;color:var(--text2);margin-bottom:12px}.article-card .meta{font-size:12px;color:#999}footer{text-align:center;padding:40px 0;margin-top:60px;border-top:1px solid #e5e7eb;color:var(--text2);font-size:14px}@media(max-width:768px){.featured{grid-template-columns:1fr}.featured-img{min-height:200px}}</style></head><body>
-<nav><div class="container"><div class="logo">{{NAME}}<span>.</span></div><div><a href="/">Home</a><a href="#articles">Posts</a><a href="#about">About</a></div></div></nav>
-<div class="container">
-<div class="hero"><h1>{{BLOG_TITLE}}</h1><p>{{BLOG_SUB}}</p></div>
-<div class="featured"><div class="featured-img"><i class="fas fa-star"></i></div><div class="featured-content"><div class="tag">Featured</div><h2>{{FEAT_TITLE}}</h2><p>{{FEAT_DESC}}</p><div class="meta">{{FEAT_DATE}} &middot; {{FEAT_READ}} min read</div></div></div>
-<div class="articles">
-<div class="article-card"><div class="thumb"><i class="fas fa-pen"></i></div><div class="body"><div class="tag">{{P1_TAG}}</div><h3>{{P1_TITLE}}</h3><p>{{P1_DESC}}</p><div class="meta">{{P1_DATE}}</div></div></div>
-<div class="article-card"><div class="thumb"><i class="fas fa-pen"></i></div><div class="body"><div class="tag">{{P2_TAG}}</div><h3>{{P2_TITLE}}</h3><p>{{P2_DESC}}</p><div class="meta">{{P2_DATE}}</div></div></div>
-<div class="article-card"><div class="thumb"><i class="fas fa-pen"></i></div><div class="body"><div class="tag">{{P3_TAG}}</div><h3>{{P3_TITLE}}</h3><p>{{P3_DESC}}</p><div class="meta">{{P3_DATE}}</div></div></div>
-</div>
-</div>
+<nav><div class="container"><div class="logo">{{NAME}}<span>.</span></div><div><a href="#features">Features</a><a href="#contact">Get Started</a></div></div></nav>
+<section class="hero"><div class="container hero-content"><div><div style="color:var(--accent);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">{{TAG}}</div><h1><span>{{NAME}}</span><br>{{HERO_SUB}}</h1><p>{{HERO_TEXT}}</p><div><a href="#features" class="btn btn-primary">Learn More</a><a href="#contact" class="btn btn-outline">Get Started</a></div></div><div class="hero-visual"><i class="fas fa-rocket"></i></div></div></section>
+<section id="features"><div class="container"><h2 class="section-title">{{F_TITLE}}</h2><p class="section-sub">{{F_SUB}}</p><div class="grid"><div class="card"><i class="fas fa-bolt"></i><h3>{{F1_NAME}}</h3><p>{{F1_DESC}}</p></div><div class="card"><i class="fas fa-shield"></i><h3>{{F2_NAME}}</h3><p>{{F2_DESC}}</p></div><div class="card"><i class="fas fa-chart-line"></i><h3>{{F3_NAME}}</h3><p>{{F3_DESC}}</p></div></div></div></section>
+<section style="background:var(--bg2)"><div class="container"><div class="testimonial"><i class="fas fa-quote-left"></i><blockquote>{{QUOTE}}</blockquote><p style="font-weight:600">{{AUTHOR}}</p></div></div></section>
+<section style="background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff"><div class="container"><div class="stats"><div><div class="stat-number">{{S1_NUM}}</div><div style="font-size:14px;opacity:.8">{{S1_LABEL}}</div></div><div><div class="stat-number">{{S2_NUM}}</div><div style="font-size:14px;opacity:.8">{{S2_LABEL}}</div></div><div><div class="stat-number">{{S3_NUM}}</div><div style="font-size:14px;opacity:.8">{{S3_LABEL}}</div></div></div></div></section>
+<section id="contact" class="cta-section"><div class="container"><h2>{{CTA_TITLE}}</h2><p>{{CTA_TEXT}}</p><a href="#" class="btn btn-primary">Get Started</a></div></section>
 <footer><p>&copy; 2026 {{NAME}}. All rights reserved.</p></footer>
 </body></html>`,
 
-store: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}} Store</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--bg:#fafafa;--bg2:#fff;--text:#111;--text2:#666;--accent:#f59e0b;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text)}.container{max-width:1100px;margin:0 auto;padding:0 24px}nav{background:var(--bg2);border-bottom:1px solid #e5e7eb;padding:16px 0;position:sticky;top:0;z-index:100}nav .container{display:flex;justify-content:space-between;align-items:center}nav .logo{font-size:24px;font-weight:800}nav .logo span{color:var(--accent)}nav .nav-right{display:flex;align-items:center;gap:20px}nav .nav-right a{color:var(--text2);text-decoration:none;font-size:14px;transition:color .2s}nav .nav-right a:hover{color:var(--accent)}nav .cart-icon{font-size:20px;position:relative}.hero{text-align:center;padding:64px 0;background:linear-gradient(135deg,#fffbeb,#fef3c7)}.hero h1{font-size:clamp(32px,4vw,48px);font-weight:800;margin-bottom:12px}.hero h1 span{color:var(--accent)}.hero p{color:var(--text2);font-size:17px;margin-bottom:28px}.search-bar{display:flex;max-width:500px;margin:0 auto}.search-bar input{flex:1;padding:12px 16px;border:1px solid #e5e7eb;border-radius:8px 0 0 8px;font-size:15px;outline:none}.search-bar button{padding:12px 24px;background:var(--accent);color:#fff;border:none;border-radius:0 8px 8px 0;cursor:pointer;font-weight:600}.categories{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:32px 0}.categories button{padding:8px 20px;border-radius:99px;border:1px solid #e5e7eb;background:var(--bg2);cursor:pointer;font-size:13px;transition:all .2s}.categories button:hover,.categories button.active{border-color:var(--accent);background:var(--accent);color:#fff}section{padding:60px 0}.section-title{font-size:28px;font-weight:700;margin-bottom:32px}.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}.product-card{background:var(--bg2);border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;transition:all .3s}.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.08)}.product-card .img{height:200px;background:linear-gradient(135deg,#fef3c7,#fde68a);display:flex;align-items:center;justify-content:center;font-size:48px}.product-card .info{padding:20px}.product-card .info h3{font-size:16px;margin-bottom:4px}.product-card .info .price{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:10px}.product-card .info .price s{font-size:14px;color:#999;margin-left:6px;font-weight:400}.product-card .info button{width:100%;padding:10px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;transition:all .2s}.product-card .info button:hover{opacity:.9}.newsletter{text-align:center;padding:60px 0;background:linear-gradient(135deg,#111,#222);color:#fff;border-radius:16px;margin:40px 0}.newsletter h2{font-size:28px;margin-bottom:8px}.newsletter p{opacity:.8;margin-bottom:24px}.newsletter .nl-form{display:flex;max-width:440px;margin:0 auto}.newsletter input{flex:1;padding:12px 16px;border-radius:8px 0 0 8px;border:none;font-size:15px}.newsletter button{padding:12px 24px;background:var(--accent);color:#fff;border:none;border-radius:0 8px 8px 0;cursor:pointer;font-weight:600}footer{text-align:center;padding:40px 0;color:var(--text2);font-size:14px;border-top:1px solid #e5e7eb}@media(max-width:768px){.hero h1{font-size:28px}}</style></head><body>
-<nav><div class="container"><div class="logo">{{NAME}}<span>.</span></div><div class="nav-right"><a href="#">Shop</a><a href="#">Categories</a><a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a></div></div></nav>
-<div class="hero"><div class="container"><h1><span>{{NAME}}</span><br>{{HERO_SUB}}</h1><p>{{HERO_TEXT}}</p><div class="search-bar"><input type="text" placeholder="Search products..."><button><i class="fas fa-search"></i></button></div><div class="categories"><button class="active">All</button><button>{{CAT1}}</button><button>{{CAT2}}</button><button>{{CAT3}}</button></div></div></div>
+business:`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}} | Business</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--bg:#fff;--bg2:#f8f9fa;--text:#111;--text2:#666;--accent:#059669;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}.container{max-width:1100px;margin:0 auto;padding:0 24px}nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid #eee}nav .container{display:flex;justify-content:space-between;align-items:center;padding:16px 24px}nav .logo{font-size:22px;font-weight:700}nav .logo span{color:var(--accent)}nav a{color:var(--text2);text-decoration:none;margin-left:28px;font-size:14px;transition:color .2s}nav a:hover{color:var(--accent)}.hero{min-height:85vh;display:flex;align-items:center;padding-top:80px;background:linear-gradient(135deg,#ecfdf5,#d1fae5)}.hero h1{font-size:clamp(36px,5vw,56px);font-weight:800;line-height:1.1;margin-bottom:16px}.hero h1 span{color:var(--accent)}.hero p{font-size:18px;color:var(--text2);margin-bottom:32px;max-width:540px}.btn{display:inline-block;padding:14px 36px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;transition:all .3s;cursor:pointer;border:none}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(5,150,105,.3)}.btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent);margin-left:12px}.btn-outline:hover{background:var(--accent);color:#fff}section{padding:100px 0}.section-title{font-size:32px;font-weight:700;margin-bottom:8px;text-align:center}.section-sub{color:var(--text2);font-size:16px;margin-bottom:48px;text-align:center}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}.card{background:var(--bg);border:1px solid #e5e7eb;border-radius:12px;padding:32px 24px;transition:all .3s}.card:hover{box-shadow:0 12px 40px rgba(0,0,0,.08);transform:translateY(-4px)}.card i{font-size:32px;color:var(--accent);margin-bottom:14px}.card h3{font-size:18px;margin-bottom:6px}.card p{font-size:14px;color:var(--text2)}.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;text-align:center}.team-member .avatar{width:80px;height:80px;border-radius:50%;background:var(--accent);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:600}footer{text-align:center;padding:40px 0;border-top:1px solid #e5e7eb;color:var(--text2);font-size:14px}@media(max-width:768px){.hero h1{font-size:32px}}</style></head><body>
+<nav><div class="container"><div class="logo"><span>{{NAME}}</span></div><div><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></div></div></nav>
+<section class="hero"><div class="container"><h1><span>{{NAME}}</span><br>{{HERO_SUB}}</h1><p>{{HERO_TEXT}}</p><div><a href="#services" class="btn btn-primary">Our Services</a><a href="#contact" class="btn btn-outline">Contact Us</a></div></div></section>
+<section id="services"><div class="container"><h2 class="section-title">{{SERV_TITLE}}</h2><p class="section-sub">{{SERV_SUB}}</p><div class="grid"><div class="card"><i class="fas fa-cogs"></i><h3>{{S1_NAME}}</h3><p>{{S1_DESC}}</p></div><div class="card"><i class="fas fa-lightbulb"></i><h3>{{S2_NAME}}</h3><p>{{S2_DESC}}</p></div><div class="card"><i class="fas fa-handshake"></i><h3>{{S3_NAME}}</h3><p>{{S3_DESC}}</p></div></div></div></section>
+<section id="about" style="background:var(--bg2)"><div class="container"><h2 class="section-title">{{ABOUT_TITLE}}</h2><p class="section-sub">{{ABOUT_SUB}}</p><div class="team"><div class="team-member"><div class="avatar">{{T1}}</div><h4>{{T1_NAME}}</h4><p>{{T1_ROLE}}</p></div><div class="team-member"><div class="avatar">{{T2}}</div><h4>{{T2_NAME}}</h4><p>{{T2_ROLE}}</p></div><div class="team-member"><div class="avatar">{{T3}}</div><h4>{{T3_NAME}}</h4><p>{{T3_ROLE}}</p></div></div></div></section>
+<section id="contact"><div class="container"><h2 class="section-title">Contact Us</h2><p class="section-sub">{{CONTACT_SUB}}</p><div style="max-width:400px;margin:0 auto;font-size:15px"><div style="margin-bottom:10px">{{EMAIL}}</div><div>{{PHONE}}</div></div></div></section>
+<footer><p>&copy; 2026 {{NAME}}. All rights reserved.</p></footer>
+</body></html>`,
+
+blog:`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}}</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--bg:#fafafa;--bg2:#fff;--text:#1a1a2e;--text2:#666;--accent:#e11d48;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7}.container{max-width:1100px;margin:0 auto;padding:0 24px}nav{background:var(--bg2);border-bottom:1px solid #eee;padding:20px 0}nav .container{display:flex;justify-content:space-between;align-items:center}nav .logo{font-size:24px;font-weight:800}nav .logo span{color:var(--accent)}nav a{color:var(--text2);text-decoration:none;margin-left:24px;font-size:14px}nav a:hover{color:var(--accent)}.hero{text-align:center;padding:80px 0 60px}.hero h1{font-size:clamp(32px,5vw,52px);font-weight:800;margin-bottom:12px}.hero p{color:var(--text2);font-size:18px;max-width:600px;margin:0 auto}.featured{background:var(--bg2);border-radius:16px;overflow:hidden;margin-bottom:48px;display:grid;grid-template-columns:1fr 1fr}.featured-img{background:linear-gradient(135deg,var(--accent),#f43f5e);min-height:300px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#fff}.featured-content{padding:40px}.featured-content .tag{color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;margin-bottom:8px}.featured-content h2{font-size:28px;margin-bottom:12px}.featured-content p{color:var(--text2);font-size:15px;margin-bottom:16px}.articles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}.article-card{background:var(--bg2);border-radius:12px;overflow:hidden;border:1px solid #eee;transition:all .3s}.article-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.08)}.article-card .thumb{height:180px;background:linear-gradient(135deg,var(--accent),#f43f5e);display:flex;align-items:center;justify-content:center;font-size:40px;color:#fff}.article-card .body{padding:24px}.article-card .tag{color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;margin-bottom:6px}.article-card h3{font-size:18px;margin-bottom:8px}.article-card p{font-size:14px;color:var(--text2);margin-bottom:12px}footer{text-align:center;padding:40px 0;margin-top:60px;border-top:1px solid #eee;color:var(--text2);font-size:14px}@media(max-width:768px){.featured{grid-template-columns:1fr}}</style></head><body>
+<nav><div class="container"><div class="logo">{{NAME}}<span>.</span></div><div><a href="/">Home</a><a href="#posts">Posts</a></div></div></nav>
+<div class="container"><div class="hero"><h1>{{BLOG_TITLE}}</h1><p>{{BLOG_SUB}}</p></div>
+<div class="featured"><div class="featured-img"><i class="fas fa-star"></i></div><div class="featured-content"><div class="tag">Featured</div><h2>{{FEAT_TITLE}}</h2><p>{{FEAT_DESC}}</p></div></div>
+<div class="articles" id="posts">
+<div class="article-card"><div class="thumb"><i class="fas fa-pen"></i></div><div class="body"><div class="tag">{{P1_TAG}}</div><h3>{{P1_TITLE}}</h3><p>{{P1_DESC}}</p></div></div>
+<div class="article-card"><div class="thumb"><i class="fas fa-pen"></i></div><div class="body"><div class="tag">{{P2_TAG}}</div><h3>{{P2_TITLE}}</h3><p>{{P2_DESC}}</p></div></div>
+<div class="article-card"><div class="thumb"><i class="fas fa-pen"></i></div><div class="body"><div class="tag">{{P3_TAG}}</div><h3>{{P3_TITLE}}</h3><p>{{P3_DESC}}</p></div></div>
+</div></div>
+<footer><p>&copy; 2026 {{NAME}}. All rights reserved.</p></footer>
+</body></html>`,
+
+store:`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}} Store</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--bg:#fafafa;--bg2:#fff;--text:#111;--text2:#666;--accent:#f59e0b;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text)}.container{max-width:1100px;margin:0 auto;padding:0 24px}nav{background:var(--bg2);border-bottom:1px solid #eee;padding:16px 0;position:sticky;top:0;z-index:100}nav .container{display:flex;justify-content:space-between;align-items:center}nav .logo{font-size:24px;font-weight:800}nav .logo span{color:var(--accent)}nav .nav-right{display:flex;gap:20px;align-items:center}nav .nav-right a{color:var(--text2);text-decoration:none;font-size:14px}nav .nav-right a:hover{color:var(--accent)}.hero{text-align:center;padding:64px 0;background:linear-gradient(135deg,#fffbeb,#fef3c7)}.hero h1{font-size:clamp(32px,4vw,48px);font-weight:800;margin-bottom:12px}.hero h1 span{color:var(--accent)}.hero p{color:var(--text2);margin-bottom:28px}.search-bar{display:flex;max-width:500px;margin:0 auto}.search-bar input{flex:1;padding:12px 16px;border:1px solid #eee;border-radius:8px 0 0 8px;font-size:15px;outline:none}.search-bar button{padding:12px 24px;background:var(--accent);color:#fff;border:none;border-radius:0 8px 8px 0;cursor:pointer}.categories{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:32px 0}.categories button{padding:8px 20px;border-radius:99px;border:1px solid #eee;background:var(--bg2);cursor:pointer;font-size:13px}.categories button:hover,.categories button.active{background:var(--accent);color:#fff;border-color:var(--accent)}section{padding:60px 0}.section-title{font-size:28px;font-weight:700;margin-bottom:32px}.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}.product-card{background:var(--bg2);border:1px solid #eee;border-radius:12px;overflow:hidden;transition:all .3s}.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.08)}.product-card .img{height:200px;background:linear-gradient(135deg,#fef3c7,#fde68a);display:flex;align-items:center;justify-content:center;font-size:48px}.product-card .info{padding:20px}.product-card h3{font-size:16px;margin-bottom:4px}.product-card .price{font-size:20px;font-weight:700;color:var(--accent)}footer{text-align:center;padding:40px 0;color:var(--text2);font-size:14px}}</style></head><body>
+<nav><div class="container"><div class="logo">{{NAME}}<span>.</span></div><div class="nav-right"><a href="#">Shop</a><a href="#"><i class="fas fa-shopping-cart"></i></a></div></div></nav>
+<div class="hero"><div class="container"><h1><span>{{NAME}}</span><br>{{HERO_SUB}}</h1><p>{{HERO_TEXT}}</p><div class="search-bar"><input placeholder="Search products..."><button><i class="fas fa-search"></i></button></div><div class="categories"><button class="active">All</button><button>{{CAT1}}</button><button>{{CAT2}}</button><button>{{CAT3}}</button></div></div></div>
 <section><div class="container"><h2 class="section-title">Featured Products</h2><div class="products">
-<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P1_NAME}}</h3><div class="price">${{P1_PRICE}} <s>${{P1_OLD}}</s></div><button>Add to Cart</button></div></div>
-<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P2_NAME}}</h3><div class="price">${{P2_PRICE}} <s>${{P2_OLD}}</s></div><button>Add to Cart</button></div></div>
-<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P3_NAME}}</h3><div class="price">${{P3_PRICE}} <s>${{P3_OLD}}</s></div><button>Add to Cart</button></div></div>
-<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P4_NAME}}</h3><div class="price">${{P4_PRICE}} <s>${{P4_OLD}}</s></div><button>Add to Cart</button></div></div>
+<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P1_NAME}}</h3><div class="price">${{P1_PRICE}}</div></div></div>
+<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P2_NAME}}</h3><div class="price">${{P2_PRICE}}</div></div></div>
+<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P3_NAME}}</h3><div class="price">${{P3_PRICE}}</div></div></div>
+<div class="product-card"><div class="img"><i class="fas fa-box"></i></div><div class="info"><h3>{{P4_NAME}}</h3><div class="price">${{P4_PRICE}}</div></div></div>
 </div></div></section>
-<div class="container"><div class="newsletter"><h2>{{NL_TITLE}}</h2><p>{{NL_TEXT}}</p><div class="nl-form"><input type="email" placeholder="Your email"><button>Subscribe</button></div></div></div>
 <footer><p>&copy; 2026 {{NAME}}. All rights reserved.</p></footer>
 </body></html>`,
 
-app: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}}</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--sidebar:#1e1e2e;--bg:#f8f9fa;--card:#fff;--text:#1a1a2e;--text2:#666;--accent:#6366f1;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);display:grid;grid-template-columns:260px 1fr;min-height:100vh}.sidebar{background:var(--sidebar);color:#fff;padding:24px;position:sticky;top:0;height:100vh;overflow-y:auto}.sidebar .logo{font-size:20px;font-weight:700;margin-bottom:32px}.sidebar .logo span{color:var(--accent)}.sidebar nav a{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;transition:all .2s;margin-bottom:4px}.sidebar nav a:hover,.sidebar nav a.active{background:rgba(255,255,255,.08);color:#fff}.sidebar nav a i{width:20px;text-align:center}.main{padding:32px}.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}.header h1{font-size:28px}.header .user{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text2)}.header .avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600}.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}.stat-card{background:var(--card);border-radius:12px;padding:20px;border:1px solid #e5e7eb}.stat-card .label{font-size:13px;color:var(--text2);margin-bottom:4px}.stat-card .value{font-size:28px;font-weight:700}.stat-card .change{font-size:12px;color:#10b981}.grid-2{display:grid;grid-template-columns:2fr 1fr;gap:24px}.card{background:var(--card);border-radius:12px;padding:24px;border:1px solid #e5e7eb;margin-bottom:24px}.card h3{font-size:16px;margin-bottom:16px;color:var(--text2)}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;padding:10px 0;color:var(--text2);font-weight:500;border-bottom:1px solid #e5e7eb}td{padding:12px 0;border-bottom:1px solid #f0f0f0}.badge{padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500}.badge.success{background:#d1fae5;color:#059669}.badge.warning{background:#fef3c7;color:#d97706}.badge.pending{background:#e0e7ff;color:#4f46e5}.progress-bar{height:6px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-top:8px}.progress-fill{height:100%;border-radius:99px;background:var(--accent)}.activity-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;font-size:14px}.activity-item .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.activity-item .text{flex:1;color:var(--text2)}.activity-item .time{font-size:12px;color:#999}@media(max-width:768px){body{grid-template-columns:1fr}.sidebar{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.grid-2{grid-template-columns:1fr}}</style></head><body>
-<div class="sidebar"><div class="logo">{{NAME}}<span>.</span></div>
-<nav><a href="#" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a><a href="#"><i class="fas fa-users"></i> Users</a><a href="#"><i class="fas fa-file-alt"></i> Reports</a><a href="#"><i class="fas fa-cog"></i> Settings</a><a href="#"><i class="fas fa-question-circle"></i> Help</a></nav></div>
-<div class="main">
-<div class="header"><h1>{{DASH_TITLE}}</h1><div class="user"><span>{{USER_NAME}}</span><div class="avatar">{{USER_INIT}}</div></div></div>
-<div class="stats-row">
-<div class="stat-card"><div class="label">{{S1_LABEL}}</div><div class="value">{{S1_VALUE}}</div><div class="change">{{S1_CHANGE}}</div></div>
-<div class="stat-card"><div class="label">{{S2_LABEL}}</div><div class="value">{{S2_VALUE}}</div><div class="change">{{S2_CHANGE}}</div></div>
-<div class="stat-card"><div class="label">{{S3_LABEL}}</div><div class="value">{{S3_VALUE}}</div><div class="change">{{S3_CHANGE}}</div></div>
-<div class="stat-card"><div class="label">{{S4_LABEL}}</div><div class="value">{{S4_VALUE}}</div><div class="change">{{S4_CHANGE}}</div></div>
-</div>
-<div class="grid-2">
-<div>
-<div class="card"><h3>{{TABLE_TITLE}}</h3><table><thead><tr><th>Name</th><th>Status</th><th>Value</th></tr></thead><tbody>
-<tr><td>{{R1_NAME}}</td><td><span class="badge {{R1_BADGE_CLASS}}">{{R1_STATUS}}</span></td><td>{{R1_VALUE}}</td></tr>
-<tr><td>{{R2_NAME}}</td><td><span class="badge {{R2_BADGE_CLASS}}">{{R2_STATUS}}</span></td><td>{{R2_VALUE}}</td></tr>
-<tr><td>{{R3_NAME}}</td><td><span class="badge {{R3_BADGE_CLASS}}">{{R3_STATUS}}</span></td><td>{{R3_VALUE}}</td></tr>
-<tr><td>{{R4_NAME}}</td><td><span class="badge {{R4_BADGE_CLASS}}">{{R4_STATUS}}</span></td><td>{{R4_VALUE}}</td></tr>
-</tbody></table></div>
-<div class="card"><h3>{{PROGRESS_TITLE}}</h3><div style="font-size:14px;color:var(--text2);margin-bottom:8px">{{PROGRESS_LABEL}}</div><div class="progress-bar"><div class="progress-fill" style="width:{{PROGRESS_PCT}}%"></div></div></div>
-</div>
-<div>
-<div class="card"><h3>{{ACTIVITY_TITLE}}</h3>
-<div class="activity-item"><span class="dot" style="background:var(--accent)"></span><span class="text">{{A1_TEXT}}</span><span class="time">{{A1_TIME}}</span></div>
-<div class="activity-item"><span class="dot" style="background:#10b981"></span><span class="text">{{A2_TEXT}}</span><span class="time">{{A2_TIME}}</span></div>
-<div class="activity-item"><span class="dot" style="background:#f59e0b"></span><span class="text">{{A3_TEXT}}</span><span class="time">{{A3_TIME}}</span></div>
-<div class="activity-item"><span class="dot" style="background:#ef4444"></span><span class="text">{{A4_TEXT}}</span><span class="time">{{A4_TIME}}</span></div>
-</div>
-</div>
-</div>
-</div>
+app:`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}}</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>:root{--sidebar:#1e1e2e;--bg:#f8f9fa;--card:#fff;--text:#1a1a2e;--text2:#666;--accent:#6366f1;--font:'Inter',system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);display:grid;grid-template-columns:260px 1fr;min-height:100vh}.sidebar{background:var(--sidebar);color:#fff;padding:24px;position:sticky;top:0;height:100vh}.sidebar .logo{font-size:20px;font-weight:700;margin-bottom:32px}.sidebar .logo span{color:var(--accent)}.sidebar nav a{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;transition:all .2s;margin-bottom:4px}.sidebar nav a:hover,.sidebar nav a.active{background:rgba(255,255,255,.08);color:#fff}.sidebar nav a i{width:20px;text-align:center}.main{padding:32px}.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}.header h1{font-size:28px}.header .user{display:flex;align-items:center;gap:12px;color:var(--text2);font-size:14px}.header .avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}.stat-card{background:var(--card);border-radius:12px;padding:20px;border:1px solid #eee}.stat-card .label{font-size:13px;color:var(--text2);margin-bottom:4px}.stat-card .value{font-size:28px;font-weight:700}.grid-2{display:grid;grid-template-columns:2fr 1fr;gap:24px}.card-item{background:var(--card);border-radius:12px;padding:24px;border:1px solid #eee;margin-bottom:24px}.card-item h3{font-size:16px;margin-bottom:16px;color:var(--text2)}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;padding:10px 0;color:var(--text2);font-weight:500;border-bottom:1px solid #eee}td{padding:12px 0;border-bottom:1px solid #f5f5f5}.badge{padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500}.badge.success{background:#d1fae5;color:#059669}.badge.warning{background:#fef3c7;color:#d97706}.badge.pending{background:#e0e7ff;color:#4f46e5}.activity-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:14px}.activity-item .text{flex:1;color:var(--text2)}.activity-item .time{font-size:12px;color:#999}@media(max-width:768px){body{grid-template-columns:1fr}.sidebar{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.grid-2{grid-template-columns:1fr}}</style></head><body>
+<div class="sidebar"><div class="logo">{{NAME}}<span>.</span></div><nav><a href="#" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a><a href="#"><i class="fas fa-users"></i> Users</a><a href="#"><i class="fas fa-file-alt"></i> Reports</a><a href="#"><i class="fas fa-cog"></i> Settings</a></nav></div>
+<div class="main"><div class="header"><h1>{{DASH_TITLE}}</h1><div class="user"><span>{{USER}}</span><div class="avatar">{{USER_INIT}}</div></div></div>
+<div class="stats-row"><div class="stat-card"><div class="label">{{S1_LABEL}}</div><div class="value">{{S1_VALUE}}</div></div><div class="stat-card"><div class="label">{{S2_LABEL}}</div><div class="value">{{S2_VALUE}}</div></div><div class="stat-card"><div class="label">{{S3_LABEL}}</div><div class="value">{{S3_VALUE}}</div></div><div class="stat-card"><div class="label">{{S4_LABEL}}</div><div class="value">{{S4_VALUE}}</div></div></div>
+<div class="grid-2"><div><div class="card-item"><h3>{{TABLE_TITLE}}</h3><table><thead><tr><th>Name</th><th>Status</th><th>Value</th></tr></thead><tbody>
+<tr><td>{{R1_NAME}}</td><td><span class="badge {{R1_CLASS}}">{{R1_STATUS}}</span></td><td>{{R1_VALUE}}</td></tr>
+<tr><td>{{R2_NAME}}</td><td><span class="badge {{R2_CLASS}}">{{R2_STATUS}}</span></td><td>{{R2_VALUE}}</td></tr>
+<tr><td>{{R3_NAME}}</td><td><span class="badge {{R3_CLASS}}">{{R3_STATUS}}</span></td><td>{{R3_VALUE}}</td></tr>
+</tbody></table></div></div>
+<div><div class="card-item"><h3>Recent Activity</h3><div class="activity-item"><span class="text">{{A1_TEXT}}</span><span class="time">{{A1_TIME}}</span></div><div class="activity-item"><span class="text">{{A2_TEXT}}</span><span class="time">{{A2_TIME}}</span></div><div class="activity-item"><span class="text">{{A3_TEXT}}</span><span class="time">{{A3_TIME}}</span></div></div></div></div></div>
 </body></html>`
 
 };
 
-// ===== STYLE COLOR PALETTES =====
-
 const STYLES = {
-  modern:   { bg:'#fff',bg2:'#f8f9fa',text:'#111',text2:'#666',accent:'#2563eb',accent2:'#3b82f6',font:"'Inter',system-ui,sans-serif" },
-  minimal:  { bg:'#fff',bg2:'#f5f5f5',text:'#1a1a1a',text2:'#888',accent:'#000',accent2:'#333',font:"system-ui,-apple-system,sans-serif" },
-  bold:     { bg:'#0f0f0f',bg2:'#1a1a1a',text:'#fff',text2:'#aaa',accent:'#ff2d55',accent2:'#ff6b8a',font:"'Poppins',system-ui,sans-serif" },
-  elegant:  { bg:'#fcf9f5',bg2:'#f5f0ea',text:'#2d2a24',text2:'#8c8579',accent:'#c9a96e',accent2:'#d4bc8a',font:"'Playfair Display',Georgia,serif" },
-  playful:  { bg:'#fef9ef',bg2:'#fff',text:'#2d2d2d',text2:'#888',accent:'#ff6b9d',accent2:'#ff8fb5',font:"system-ui,-apple-system,sans-serif" },
-  dark:     { bg:'#0a0a0a',bg2:'#141414',text:'#f5f5f5',text2:'#888',accent:'#06b6d4',accent2:'#22d3ee',font:"'Inter',system-ui,sans-serif" }
+  modern:{bg:'#fff',bg2:'#f8f9fa',text:'#111',text2:'#666',accent:'#2563eb',accent2:'#3b82f6',font:"'Inter',system-ui,sans-serif"},
+  minimal:{bg:'#fff',bg2:'#f5f5f5',text:'#1a1a1a',text2:'#888',accent:'#000',accent2:'#333',font:"system-ui,-apple-system,sans-serif"},
+  bold:{bg:'#0f0f0f',bg2:'#1a1a1a',text:'#fff',text2:'#aaa',accent:'#ff2d55',accent2:'#ff6b8a',font:"'Poppins',system-ui,sans-serif"},
+  elegant:{bg:'#fcf9f5',bg2:'#f5f0ea',text:'#2d2a24',text2:'#8c8579',accent:'#c9a96e',accent2:'#d4bc8a',font:"'Playfair Display',Georgia,serif"},
+  playful:{bg:'#fef9ef',bg2:'#fff',text:'#2d2d2d',text2:'#888',accent:'#ff6b9d',accent2:'#ff8fb5',font:"system-ui,-apple-system,sans-serif"},
+  dark:{bg:'#0a0a0a',bg2:'#141414',text:'#f5f5f5',text2:'#888',accent:'#06b6d4',accent2:'#22d3ee',font:"'Inter',system-ui,sans-serif"}
 };
 
-async function generate() {
-  const siteType = sel('siteType');
-  const designStyle = sel('designStyle');
-  const prompt = $('prompt').value.trim();
-  const ghToken = $('ghToken').value.trim();
-  let siteName = $('siteName').value.trim();
+function $(id){return document.getElementById(id)}
 
-  if (!prompt) { showError('Describe what website you want.'); return; }
-  if (!ghToken) { showError('Enter your GitHub token.'); return; }
+function fillPrompt(t){$('prompt').value=t;$('prompt').focus()}
 
-  $('genBtn').disabled = true;
-  $('genBtn').textContent = 'Building...';
-  for(let i=1;i<=3;i++) status(i,'');
-  $('output').style.display = 'none';
+function selectTmpl(el,val){document.querySelectorAll('.template-card').forEach(c=>c.classList.remove('active'));el.classList.add('active');$('siteType').value=val}
 
-  try {
+function status(n,s){const e=$('s'+n);e.classList.remove('active','done','fail');if(s)e.classList.add(s)}
+
+async function generate(){
+  const siteType=$('siteType').value;
+  const designStyle=$('designStyle').value;
+  const prompt=$('prompt').value.trim();
+  const ghToken=$('ghToken').value.trim();
+  let siteName=$('siteName').value.trim();
+  if(!prompt){showError('Describe what website you want.');return}
+  if(!ghToken){showError('Enter your GitHub token.');return}
+  $('genBtn').disabled=true;$('genBtn').textContent='Building...';
+  for(let i=1;i<=3;i++)status(i,'');
+  $('output').style.display='none';
+  try{
     status(1,'active');
-    const tmpl = TEMPLATES[siteType];
-    const style = STYLES[designStyle];
-    const siteHtml = await customizeTemplate(tmpl, style, prompt, siteType, designStyle, ghToken);
+    const tmpl=TEMPLATES[siteType];
+    const style=STYLES[designStyle];
+    const html=await customize(tmpl,style,prompt,siteType,designStyle,ghToken);
     status(1,'done');
-
-    if (!siteName) siteName = 'site-' + Date.now().toString(36);
-
+    if(!siteName)siteName='site-'+Date.now().toString(36);
     status(2,'active');
-    const repo = await createRepo(siteName, ghToken, prompt);
+    const repo=await createRepo(siteName,ghToken,prompt);
     status(2,'done');
-
     status(3,'active');
-    await pushFile(repo.owner, repo.repo, siteHtml, ghToken);
-    await enablePages(repo.owner, repo.repo, ghToken);
+    await pushFile(repo.owner,repo.repo,html,ghToken);
+    await enablePages(repo.owner,repo.repo,ghToken);
     status(3,'done');
-
     showSuccess(`https://${repo.owner}.github.io/${repo.repo}/`);
-  } catch (err) {
-    showError(err.message);
-    document.querySelectorAll('.status-item.active').forEach(e => {
-      status(e.id.replace('s',''),'fail');
-    });
-  } finally {
-    $('genBtn').disabled = false;
-    $('genBtn').textContent = 'Generate & Publish';
-  }
+  }catch(err){showError(err.message);document.querySelectorAll('.status-item.active').forEach(e=>status(e.id.replace('s',''),'fail'))}
+  finally{$('genBtn').disabled=false;$('genBtn').textContent='Start the build'}
 }
 
-async function customizeTemplate(template, style, prompt, siteType, designStyle, token) {
-  const sysPrompt = `You are a professional web designer. I will give you an HTML template with {{PLACEHOLDERS}}. Your job:
-1. Replace ALL {{PLACEHOLDERS}} with real content matching this request: "${prompt}"
-2. Set the CSS :root variables to these exact values:
-   --bg:${style.bg}; --bg2:${style.bg2}; --text:${style.text}; --text2:${style.text2}; --accent:${style.accent}; --accent2:${style.accent2}; --font:${style.font}
-3. Make the content realistic, detailed, and professional
+async function customize(tmpl,style,prompt,siteType,designStyle,token){
+  const sys=`You are a professional web designer. I give you an HTML template with {{PLACEHOLDERS}}. Your job:
+1. Replace ALL {{PLACEHOLDERS}} with real content matching the user's request: "${prompt}"
+2. Set the CSS :root variables to: --bg:${style.bg};--bg2:${style.bg2};--text:${style.text};--text2:${style.text2};--accent:${style.accent};--accent2:${style.accent2};--font:${style.font}
+3. Make ALL content realistic, specific, and professional (real names, real numbers, real descriptions)
 4. Site type: ${siteType}, Style: ${designStyle}
 5. Return ONLY the complete HTML. No markdown, no backticks, no explanation.
 6. Keep the EXACT SAME HTML structure. Only change content and CSS variables.
-7. IMPORTANT: For the portfolio "gallery-item" divs, replace the placeholder icon with something relevant.
-8. For the app template, replace badge classes ({{R1_BADGE_CLASS}}) with actual class names: "success", "warning", or "pending"`;
-
-  const res = await fetch('https://models.inference.ai.azure.com/chat/completions', {
-    method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [{ role: 'system', content: sysPrompt + '\n\n---TEMPLATE---\n' + template }]
-    })
+7. For gallery items, put actual emoji icons inside each gallery-item div (like 🎨 📸 🎬 ✏️)
+8. For badge classes in app template, use "success", "warning", or "pending" as the class value`;
+  const res=await fetch('https://models.inference.ai.azure.com/chat/completions',{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+    body:JSON.stringify({model:'gpt-4o-mini',messages:[{role:'system',content:sys+'\n\n---TEMPLATE---\n'+tmpl}]})
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error?.message || 'AI API error');
-  let html = data.choices?.[0]?.message?.content || '';
-  html = html.replace(/```html?/gi,'').replace(/```/g,'').trim();
-  if (!html) throw new Error('AI returned empty response');
-  return html;
+  const d=await res.json();
+  if(!res.ok)throw new Error(d.error?.message||'AI API error');
+  let h=d.choices?.[0]?.message?.content||'';
+  h=h.replace(/```html?/gi,'').replace(/```/g,'').trim();
+  if(!h)throw new Error('AI returned empty');
+  return h;
 }
 
-async function createRepo(name, token, prompt) {
-  const res = await fetch('https://api.github.com/user/repos', {
-    method: 'POST',
-    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, description: 'Created by AI Website Maker: ' + prompt.slice(0,100), auto_init: false, private: false })
-  });
-  if (!res.ok) {
-    const err = await res.json();
-    if (res.status === 422) throw new Error('Repo "' + name + '" already exists. Pick a different name.');
-    throw new Error(err.message || 'Failed to create repo');
-  }
-  const d = await res.json();
-  return { owner: d.owner.login, repo: d.name };
+async function createRepo(name,token,prompt){
+  const r=await fetch('https://api.github.com/user/repos',{method:'POST',headers:{'Authorization':'token '+token,'Content-Type':'application/json'},body:JSON.stringify({name,description:'Created by AI Website Maker: '+prompt.slice(0,100),auto_init:false,private:false})});
+  if(!r.ok){const e=await r.json();if(r.status===422)throw new Error('Repo "'+name+'" exists. Pick another name.');throw new Error(e.message||'Failed to create repo')}
+  const d=await r.json();return{owner:d.owner.login,repo:d.name}
 }
 
-async function pushFile(owner, repo, content, token) {
-  const encoded = btoa(unescape(encodeURIComponent(content)));
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
-    method: 'PUT',
-    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: 'Add generated website', content: encoded, branch: 'main' })
-  });
-  if (!res.ok) { const e = await res.json(); throw new Error(e.message || 'Failed to push'); }
+async function pushFile(owner,repo,content,token){
+  const enc=btoa(unescape(encodeURIComponent(content)));
+  const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json'},body:JSON.stringify({message:'Add generated website',content:enc,branch:'main'})});
+  if(!r.ok){const e=await r.json();throw new Error(e.message||'Failed to push')}
 }
 
-async function enablePages(owner, repo, token) {
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/pages`, {
-    method: 'POST',
-    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ source: { branch: 'main', path: '/' } })
-  });
-  if (!res.ok) { const e = await res.json(); if (e.status !== 403 && e.status !== 409) throw new Error(e.message || 'Failed Pages'); }
+async function enablePages(owner,repo,token){
+  const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/pages`,{method:'POST',headers:{'Authorization':'token '+token,'Content-Type':'application/json'},body:JSON.stringify({source:{branch:'main',path:'/'}})});
+  if(!r.ok){const e=await r.json();if(e.status!==403&&e.status!==409)throw new Error(e.message||'Failed Pages')}
 }
 
-function showSuccess(url) {
-  const out = $('output');
-  out.className = 'success'; out.style.display = 'block';
-  out.innerHTML = `<strong>Published!</strong><div class="url"><a href="${url}" target="_blank">${url}</a></div><div style="font-size:14px;color:#8b949e;">Live in ~1-2 minutes</div>`;
+function showSuccess(url){
+  const out=$('output');out.className='success';out.style.display='block';
+  out.innerHTML='<strong>Published!</strong><div class="url"><a href="'+url+'" target="_blank">'+url+'</a></div><div style="font-size:14px;color:#666">Live in ~1-2 minutes</div>'
 }
 
-function showError(msg) {
-  const out = $('output');
-  out.className = 'error'; out.style.display = 'block';
-  out.textContent = 'Error: ' + msg;
+function showError(msg){
+  const out=$('output');out.className='error';out.style.display='block';
+  out.textContent='Error: '+msg
 }
 </script>
 </body>
