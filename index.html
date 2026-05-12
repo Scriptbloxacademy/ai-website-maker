@@ -79,6 +79,7 @@ nav .btn-nav{padding:8px 20px;background:#111;color:#fff!important;border-radius
 .msg .bubble .step.done .dot{background:#10b981}
 .msg .bubble .step.active{color:#4f46e5}
 .msg .bubble .step.active .dot{background:#6366f1;animation:pulse 1.2s infinite}
+.msg .bubble .step.fail .dot{background:#ef4444}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
 .msg .bubble .url{font-size:15px;font-weight:700;margin:8px 0 2px;word-break:break-all}
 .msg .bubble .url a{color:#4f46e5;text-decoration:none}
@@ -144,7 +145,7 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <a href="#" class="logo">AI<span>Maker</span></a>
 <div class="nav-center">
 <a href="#features">Features</a>
-<a href="#examples">Examples</a>
+<a href="#templates">Templates</a>
 <a href="#pricing">Pricing</a>
 <a href="#faq">FAQ</a>
 </div>
@@ -157,9 +158,9 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 
 <div class="hero">
 <div class="hero-inner">
-<a class="badge" href="#pricing">Free forever. Better than Base44 ($20/mo).</a>
+<a class="badge" href="#pricing">Free forever. 9 templates, 9 styles, multi-page, analytics, contact forms — better than Base44.</a>
 <h1>Turn your ideas into<br><span>professional websites</span></h1>
-<p class="sub">AI Website Maker lets you build complete, professional websites in minutes with just your words. GPT-4o powered, GitHub Pages hosted, completely free.</p>
+<p class="sub">AI Website Maker builds complete, multi-page websites from a description. GPT-4o powered, GitHub Pages hosted, with analytics, contact forms, SEO, and 9 design styles. Completely free.</p>
 
 <div class="promo">
 <a href="#"><i class="fas fa-bolt"></i> GPT-4o engine</a>
@@ -177,6 +178,9 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <option value="blog">Blog</option>
 <option value="store">Store</option>
 <option value="app">Web App</option>
+<option value="restaurant">Restaurant</option>
+<option value="event">Event</option>
+<option value="personal">Personal / CV</option>
 </select>
 <i class="fas fa-chevron-down"></i>
 </div>
@@ -185,6 +189,26 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <div class="token-row">
 <label>TOKEN</label>
 <input id="gt" type="password" placeholder="GitHub classic token (ghp_...)" style="max-width:260px">
+</div>
+<div class="options-row" style="display:flex;align-items:center;gap:16px;padding:4px 14px 2px;flex-wrap:wrap">
+<label style="display:flex;align-items:center;gap:4px;font-size:12px;color:#888;cursor:pointer">
+<input id="mp" type="checkbox" style="accent-color:#6366f1"> Multi-page (Home + About + Contact)
+</label>
+<span style="font-size:11px;color:#ccc;cursor:pointer" onclick="document.getElementById('seoRow').style.display=document.getElementById('seoRow').style.display==='flex'?'none':'flex'">SEO settings ▾</span>
+</div>
+<div id="seoRow" style="display:none;flex-wrap:wrap;align-items:center;gap:8px;padding:2px 14px 6px">
+<input id="seoTitle" placeholder="Site title (appears in browser tab)" style="flex:1;min-width:140px;padding:5px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:11px;font-family:'Inter',sans-serif;outline:none">
+<input id="seoDesc" placeholder="Meta description (for search results)" style="flex:2;min-width:200px;padding:5px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:11px;font-family:'Inter',sans-serif;outline:none">
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+<label style="display:flex;align-items:center;gap:4px;font-size:11px;color:#888;cursor:pointer">
+<input id="anOn" type="checkbox" style="accent-color:#6366f1"> Plausible analytics
+</label>
+<input id="anId" placeholder="Analytics domain (e.g. mysite.com)" style="width:160px;padding:5px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:11px;font-family:'Inter',sans-serif;outline:none">
+<label style="display:flex;align-items:center;gap:4px;font-size:11px;color:#888;cursor:pointer">
+<input id="cfOn" type="checkbox" style="accent-color:#6366f1"> Contact form email
+</label>
+<input id="cfEmail" placeholder="your@email.com" style="width:160px;padding:5px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:11px;font-family:'Inter',sans-serif;outline:none">
+</div>
 </div>
 <div class="bottom">
 <div class="examples">
@@ -207,24 +231,42 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <div class="f-grid">
 <div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">1</div><h3>Multi-step pipeline</h3><p>AI plans architecture first, then generates content, then builds HTML. Each step optimized individually for maximum quality.</p></div>
 <div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">2</div><h3>GPT-4o engine</h3><p>Uses GPT-4o (not mini) via GitHub Models. The same model that powers ChatGPT Plus — completely free, no credit card.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">3</div><h3>Refinement loop</h3><p>Don't like something? Tell the AI to change it. Adjust layout, colors, content — all without regenerating from scratch.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">4</div><h3>Ready to use, instantly</h3><p>GitHub Pages publishes your site in ~1-2 minutes. Built-in hosting, instant URL, automatic HTTPS. No deployment hassles.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">5</div><h3>Professional templates</h3><p>Hand-crafted templates with animations, glassmorphism, gradients, and proper typography. 6 types, 6 design styles.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">6</div><h3>Free forever</h3><p>No credit card. No subscription. Powered by GitHub's free Models API. Unlimited sites. The only cost is your time.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">3</div><h3>9 site types</h3><p>Portfolio, Landing, Business, Blog, Store, Web App, Restaurant, Event, and Personal/CV. More than any competitor — all free.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">4</div><h3>9 design styles</h3><p>Modern, Minimal, Bold, Elegant, Playful, Dark, Glassmorphism, Neumorphism, Cyberpunk. Pick any style for any template.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">5</div><h3>Multi-page sites</h3><p>Generate complete multi-page websites (Home + About + Contact) with navigation and proper linking. Real sites, not single pages.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">6</div><h3>Refinement loop</h3><p>Don't like something? Tell the AI to change it. Adjust layout, colors, content — all without regenerating from scratch.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f97316,#fb923c)">7</div><h3>SEO ready</h3><p>Custom title and meta description for search engines. Generated sites include proper OG tags for social sharing.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#a855f7,#c084fc)">8</div><h3>Template marketplace</h3><p>Browse by category — Portfolio, Business, Store, Restaurant, Event, and more. Each with 6-8 design styles and multi-page support.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">9</div><h3>Free forever</h3><p>No credit card. No subscription. Powered by GitHub's free Models API. Unlimited sites. The only cost is your time.</p></div>
 </div>
 </div>
 
-<div class="section" id="examples" style="background:#fafafa">
-<h2>Beautiful sites, every time</h2>
-<p class="sec-sub">Each template is hand-optimized and then customized by AI for your needs</p>
-<div class="examples">
-<div class="ex-grid">
-<div class="ex-card"><div class="ex-img">🎨</div><div class="ex-info"><h4>Portfolio</h4><p>Dark theme with project gallery, skills, testimonials, and contact form. Perfect for creatives.</p></div></div>
-<div class="ex-card"><div class="ex-img">🚀</div><div class="ex-info"><h4>Landing Page</h4><p>SaaS landing with hero, feature cards, pricing table, testimonials, stats counter, and CTA.</p></div></div>
-<div class="ex-card"><div class="ex-img">🏢</div><div class="ex-info"><h4>Business</h4><p>Corporate site with services grid, team profiles, about section, and contact info. Clean and professional.</p></div></div>
-<div class="ex-card"><div class="ex-img">📝</div><div class="ex-info"><h4>Blog</h4><p>Magazine-style blog with featured articles, category grid, newsletter signup, and modern typography.</p></div></div>
-<div class="ex-card"><div class="ex-img">🛍️</div><div class="ex-info"><h4>Store</h4><p>Online store with product grid, categories, search, featured items, and shopping cart UI.</p></div></div>
-<div class="ex-card"><div class="ex-img">📊</div><div class="ex-info"><h4>Web App</h4><p>Dashboard layout with sidebar, stats cards, data tables, charts, and user management panel.</p></div></div>
+<div class="section" id="templates" style="background:#fafafa">
+<h2>Template Marketplace</h2>
+<p class="sec-sub">Choose a template category to get started — AI customizes every detail for your needs</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div class="tm-cats" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:28px">
+<button class="tm-cat active" data-cat="all" onclick="switchTmCat(this,'all')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#111;color:#fff;cursor:pointer;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;transition:all .2s">All</button>
+<button class="tm-cat" data-cat="portfolio" onclick="switchTmCat(this,'portfolio')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Portfolio</button>
+<button class="tm-cat" data-cat="landing" onclick="switchTmCat(this,'landing')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Landing</button>
+<button class="tm-cat" data-cat="business" onclick="switchTmCat(this,'business')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Business</button>
+<button class="tm-cat" data-cat="blog" onclick="switchTmCat(this,'blog')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Blog</button>
+<button class="tm-cat" data-cat="store" onclick="switchTmCat(this,'store')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Store</button>
+<button class="tm-cat" data-cat="app" onclick="switchTmCat(this,'app')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Web App</button>
+<button class="tm-cat" data-cat="restaurant" onclick="switchTmCat(this,'restaurant')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Restaurant</button>
+<button class="tm-cat" data-cat="event" onclick="switchTmCat(this,'event')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Event</button>
+<button class="tm-cat" data-cat="personal" onclick="switchTmCat(this,'personal')" style="padding:8px 18px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;color:#555;cursor:pointer;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s">Personal</button>
+</div>
+<div class="ex-grid" id="tmGrid">
+<div class="ex-card" data-type="portfolio" onclick="fillTmpl('portfolio')"><div class="ex-img">🎨</div><div class="ex-info"><h4>Portfolio</h4><p>Project gallery, skills, testimonials, contact form. Perfect for designers, photographers, and artists.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">6 styles</span><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#e2e8f0;color:#555;font-weight:500">Multi-page</span></div></div></div>
+<div class="ex-card" data-type="landing" onclick="fillTmpl('landing')"><div class="ex-img">🚀</div><div class="ex-info"><h4>Landing Page</h4><p>SaaS landing with hero, features grid, pricing, testimonials, FAQ. Modern blue theme.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">6 styles</span></div></div></div>
+<div class="ex-card" data-type="business" onclick="fillTmpl('business')"><div class="ex-img">🏢</div><div class="ex-info"><h4>Business</h4><p>Corporate site with services grid, team profiles, about section, contact info. Clean & professional.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">6 styles</span><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#e2e8f0;color:#555;font-weight:500">Multi-page</span></div></div></div>
+<div class="ex-card" data-type="blog" onclick="fillTmpl('blog')"><div class="ex-img">📝</div><div class="ex-info"><h4>Blog</h4><p>Magazine-style blog with featured articles, category grid, newsletter signup, modern typography.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">6 styles</span></div></div></div>
+<div class="ex-card" data-type="store" onclick="fillTmpl('store')"><div class="ex-img">🛍️</div><div class="ex-info"><h4>Store</h4><p>Online store with product grid, categories, search, featured items, cart UI.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">6 styles</span></div></div></div>
+<div class="ex-card" data-type="app" onclick="fillTmpl('app')"><div class="ex-img">📊</div><div class="ex-info"><h4>Web App</h4><p>Dashboard with sidebar, stats cards, data tables, charts, user management panel.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">6 styles</span></div></div></div>
+<div class="ex-card" data-type="restaurant" onclick="fillTmpl('restaurant')" style="display:none"><div class="ex-img">🍽️</div><div class="ex-info"><h4>Restaurant</h4><p>Menu display, reservation system, location map, chef profiles, gallery. Warm elegant theme.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">8 styles</span><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#e2e8f0;color:#555;font-weight:500">Multi-page</span></div></div></div>
+<div class="ex-card" data-type="event" onclick="fillTmpl('event')" style="display:none"><div class="ex-img">🎪</div><div class="ex-info"><h4>Event</h4><p>Conference/event page with schedule, speakers grid, registration form, venue info.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">8 styles</span><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#e2e8f0;color:#555;font-weight:500">Multi-page</span></div></div></div>
+<div class="ex-card" data-type="personal" onclick="fillTmpl('personal')" style="display:none"><div class="ex-img">👤</div><div class="ex-info"><h4>Personal / CV</h4><p>Resume-style page with experience timeline, education, skills bars, contact section.</p><div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#ede9fe;color:#6366f1;font-weight:600">8 styles</span><span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#e2e8f0;color:#555;font-weight:500">Multi-page</span></div></div></div>
 </div>
 </div>
 </div>
@@ -240,11 +282,14 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <ul>
 <li>Multi-step AI pipeline</li>
 <li>GPT-4o generation</li>
-<li>6 professional templates</li>
-<li>6 design styles</li>
+<li>9 template types</li>
+<li>9 design styles</li>
+<li>Multi-page support</li>
+<li>Template marketplace</li>
+<li>SEO settings</li>
 <li>Refinement loop</li>
-<li>Unlimited sites</li>
-<li>GitHub Pages hosting</li>
+<li>Unlimited sites & builds</li>
+<li>Free GitHub Pages hosting</li>
 </ul>
 <button class="btn-p" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Start building</button>
 </div>
@@ -254,9 +299,11 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <ul>
 <li>Single-pass generation</li>
 <li>Limited templates</li>
+<li>2 design styles</li>
+<li>Single-page only</li>
+<li>No SEO controls</li>
 <li>No refinement loop</li>
 <li>Credit-based system</li>
-<li>Proprietary model</li>
 <li>Limited to 100 builds</li>
 <li>Paid hosting</li>
 </ul>
@@ -276,6 +323,10 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What do I need a GitHub token for? <i class="fas fa-chevron-down"></i></div><div class="faq-a">A GitHub classic token with the repo scope is required so the tool can create a repository and publish your site via GitHub Pages. Get one free at github.com/settings/tokens. Your token is sent directly to GitHub's API — it is not stored anywhere.</div></div>
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is it really free? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes, completely free. No credit card required, no subscription, no hidden costs. We use GitHub's free Models API for GPT-4o and GitHub Pages for free hosting. The only thing you need is a free GitHub account.</div></div>
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I customize the generated site? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. After the site is built, you can tell the AI what to change using the refinement box. Change colors, layout, content, add sections — the AI will modify the HTML and you can publish the updated version with one click.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How many template types and styles are there? <i class="fas fa-chevron-down"></i></div><div class="faq-a">9 template types: Portfolio, Landing Page, Business, Blog, Store, Web App, Restaurant, Event, and Personal/CV. 9 design styles: Modern, Minimal, Bold, Elegant, Playful, Dark, Glassmorphism, Neumorphism, and Cyberpunk. Any type works with any style.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I make a multi-page website? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. Check the "Multi-page" option before building and your site will include Home, About, and Contact pages with navigation between them. Each page is a separate HTML file with consistent design.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I add analytics or a contact form? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. Expand the SEO settings below the textarea and check the options for Plausible analytics (free, privacy-friendly) or a contact form. Enter your domain or email and the AI will inject the right code into your generated site.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I use my own custom domain? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. After publishing, go to your repo Settings > Pages and enter your custom domain. Add a CNAME record at your domain provider pointing to <code>yourusername.github.io</code>. GitHub will handle HTTPS automatically.</div></div>
 </div>
 </div>
 
@@ -289,16 +340,16 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <a href="#"><i class="fab fa-twitter"></i></a>
 </div>
 </div>
-<div class="col"><h5>Product</h5><a href="#features">Features</a><a href="#examples">Examples</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+<div class="col"><h5>Product</h5><a href="#features">Features</a><a href="#templates">Templates</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+<div class="col"><h5>Types</h5><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=portfolio]'),'portfolio')">Portfolio</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=restaurant]'),'restaurant')">Restaurant</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=event]'),'event')">Event</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=personal]'),'personal')">Personal CV</a></div>
+<div class="col"><h5>Resources</h5><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a><a href="https://github.com/settings/tokens" target="_blank">Get a Token</a><a href="https://plausible.io" target="_blank">Plausible Analytics</a><a href="https://formsubmit.co" target="_blank">Formsubmit.co</a></div>
 <div class="col"><h5>Compare</h5><a href="#pricing">vs Base44</a><a href="#pricing">vs Wix</a><a href="#pricing">vs Squarespace</a></div>
-<div class="col"><h5>Resources</h5><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a><a href="https://github.com/settings/tokens" target="_blank">Get a Token</a></div>
-<div class="col"><h5>Legal</h5><a href="#">Privacy</a><a href="#">Terms</a></div>
 </div>
 <div class="copy">&copy; 2026 AI Website Maker. Free forever.</div>
 </footer>
 
 <div class="hidden">
-<select id="ds"><option value="modern">Modern</option><option value="minimal">Minimal</option><option value="bold">Bold</option><option value="elegant">Elegant</option><option value="playful">Playful</option><option value="dark">Dark</option></select>
+<select id="ds"><option value="modern">Modern</option><option value="minimal">Minimal</option><option value="bold">Bold</option><option value="elegant">Elegant</option><option value="playful">Playful</option><option value="dark">Dark</option><option value="glassmorphism">Glassmorphism</option><option value="neumorphism">Neumorphism</option><option value="cyberpunk">Cyberpunk</option></select>
 <input id="sn">
 <textarea id="prompt"></textarea>
 <button id="gb">Start the build</button>
@@ -329,7 +380,7 @@ TX.store = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta nam
 
 TX.app = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{NAME}}</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><style>:root{--sidebar:#1e1e2e;--bg:#f8fafc;--card:#fff;--text:#0f172a;--text2:#64748b;--accent:#6366f1;--font:"Inter",system-ui,sans-serif}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);display:grid;grid-template-columns:260px 1fr;min-height:100vh}.sb{background:var(--sidebar);color:#fff;padding:28px 20px;position:sticky;top:0;height:100vh}.sb .logo{font-size:20px;font-weight:800;margin-bottom:36px;letter-spacing:-.5px}.sb .logo span{color:var(--accent)}.sb nav a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;color:rgba(255,255,255,.5);text-decoration:none;font-size:14px;transition:all .2s;margin-bottom:4px;font-weight:500}.sb nav a:hover,.sb nav a.active{background:rgba(99,102,241,.15);color:#fff}.sb nav a i{width:20px;text-align:center}.main{padding:36px}.hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px}.hd h1{font-size:28px;font-weight:800;letter-spacing:-.5px}.hd .usr{display:flex;align-items:center;gap:12px;color:var(--text2);font-size:14px}.hd .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#818cf8);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}.sr{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px}.sc{background:var(--card);border-radius:14px;padding:24px;border:1px solid #e2e8f0}.sc .l{font-size:13px;color:var(--text2);margin-bottom:6px;font-weight:500}.sc .v{font-size:30px;font-weight:800}.g2{display:grid;grid-template-columns:2fr 1fr;gap:24px}.ci{background:var(--card);border-radius:14px;padding:24px;border:1px solid #e2e8f0;margin-bottom:24px}.ci h3{font-size:16px;margin-bottom:20px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.5px}table{width:100%;border-collapse:collapse;font-size:14px}th{padding:12px 0;color:var(--text2);font-weight:500;border-bottom:2px solid #e2e8f0;text-align:left}td{padding:14px 0;border-bottom:1px solid #f1f5f9;font-weight:500}.bdg{padding:4px 12px;border-radius:99px;font-size:12px;font-weight:600}.bdg.s{background:#d1fae5;color:#059669}.bdg.w{background:#fef3c7;color:#d97706}.bdg.p{background:#e0e7ff;color:#4f46e5}.act{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9;font-size:14px}.act .tx{flex:1;color:var(--text2)}@media(max-width:768px){body{grid-template-columns:1fr}.sb{display:none}.sr{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}</style></head><body><div class="sb"><div class="logo">{{NAME}}<span>.</span></div><nav><a href="#" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a><a href="#"><i class="fas fa-users"></i> Users</a><a href="#"><i class="fas fa-file-alt"></i> Reports</a><a href="#"><i class="fas fa-cog"></i> Settings</a></nav></div><div class="main"><div class="hd"><h1>{{DT}}</h1><div class="usr"><span>{{USR}}</span><div class="av">{{UI}}</div></div></div><div class="sr"><div class="sc"><div class="l">{{S1L}}</div><div class="v">{{S1V}}</div></div><div class="sc"><div class="l">{{S2L}}</div><div class="v">{{S2V}}</div></div><div class="sc"><div class="l">{{S3L}}</div><div class="v">{{S3V}}</div></div><div class="sc"><div class="l">{{S4L}}</div><div class="v">{{S4V}}</div></div></div><div class="g2"><div><div class="ci"><h3>{{TT}}</h3><table><thead><tr><th>Name</th><th>Status</th><th>Value</th></tr></thead><tbody><tr><td>{{R1N}}</td><td><span class="bdg {{R1C}}">{{R1S}}</span></td><td>{{R1V}}</td></tr><tr><td>{{R2N}}</td><td><span class="bdg {{R2C}}">{{R2S}}</span></td><td>{{R2V}}</td></tr><tr><td>{{R3N}}</td><td><span class="bdg {{R3C}}">{{R3S}}</span></td><td>{{R3V}}</td></tr></tbody></table></div></div><div><div class="ci"><h3>Recent Activity</h3><div class="act"><span class="tx">{{A1}}</span></div><div class="act"><span class="tx">{{A2}}</span></div><div class="act"><span class="tx">{{A3}}</span></div></div></div></div></div></body></html>';
 
-const SS = {modern:{bg:"#fff",bg2:"#f8fafc",text:"#0f172a",text2:"#64748b",accent:"#2563eb",accent2:"#3b82f6",font:'"Inter",system-ui,sans-serif'},minimal:{bg:"#fff",bg2:"#f5f5f5",text:"#1a1a1a",text2:"#888",accent:"#000",accent2:"#333",font:'system-ui,-apple-system,sans-serif'},bold:{bg:"#0f0f0f",bg2:"#1a1a1a",text:"#fff",text2:"#aaa",accent:"#ff2d55",accent2:"#ff6b8a",font:'"Poppins",system-ui,sans-serif'},elegant:{bg:"#fcf9f5",bg2:"#f5f0ea",text:"#2d2a24",text2:"#8c8579",accent:"#c9a96e",accent2:"#d4bc8a",font:'"Playfair Display",Georgia,serif'},playful:{bg:"#fef9ef",bg2:"#fff",text:"#2d2d2d",text2:"#888",accent:"#ff6b9d",accent2:"#ff8fb5",font:'system-ui,-apple-system,sans-serif'},dark:{bg:"#0a0a0a",bg2:"#141414",bg3:"#1e1e1e",text:"#f5f5f5",text2:"#888",text3:"#555",accent:"#06b6d4",accent2:"#22d3ee",font:'"Inter",system-ui,sans-serif'}};
+const SS = {modern:{bg:"#fff",bg2:"#f8fafc",text:"#0f172a",text2:"#64748b",accent:"#2563eb",accent2:"#3b82f6",font:'"Inter",system-ui,sans-serif'},minimal:{bg:"#fff",bg2:"#f5f5f5",text:"#1a1a1a",text2:"#888",accent:"#000",accent2:"#333",font:'system-ui,-apple-system,sans-serif'},bold:{bg:"#0f0f0f",bg2:"#1a1a1a",text:"#fff",text2:"#aaa",accent:"#ff2d55",accent2:"#ff6b8a",font:'"Poppins",system-ui,sans-serif'},elegant:{bg:"#fcf9f5",bg2:"#f5f0ea",text:"#2d2a24",text2:"#8c8579",accent:"#c9a96e",accent2:"#d4bc8a",font:'"Playfair Display",Georgia,serif'},playful:{bg:"#fef9ef",bg2:"#fff",text:"#2d2d2d",text2:"#888",accent:"#ff6b9d",accent2:"#ff8fb5",font:'system-ui,-apple-system,sans-serif'},dark:{bg:"#0a0a0a",bg2:"#141414",bg3:"#1e1e1e",text:"#f5f5f5",text2:"#888",text3:"#555",accent:"#06b6d4",accent2:"#22d3ee",font:'"Inter",system-ui,sans-serif'},glassmorphism:{bg:"#0f0f1a",bg2:"rgba(255,255,255,.05)",text:"#fff",text2:"rgba(255,255,255,.6)",accent:"rgba(99,102,241,.8)",accent2:"rgba(129,140,248,.8)",font:'"Inter",system-ui,sans-serif',extra:"backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05)"},neumorphism:{bg:"#e0e5ec",bg2:"#d4d9e0",text:"#2d4059",text2:"#7a8a9e",accent:"#e0e5ec",accent2:"#c8cdd5",font:'"Inter",system-ui,sans-serif',extra:"box-shadow:9px 9px 16px rgba(163,177,198,.6),-9px -9px 16px rgba(255,255,255,.8);border-radius:16px"},cyberpunk:{bg:"#0a0a0f",bg2:"#14141f",text:"#00ff41",text2:"#00cc33",accent:"#ff00ff",accent2:"#ff66ff",font:'"Courier New",monospace',extra:"text-shadow:0 0 10px currentColor;border:1px solid rgba(0,255,65,.3)"}};
 
 const $ = id => document.getElementById(id);
 function fillP(t){$("prompt").value=t;$("prompt").focus()}
@@ -342,13 +393,23 @@ let currentRepo = "";
 
 async function generate(){
   const siteType=$("st").value,style=$("ds").value,prompt=$("prompt").value.trim(),token=$("gt").value.trim();
+  const multiPage = $("mp") ? $("mp").checked : false;
+  const siteTitle = $("seoTitle") ? $("seoTitle").value.trim() : "";
+  const siteDesc = $("seoDesc") ? $("seoDesc").value.trim() : "";
+  const analyticsOn = $("anOn") ? $("anOn").checked : false;
+  const analyticsDomain = $("anId") ? $("anId").value.trim() : "";
+  const contactFormOn = $("cfOn") ? $("cfOn").checked : false;
+  const contactEmail = $("cfEmail") ? $("cfEmail").value.trim() : "";
   let sn=$("sn").value.trim();
   if(!prompt){showE("Describe your website.");return}
   if(!token){showE("Enter your GitHub token.");return}
   $("gb").disabled=true;$("gb").textContent="Planning...";
-  for(let i=1;i<=5;i++)st(i,"");
+  window._stTexts = null;
+  const stepCount = multiPage ? 6 : 5;
+  for(let i=1;i<=stepCount;i++)st(i,"");
   $("output").style.display="none";
   $("refineBox").style.display="none";
+  const pageCount = multiPage ? 3 : 1;
   try{
     st(1,"active");
     const plan = await callAI(`You are a senior web architect. Create a detailed plan for a ${siteType} website (${style} style). User request: "${prompt}"
@@ -369,26 +430,46 @@ Return ONLY a JSON object with this structure:
 User request: "${prompt}"
 Style: ${style}
 
-Return ONLY a JSON object. For each placeholder in the template, provide specific, realistic content. Use real-sounding names, numbers, and details. Make it compelling and professional.`, token);
+Return ONLY a JSON object. Provide specific, realistic content with real-sounding names, numbers, and details. Make it compelling and professional.`, token);
     st(2,"done");
 
     st(3,"active");
     const tmpl = TX[siteType];
     const sty = SS[style];
-    const html = await buildHTML(tmpl, sty, prompt, plan, content, siteType, style, token);
+    const html = await buildHTML(tmpl, sty, prompt, plan, content, siteType, style, token, {multiPage, analyticsOn, analyticsDomain, contactFormOn, contactEmail, siteTitle, siteDesc});
     currentHTML = html;
     st(3,"done");
 
+    if (multiPage) {
+      st(4,"active");
+      let pages;
+      try {
+        pages = await generatePages(siteType,style,sty,prompt,plan,content,token,pageCount,{analyticsOn,analyticsDomain,contactFormOn,contactEmail,siteTitle});
+      } catch(e) {
+        pages = [{name:'about.html', content:''}, {name:'contact.html', content:''}];
+      }
+      st(4,"done");
+    }
+
     if(!sn)sn="s"+Date.now().toString(36);
-    st(4,"active");
+    const stepNum = multiPage ? 5 : 4;
+    st(stepNum,"active");
     const r = await createRepo(sn,token,prompt);
     currentOwner = r.owner; currentRepo = r.repo;
-    st(4,"done");
+    st(stepNum,"done");
     
-    st(5,"active");
+    const pushStep = multiPage ? 6 : 5;
+    st(pushStep,"active");
     await pushFile(r.owner,r.repo,html,token);
+    if(multiPage && pages) {
+      for(const pg of pages) {
+        if(pg.content) {
+          await pushFile(r.owner,r.repo,pg.content,token,pg.name);
+        }
+      }
+    }
     await enablePages(r.owner,r.repo,token);
-    st(5,"done");
+    st(pushStep,"done");
 
     showOK(`https://${r.owner}.github.io/${r.repo}/`);
     $("refineBox").style.display="block";
@@ -407,8 +488,12 @@ async function callAI(msg, token){
   return d.choices?.[0]?.message?.content||"";
 }
 
-async function buildHTML(tmpl,sty,prompt,plan,content,siteType,style,token){
-  const sys = `You are a senior front-end developer. You are given an HTML template with {{PLACEHOLDERS}}.
+async function buildHTML(tmpl,sty,prompt,plan,content,siteType,style,token,opts){
+  opts = opts || {};
+  const extraCSS = sty.extra ? sty.extra : '';
+  let sys;
+  if (tmpl) {
+    sys = `You are a senior front-end developer. You are given an HTML template with {{PLACEHOLDERS}}.
 
 TASK: Fill in ALL placeholders with specific, realistic content matching:
 - User request: "${prompt}"
@@ -420,6 +505,8 @@ TASK: Fill in ALL placeholders with specific, realistic content matching:
 CSS VARIABLES TO SET EXACTLY:
 --bg:${sty.bg}; --bg2:${sty.bg2}; --text:${sty.text}; --text2:${sty.text2}; --accent:${sty.accent}; --accent2:${sty.accent2}; --font:${sty.font}
 
+${extraCSS ? 'EXTRA CSS TO INCLUDE: ' + extraCSS : ''}
+
 RULES:
 1. Replace EVERY {{PLACEHOLDER}} with detailed, professional content
 2. Keep EXACT HTML structure. Only change content and CSS vars.
@@ -428,11 +515,44 @@ RULES:
 5. For numbers/stats, use realistic figures
 6. For badge class, use only "s" (success), "w" (warning), or "p" (pending)
 7. Return ONLY the raw HTML. No markdown, no backticks, no explanation`;
+  } else {
+    sys = `You are a senior front-end developer. Generate a complete, professional ${siteType} website from scratch.
+
+TASK: Build a full HTML page based on:
+- User request: "${prompt}"
+- Architecture plan: ${plan.slice(0,500)}
+- Generated content: ${content.slice(0,1000)}
+- Site type: ${siteType}
+- Design style: ${style} (${style === 'glassmorphism' ? 'Glassmorphism with blurred glass cards, dark bg, neon accents' : style === 'neumorphism' ? 'Neumorphism with soft shadows, light bg, rounded corners' : style === 'cyberpunk' ? 'Cyberpunk with neon green text, dark bg, magenta accents, monospace font' : 'Modern web design'})
+
+CSS VARIABLES (SET THESE EXACTLY IN :root):
+--bg:${sty.bg}; --bg2:${sty.bg2}; --text:${sty.text}; --text2:${sty.text2}; --accent:${sty.accent}; --accent2:${sty.accent2}; --font:${sty.font}
+
+${extraCSS ? 'APPLY THIS CSS THROUGHOUT: ' + extraCSS : ''}
+
+RULES:
+1. Generate a COMPLETE, production-ready HTML page. Include DOCTYPE, head, body.
+2. Use Font Awesome 6.5.0 from CDN for icons: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
+3. Use Google Inter font: https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap
+${opts.multiPage ? '4. This will be the HOME page. Add navigation links for About (about.html) and Contact (contact.html) pages in the nav.' : ''}
+5. Use realistic, specific content — real-sounding names, numbers, and details.
+6. For images, use emoji or CSS gradients instead of actual image URLs.
+7. Make it responsive with clean, professional design.
+8. Include a sticky navigation bar with smooth scrolling.
+9. Include Font Awesome CDN in head.
+${opts.siteTitle ? '10. Set the <title> to: "' + opts.siteTitle + '"' : '10. Set an appropriate <title> tag.'}
+${opts.siteDesc ? '11. Add meta description: <meta name="description" content="' + opts.siteDesc + '">. Also add OG meta tags with the same description.' : '11. Add appropriate meta description and OG tags.'}
+${opts.analyticsOn && opts.analyticsDomain ? '12. INCLUDE Plausible analytics script in <head>: <script defer data-domain="' + opts.analyticsDomain + '" src="https://plausible.io/js/script.js"></script>' : ''}
+${opts.contactFormOn && opts.contactEmail ? '13. Include a functional contact form on the page. Use: <form action="https://formsubmit.co/' + opts.contactEmail + '" method="POST"> with name, email, message fields and a submit button. Style it to match the site design.' : ''}
+14. Return ONLY the raw HTML. No markdown, no backticks, no explanation.
+15. Make all placeholder content specific and realistic — never use lorem ipsum.`;
+  }
   
+  const msg = tmpl ? sys + "\n\n---TEMPLATE---\n" + tmpl : sys;
   const r=await fetch("https://models.inference.ai.azure.com/chat/completions",{
     method:"POST",
     headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"},
-    body:JSON.stringify({model:"gpt-4o",messages:[{role:"system",content:sys+"\n\n---TEMPLATE---\n"+tmpl}]})
+    body:JSON.stringify({model:"gpt-4o",messages:[{role:"user",content:msg}]})
   });
   const d=await r.json();
   if(!r.ok)throw new Error(d.error?.message||"AI API error");
@@ -440,6 +560,54 @@ RULES:
   h=h.replace(/```html?/gi,"").replace(/```/g,"").trim();
   if(!h)throw new Error("AI returned empty");
   return h;
+}
+
+async function generatePages(siteType,style,sty,prompt,plan,content,token,pageCount,opts){
+  opts = opts || {};
+  const pages = [];
+  const names = ['index','about','contact'];
+  const titles = ['Home','About','Contact'];
+  for (let i = 0; i < Math.min(pageCount, names.length); i++) {
+    const p = i === 0 ? prompt : prompt + ` (generate the ${titles[i]} page specifically)`;
+    const sys = `You are a senior front-end developer. Generate a complete, professional ${siteType} website page.
+
+TASK: Build the ${titles[i]} page (${names[i]}.html) based on:
+- User request: "${p}"
+- Site type: ${siteType}
+- Design style: ${style}
+- This is the ${titles[i]} page of a multi-page site. Include navigation with links to all pages.
+
+CSS VARIABLES (SET IN :root):
+--bg:${sty.bg}; --bg2:${sty.bg2}; --text:${sty.text}; --text2:${sty.text2}; --accent:${sty.accent}; --accent2:${sty.accent2}; --font:${sty.font}
+
+${sty.extra ? 'EXTRA CSS: ' + sty.extra : ''}
+
+RULES:
+1. Complete HTML page with DOCTYPE, head, body, navigation, and footer.
+2. Use Font Awesome 6.5.0 CDN.
+3. Use Inter Google Font CDN.
+4. Navigation must include links to: ${names.slice(0,pageCount).map((n,j) => n + '.html ("' + titles[j] + '")').join(', ')}
+5. Highlight the current page link differently.
+6. Make it responsive, professional, with realistic content.
+7. No image URLs — use emoji or CSS gradients.
+${opts.siteTitle && i > 0 ? '8. Set the <title> to: "' + opts.siteTitle + ' - ' + titles[i] + '"' : ''}
+${opts.analyticsOn && opts.analyticsDomain ? '9. INCLUDE Plausible analytics in <head>: <script defer data-domain="' + opts.analyticsDomain + '" src="https://plausible.io/js/script.js"></script>' : ''}
+${opts.contactFormOn && opts.contactEmail && i === 2 ? '10. Include a functional contact form on this page. Use: <form action="https://formsubmit.co/' + opts.contactEmail + '" method="POST"> with name, email, message fields.' : ''}
+- Return ONLY raw HTML. No backticks, no markdown.`;
+    
+    const r=await fetch("https://models.inference.ai.azure.com/chat/completions",{
+      method:"POST",
+      headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"},
+      body:JSON.stringify({model:"gpt-4o",messages:[{role:"user",content:sys}]})
+    });
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error?.message||"AI error on page " + (i+1));
+    let h=d.choices?.[0]?.message?.content||"";
+    h=h.replace(/```html?/gi,"").replace(/```/g,"").trim();
+    if(!h)throw new Error("AI returned empty for " + names[i]);
+    pages.push({name: names[i] + '.html', content: h});
+  }
+  return pages;
 }
 
 async function refine(){
@@ -481,10 +649,11 @@ async function createRepo(n,t,p){
   return await r.json();
 }
 
-async function pushFile(o,r,c,t){
+async function pushFile(o,r,c,t,path){
+  path = path || "index.html";
   const enc=btoa(unescape(encodeURIComponent(c)));
-  const res=await fetch("https://api.github.com/repos/"+o+"/"+r+"/contents/index.html",{method:"PUT",headers:{"Authorization":"token "+t,"Content-Type":"application/json"},body:JSON.stringify({message:"Add generated website",content:enc,branch:"main"})});
-  if(!res.ok){const e=await res.json();throw new Error(e.message||"Failed to push")}
+  const res=await fetch("https://api.github.com/repos/"+o+"/"+r+"/contents/"+path,{method:"PUT",headers:{"Authorization":"token "+t,"Content-Type":"application/json"},body:JSON.stringify({message:"Add "+path,content:enc,branch:"main"})});
+  if(!res.ok){const e=await res.json();throw new Error(e.message||"Failed to push "+path)}
 }
 
 async function enablePages(o,r,t){
@@ -504,6 +673,10 @@ let chatSiteType = 'portfolio';
 let chatStyle = 'modern';
 let chatPrompt = '';
 let convHistory = [];
+
+const typeLabels = {portfolio:'Portfolio',landing:'Landing Page',business:'Business',blog:'Blog',store:'Store',app:'Web App',restaurant:'Restaurant',event:'Event',personal:'Personal / CV'};
+const typeIcons = {portfolio:'🎨',landing:'🚀',business:'🏢',blog:'📝',store:'🛍️',app:'📊',restaurant:'🍽️',event:'🎪',personal:'👤'};
+const styleLabels = {modern:'Modern',minimal:'Minimal',bold:'Bold',elegant:'Elegant',playful:'Playful',dark:'Dark',glassmorphism:'Glassmorphism',neumorphism:'Neumorphism',cyberpunk:'Cyberpunk'};
 
 function addMsg(text, sender, html) {
   const msgs = document.getElementById('msgs');
@@ -528,65 +701,110 @@ function hideTyping() {
   document.getElementById('typing').style.display = 'none';
 }
 
-async function chatWithAI(userMsg) {
+function getToken() {
+  return document.getElementById('gt').value.trim();
+}
+
+function isBuildRequest(text) {
+  const buildWords = /build|make|create|generate|website|site|page|portfolio|landing|store|blog|app|business/i;
+  const siteWords = /site|website|page|portfolio|landing|store|blog|app|business/i;
+  return buildWords.test(text) && siteWords.test(text);
+}
+
+function detectSiteType(text) {
+  const t = text.toLowerCase();
+  if (/store|shop|ecommerce|products?/i.test(t)) return 'store';
+  if (/blog|article|posts?|news/i.test(t)) return 'blog';
+  if (/app|dashboard|webapp|tool|saa?s/i.test(t)) return 'app';
+  if (/landing|saa?s|marketing|startup/i.test(t)) return 'landing';
+  if (/business|company|corporate|agency|firm/i.test(t)) return 'business';
+  if (/portfolio|photographer|designer|artist|creative|freelancer/i.test(t)) return 'portfolio';
+  if (/restaurant|cafe|menu|food|bistro|bakery/i.test(t)) return 'restaurant';
+  if (/event|conference|wedding|meetup|concert|festival/i.test(t)) return 'event';
+  if (/resume|cv|personal|bio|about me/i.test(t)) return 'personal';
+  return null;
+}
+
+function detectStyle(text) {
+  const t = text.toLowerCase();
+  if (/dark|night/i.test(t)) return 'dark';
+  if (/minimal|clean|simple|white/i.test(t)) return 'minimal';
+  if (/bold|vibrant|loud/i.test(t)) return 'bold';
+  if (/elegant|classy|luxury|serif|sophisticated/i.test(t)) return 'elegant';
+  if (/playful|fun|colorful|bright/i.test(t)) return 'playful';
+  if (/glass|glassmorphism|frosted|blur/i.test(t)) return 'glassmorphism';
+  if (/neumorphism|soft|neu|shadow/i.test(t)) return 'neumorphism';
+  if (/cyberpunk|neon|glitch|hacker|terminal/i.test(t)) return 'cyberpunk';
+  return null;
+}
+
+// Start building a website directly
+function handleBuild(text) {
+  chatPrompt = text;
+  chatState = 'building';
+  document.getElementById('gb').disabled = true;
+  
+  const token = getToken();
+  if (!token) {
+    addMsg(null, 'ai', 'Paste your GitHub token in the TOKEN field above first (get one at github.com/settings/tokens with repo scope).');
+    chatState = 'idle';
+    document.getElementById('gb').disabled = false;
+    return;
+  }
+  if (token.length < 10 || !/^ghp_/.test(token)) {
+    addMsg(null, 'ai', 'That does not look like a valid GitHub classic token. It should start with <code>ghp_</code> and be ~40 characters. Get one at github.com/settings/tokens.');
+    chatState = 'idle';
+    document.getElementById('gb').disabled = false;
+    return;
+  }
+  
+  const detected = detectSiteType(text) || chatSiteType;
+  const detectedStyle = detectStyle(text) || chatStyle;
+  chatSiteType = detected;
+  chatStyle = detectedStyle;
+  
+  const t = typeLabels[chatSiteType] || 'website';
+  const s = chatStyle.charAt(0).toUpperCase() + chatStyle.slice(1);
+  document.getElementById('st').value = chatSiteType;
+  document.getElementById('ds').value = chatStyle;
+  document.getElementById('prompt').value = text;
+  
+  const mp = $("mp") ? $("mp").checked : false;
+  addMsg(null, 'ai', 'Building your ' + t + ' (' + s + ' style)' + (mp ? ' with 3 pages' : '') + '. Planning, generating, building, creating repo, publishing.');
   showTyping();
-  const token = document.getElementById('gt').value.trim();
+  generate();
+}
+
+// Chat with AI for general conversation
+async function chatWithAI(text) {
+  showTyping();
+  const token = getToken();
+  if (!token) {
+    hideTyping();
+    addMsg(null, 'ai', 'Need your GitHub token in the TOKEN field above.');
+    chatState = 'idle';
+    document.getElementById('gb').disabled = false;
+    return;
+  }
   
-  convHistory.push({role:"user", content:userMsg});
+  convHistory.push({role:"user", content:text});
   
-  const sysPrompt = `You are an AI assistant with the exact personality and capabilities of a world-class software engineering AI. You are embedded in AI Website Maker, a tool that builds and publishes professional websites for free via GPT-4o and GitHub Pages.
-
-CORE TRAITS:
-- Extremely concise: answer in 1-4 sentences unless asked for detail. No preamble, no postamble, no explanations of what you did.
-- Direct: answer the question directly. One word answers are fine. No "The answer is..." or "Here is what I found..."
-- Technical: reference specific details, file paths, line numbers, code snippets when relevant
-- Proactive: take initiative when asked to do something
-- Security conscious: never expose tokens, secrets, or credentials
-- No emojis unless the user uses them first
-- Write clean, idiomatic code following existing patterns
-
-CAPABILITIES:
-1. Build complete websites: when user describes a site they want, say "Building it now" and describe what you'll make, then this system will generate and publish it.
-2. Answer coding questions: write actual working code, reference file paths and patterns
-3. Explain technology: break down complex topics clearly and concisely
-4. Give expert advice: web dev, design, architecture, best practices
-
-RULES:
-- When user asks for a website: respond briefly ("Building it now. <brief description>.") and the system will generate + publish it
-- For code: write the actual code inline, no descriptions of what the code does
-- Never add commentary about your response
-- Never say "I'd be happy to" or similar filler
-- Format code blocks with markdown`;
-
-  const messages = [{role:"system", content:sysPrompt}, ...convHistory];
+  const sysPrompt = 'You are an expert AI assistant embedded in AI Website Maker. You build and publish professional websites for free using GPT-4o + GitHub Pages. Be extremely concise. Answer in 1-4 sentences unless asked for detail. Direct, technical, no fluff, no preamble. When asked about code, write the actual code. Never say "I\'d be happy to" or similar filler. Format code blocks with markdown.';
   
   try {
     const r = await fetch("https://models.inference.ai.azure.com/chat/completions", {
       method: "POST",
       headers: {"Authorization":"Bearer "+token, "Content-Type":"application/json"},
-      body: JSON.stringify({model:"gpt-4o", messages})
+      body: JSON.stringify({model:"gpt-4o", messages:[{role:"system", content:sysPrompt}, ...convHistory]})
     });
     const d = await r.json();
     if (!r.ok) throw new Error(d.error?.message || "AI error");
     const reply = d.choices?.[0]?.message?.content || "...";
     convHistory.push({role:"assistant", content:reply});
     hideTyping();
-    
-    // Check if this is a website request
-    const isSiteRequest = /build|website|site|page|portfolio|landing|make me|create|generate/i.test(userMsg) && 
-                          /site|website|page|portfolio|landing|store|blog|app|business/i.test(userMsg);
-    
-    if (isSiteRequest) {
-      // Show AI's response first
-      addMsg(null, 'ai', reply);
-      // Then trigger build
-      chatPrompt = userMsg;
-      triggerBuild();
-    } else {
-      addMsg(null, 'ai', reply);
-      chatState = 'idle';
-      document.getElementById('gb').disabled = false;
-    }
+    addMsg(null, 'ai', reply);
+    chatState = 'idle';
+    document.getElementById('gb').disabled = false;
   } catch(e) {
     hideTyping();
     addMsg(null, 'ai', 'Error: ' + e.message);
@@ -603,38 +821,65 @@ function handleChat() {
   input.value = '';
   input.style.height = 'auto';
   addMsg(text, 'user');
-  chatState = 'building';
-  document.getElementById('gb').disabled = true;
   
-  const token = document.getElementById('gt').value.trim();
-  if (!token) {
-    addMsg(null, 'ai', 'Paste your GitHub token in the TOKEN field above first.');
-    chatState = 'idle';
-    document.getElementById('gb').disabled = false;
-    return;
+  if (isBuildRequest(text)) {
+    handleBuild(text);
+  } else {
+    chatState = 'building';
+    document.getElementById('gb').disabled = true;
+    chatWithAI(text);
   }
-  
-  chatWithAI(text);
+}
+
+function switchTmCat(el, cat) {
+  document.querySelectorAll('.tm-cat').forEach(b => {b.style.background='#fff';b.style.color='#555';b.style.fontWeight='500'});
+  el.style.background='#111';el.style.color='#fff';el.style.fontWeight='600';
+  document.querySelectorAll('#tmGrid .ex-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.type === cat) ? '' : 'none';
+  });
+}
+
+function fillTmpl(type) {
+  const prompts = {
+    portfolio:'A modern portfolio for a creative professional with project gallery, skills section, client testimonials, and contact form',
+    landing:'A SaaS landing page with hero section, feature grid, 3-tier pricing table, FAQ accordion, and email capture CTA',
+    business:'A professional business website with services, team profiles, about section, project portfolio, and contact inquiry form',
+    blog:'A magazine-style blog with featured articles, category grid, newsletter signup, author bio, and social links',
+    store:'An online store with product grid, category filters, shopping cart, featured items, and checkout flow',
+    app:'A web app dashboard with sidebar navigation, stats cards, data tables, charts, and user management',
+    restaurant:'A restaurant website with menu display, reservation booking, location map, chef profiles, and photo gallery',
+    event:'An event/conference page with schedule grid, speaker profiles, registration form, venue details, and sponsors',
+    personal:'A personal CV/resume website with experience timeline, education, skills bars, portfolio samples, and contact info'
+  };
+  chatSiteType = type;
+  document.getElementById('st').value = type;
+  const input = document.getElementById('chatInput');
+  input.value = prompts[type] || '';
+  input.focus();
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  document.getElementById('mp').checked = true;
+  document.getElementById('templates').scrollIntoView({behavior:'smooth'});
 }
 
 function chatChip(type) {
   if (chatState === 'building') return;
   chatSiteType = type;
-  document.querySelectorAll('.chips button').forEach(b => b.classList.remove('active'));
-  const idx = {portfolio:0,landing:1,business:2,blog:3,store:4,app:5}[type];
-  if (idx !== undefined) document.querySelectorAll('.chips button')[idx].classList.add('active');
-  const names = {portfolio:'Portfolio',landing:'Landing Page',business:'Business',blog:'Blog',store:'Store',app:'Web App'};
+  document.getElementById('st').value = type;
+  const names = typeLabels;
   addMsg(names[type], 'user');
-  addMsg(null, 'ai', names[type] + ' template selected. Describe the specific site you want built and I will create it for you.');
-}
-
-function triggerBuild() {
-  const token = document.getElementById('gt').value.trim();
-  document.getElementById('st').value = chatSiteType;
-  document.getElementById('ds').value = chatStyle;
-  document.getElementById('prompt').value = chatPrompt;
-  showTyping();
-  generate();
+  const examples = {
+    portfolio:'e.g. A dark portfolio for a UX designer named Alex with project gallery, skills, testimonials, and contact form',
+    landing:'e.g. A SaaS landing page for FlowTask with hero, features grid, 3-tier pricing, FAQ accordion, and email capture',
+    business:'e.g. A business site for a luxury architecture firm with services, portfolio, team profiles, and inquiry form',
+    blog:'e.g. A travel blog with featured articles, category grid, newsletter signup, and social links',
+    store:'e.g. An online store for handmade ceramics with product grid, categories, cart, and checkout',
+    app:'e.g. A project management dashboard with sidebar, stats, charts, task lists, and team management',
+    restaurant:'e.g. A restaurant site for an Italian trattoria with menu, reservation form, chef bios, and photo gallery',
+    event:'e.g. A tech conference page with speaker lineup, schedule, ticket registration, and venue map',
+    personal:'e.g. A CV site for a senior frontend developer with experience timeline, skills, and portfolio'
+  };
+  addMsg(null, 'ai', names[type] + ' selected. Tell me about your site. For example:<br><span style="font-size:13px;color:#888">' + (examples[type]||'') + '</span>');
 }
 
 const origSt = window.st;
@@ -643,7 +888,14 @@ let stepsInited = false;
 
 window.st = function(n, s) {
   if (origSt) origSt(n, s);
-  const stepTexts = ['Planning site architecture...', 'Generating content & copy...', 'Building professional HTML...', 'Creating GitHub repository...', 'Publishing to GitHub Pages...'];
+  if (!window._stTexts) {
+    const mp = $("mp") ? $("mp").checked : false;
+    window._stTexts = mp
+      ? ['Planning site architecture...','Generating content & copy...','Building main page HTML...','Generating additional pages...','Creating GitHub repository...','Publishing all pages...']
+      : ['Planning site architecture...','Generating content & copy...','Building professional HTML...','Creating GitHub repository...','Publishing to GitHub Pages...'];
+  }
+  const stepTexts = window._stTexts;
+  const totalSteps = stepTexts.length;
   hideTyping();
   if (s === 'active' || s === 'done') {
     if (!statusBubble || (s === 'active' && !stepsInited)) {
@@ -665,7 +917,9 @@ window.st = function(n, s) {
       html += '</div>';
       statusBubble.querySelector('.bubble').innerHTML = html;
     }
-    if (s === 'done' && n === 5) hideTyping();
+    if (s === 'done' && n === totalSteps) hideTyping();
+  } else if (s === 'fail' && statusBubble) {
+    statusBubble.querySelector('.bubble').innerHTML = '<div style="color:#ef4444">Failed at: ' + stepTexts[n - 1] + '</div>';
   }
 };
 
@@ -714,7 +968,7 @@ function chatPublish() {
 }
 
 // Welcome message
-addMsg(null, 'ai', 'I am the smartest AI in the world. I can build you a complete website and publish it live, answer any question, or help you with anything tech-related.<br><br><span style="font-size:13px;color:rgba(255,255,255,.4)">Describe a website you want built, pick a template above, or just ask me anything.</span>');
+addMsg(null, 'ai', 'Describe the website you want built. I will plan, build, and publish it live — free, with GPT-4o, on GitHub Pages.<br><br><span style="font-size:13px;color:#888">Type something like "build me a portfolio for a photographer" or pick a type above.</span>');
 
 document.getElementById('chatInput').addEventListener('input', function() {
   this.style.height = 'auto';
