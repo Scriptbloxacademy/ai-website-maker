@@ -60,11 +60,7 @@
 
   <label for="ghToken">GitHub Token</label>
   <input id="ghToken" type="password" placeholder="classic token with repo scope">
-  <div class="hint">Create at github.com/settings/tokens (classic token, scopes: repo)</div>
-
-  <label for="geminiKey">Gemini API Key</label>
-  <input id="geminiKey" type="password" placeholder="free key from aistudio.google.com">
-  <div class="hint">Free from aistudio.google.com/apikey — no credit card needed</div>
+  <div class="hint">Create at github.com/settings/tokens — classic token with scopes: repo, read:user</div>
 
   <label for="siteName">Site name (optional)</label>
   <input id="siteName" placeholder="my-site (becomes github.com/you/my-site)">
@@ -104,12 +100,10 @@ function resetSteps() {
 async function generate() {
   const prompt = $('prompt').value.trim();
   const ghToken = $('ghToken').value.trim();
-  const geminiKey = $('geminiKey').value.trim();
   let siteName = $('siteName').value.trim();
 
   if (!prompt) { showError('Describe what website you want.'); return; }
   if (!ghToken) { showError('Enter your GitHub token.'); return; }
-  if (!geminiKey) { showError('Enter your Gemini API key.'); return; }
 
   const btn = $('generateBtn');
   btn.disabled = true;
@@ -119,9 +113,9 @@ async function generate() {
   $('output').style.display = 'none';
 
   try {
-    // Step 1: Generate website with Gemini
+    // Step 1: Generate website with GitHub Models
     setStep(1, 'loading');
-    const siteHtml = await generateSite(prompt, geminiKey);
+    const siteHtml = await generateSite(prompt, ghToken);
     setStep(1, 'done');
 
     if (!siteName) {
@@ -151,7 +145,7 @@ async function generate() {
   }
 }
 
-async function generateSite(prompt, key) {
+async function generateSite(prompt, token) {
   const systemPrompt = `You are a web developer. Generate a complete, beautiful, single-file HTML website based on the user's request.
 Requirements:
 - Return ONLY the raw HTML code, no markdown, no explanation
@@ -161,20 +155,24 @@ Requirements:
 - Use modern CSS (flexbox/grid, custom properties, smooth animations)
 - The page should be complete and functional`;
 
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
+  const res = await fetch('https://models.inference.ai.azure.com/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
-      contents: [{
-        parts: [{ text: systemPrompt + '\n\nUser request: ' + prompt }]
-      }]
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: systemPrompt + '\n\nUser request: ' + prompt }
+      ]
     })
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error?.message || 'Gemini API error');
-  
-  let html = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  if (!res.ok) throw new Error(data.error?.message || 'GitHub Models API error');
+
+  let html = data.choices?.[0]?.message?.content || '';
   html = html.replace(/```html?/gi, '').replace(/```/g, '').trim();
   if (!html) throw new Error('AI returned empty response');
   return html;
@@ -251,7 +249,7 @@ function showSuccess(url, name) {
     <strong>Published!</strong>
     <div class="url"><a href="${url}" target="_blank">${url}</a></div>
     <div style="font-size:13px;color:#8b949e;">
-      Repo: <a href="https://github.com/Scriptbloxacademy/${name}" target="_blank">github.com/Scriptbloxacademy/${name}</a>
+      Your site is live! Share the link above.
     </div>
   `;
 }
