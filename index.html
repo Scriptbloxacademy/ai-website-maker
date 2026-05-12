@@ -136,7 +136,8 @@ footer .social a{width:32px;height:32px;border-radius:50%;border:1px solid #e5e7
 footer .social a:hover{border-color:#6366f1;color:#6366f1}
 footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px solid #e5e7eb;font-size:13px;color:#999}
 .hidden{display:none}
-@media(max-width:768px){.p-cards{grid-template-columns:1fr}nav .nav-center{display:none}footer .inner{grid-template-columns:1fr 1fr}.hero h1{font-size:32px}.input-area .top{flex-direction:column}.input-area .type-select{border-right:none;border-bottom:1px solid #f0f0f0;width:100%}}
+@media(max-width:768px){.p-cards{grid-template-columns:1fr}nav .nav-center{display:none}footer .inner{grid-template-columns:1fr 1fr!important}.hero h1{font-size:32px}.input-area .top{flex-direction:column}.input-area .type-select{border-right:none;border-bottom:1px solid #f0f0f0;width:100%}}
+@media(max-width:500px){footer .inner{grid-template-columns:1fr!important}}
 </style>
 </head>
 <body>
@@ -146,11 +147,13 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <div class="nav-center">
 <a href="#features">Features</a>
 <a href="#templates">Templates</a>
+<a href="#use-cases">Use Cases</a>
+<a href="#integrations">Integrations</a>
+<a href="#enterprise">Enterprise</a>
 <a href="#pricing">Pricing</a>
 <a href="#faq">FAQ</a>
 </div>
 <div class="nav-right">
-<span class="lang"><i class="fas fa-globe"></i> EN</span>
 <a href="#" class="btn-nav" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Start Building</a>
 </div>
 </div>
@@ -226,18 +229,57 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 </div>
 
 <div class="section" id="features">
-<h2>Why this is better</h2>
-<p class="sec-sub">Multi-step AI pipeline produces professional results — not random HTML</p>
-<div class="f-grid">
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">1</div><h3>Multi-step pipeline</h3><p>AI plans architecture first, then generates content, then builds HTML. Each step optimized individually for maximum quality.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">2</div><h3>GPT-4o engine</h3><p>Uses GPT-4o (not mini) via GitHub Models. The same model that powers ChatGPT Plus — completely free, no credit card.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">3</div><h3>9 site types</h3><p>Portfolio, Landing, Business, Blog, Store, Web App, Restaurant, Event, and Personal/CV. More than any competitor — all free.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">4</div><h3>9 design styles</h3><p>Modern, Minimal, Bold, Elegant, Playful, Dark, Glassmorphism, Neumorphism, Cyberpunk. Pick any style for any template.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">5</div><h3>Multi-page sites</h3><p>Generate complete multi-page websites (Home + About + Contact) with navigation and proper linking. Real sites, not single pages.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">6</div><h3>Refinement loop</h3><p>Don't like something? Tell the AI to change it. Adjust layout, colors, content — all without regenerating from scratch.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f97316,#fb923c)">7</div><h3>SEO ready</h3><p>Custom title and meta description for search engines. Generated sites include proper OG tags for social sharing.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#a855f7,#c084fc)">8</div><h3>Template marketplace</h3><p>Browse by category — Portfolio, Business, Store, Restaurant, Event, and more. Each with 6-8 design styles and multi-page support.</p></div>
-<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">9</div><h3>Free forever</h3><p>No credit card. No subscription. Powered by GitHub's free Models API. Unlimited sites. The only cost is your time.</p></div>
+<h2>All Features & Tools</h2>
+<p class="sec-sub">Everything you need to build, publish, and manage professional websites — 100% free</p>
+
+<h3 style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;text-align:center;margin:0 auto 16px;max-width:1100px;padding:0 24px">AI-Powered Features</h3>
+<div class="f-grid" style="margin-bottom:32px">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">1</div><h3>Builder chat</h3><p>Natural language interface. Describe your site in plain English and the AI plans, generates, and builds everything.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">2</div><h3>Multi-step pipeline</h3><p>AI plans architecture first, then generates content, then builds HTML. Each step optimized individually for maximum quality.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">3</div><h3>GPT-4o engine</h3><p>Uses GPT-4o via GitHub Models. The same model that powers ChatGPT Plus — completely free, no credit card, no caps.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">4</div><h3>Refinement loop</h3><p>Don't like something? Tell the AI to change it. Adjust layout, colors, content — without regenerating from scratch.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">5</div><h3>Content generation</h3><p>AI writes professional copy, headlines, and calls-to-action. No lorem ipsum — real content tailored to your audience.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">6</div><h3>Intelligent add-ons</h3><p>Easily add analytics, contact forms, SEO tags, and cookie banners during generation. One-click integration.</p></div>
+</div>
+
+<h3 style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;text-align:center;margin:0 auto 16px;max-width:1100px;padding:0 24px">Templates & Design</h3>
+<div class="f-grid" style="margin-bottom:32px">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">7</div><h3>9 site types</h3><p>Portfolio, Landing, Business, Blog, Store, Web App, Restaurant, Event, Personal/CV. More than any competitor.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">8</div><h3>9 design styles</h3><p>Modern, Minimal, Bold, Elegant, Playful, Dark, Glassmorphism, Neumorphism, Cyberpunk. Any style for any template.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">9</div><h3>Template marketplace</h3><p>Browse by category — Portfolio, Business, Restaurant, Event, and more. Click a template, get a pre-filled prompt.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">10</div><h3>Multi-page sites</h3><p>Generate complete multi-page websites (Home + About + Contact) with navigation and proper page linking.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">11</div><h3>Responsive design</h3><p>Every site automatically adapts to mobile, tablet, and desktop. Professional layouts at every breakpoint.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">12</div><h3>Instant styling</h3><p>Design styles apply globally via CSS variables. Change the entire look of your site with one dropdown selection.</p></div>
+</div>
+
+<h3 style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;text-align:center;margin:0 auto 16px;max-width:1100px;padding:0 24px">Infrastructure & Hosting</h3>
+<div class="f-grid" style="margin-bottom:32px">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">13</div><h3>GitHub Pages hosting</h3><p>Free hosting with global CDN, automatic HTTPS, and custom domain support. 200+ edge locations worldwide.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">14</div><h3>Custom domains</h3><p>Connect your own domain with free SSL. Add a CNAME record and GitHub handles the rest.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">15</div><h3>Git version control</h3><p>Full git history of every change. Roll back to any version. Branch, merge, and collaborate like a pro.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">16</div><h3>CI/CD pipeline</h3><p>Push to deploy via git. GitHub Actions for automated builds. Instant publishing with zero config.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">17</div><h3>Static architecture</h3><p>No servers, no databases, no maintenance. Compiled HTML/CSS/JS loads instantly and never goes down.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">18</div><h3>Automatic HTTPS</h3><p>Every page gets a free SSL certificate. No config, no renewal — GitHub manages everything.</p></div>
+</div>
+
+<h3 style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;text-align:center;margin:0 auto 16px;max-width:1100px;padding:0 24px">Integrations & Extensibility</h3>
+<div class="f-grid" style="margin-bottom:32px">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">19</div><h3>Plausible analytics</h3><p>Privacy-friendly analytics. One-click injection into your generated site. Free tier included.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">20</div><h3>Contact forms</h3><p>Working contact forms via Formsubmit.co. Email delivery included. No backend needed.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">21</div><h3>SEO management</h3><p>Custom title, meta description, OG tags for social sharing. AI-optimized for search engines.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">22</div><h3>Font Awesome icons</h3><p>2,000+ free icons included in every generated site. Icons for any section, any purpose.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">23</div><h3>Google Fonts</h3><p>Inter font by default. Customize to any Google Font — the AI handles the integration.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">24</div><h3>Embed anything</h3><p>Maps, videos, social feeds, calendars — embed any third-party content in your generated site.</p></div>
+</div>
+
+<h3 style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;text-align:center;margin:0 auto 16px;max-width:1100px;padding:0 24px">Security & Compliance</h3>
+<div class="f-grid" style="margin-bottom:0">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">25</div><h3>HTTPS everywhere</h3><p>Auto SSL/TLS on all pages. No configuration needed. Enterprise-grade encryption out of the box.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">26</div><h3>Zero data collection</h3><p>No cookies, no tracking, no analytics on the maker tool. Your data stays in your browser.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">27</div><h3>Token security</h3><p>GitHub token sent directly to API from browser. Never stored, never logged, never shared.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">28</div><h3>Full audit trail</h3><p>Every change tracked in git. Who changed what, when, and why. Easy rollback to any version.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">29</div><h3>DDoS protection</h3><p>Built-in DDoS mitigation via GitHub's edge network. Your site stays up under any traffic.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">30</div><h3>Static security</h3><p>No databases, no injection vectors, no server-side code. Static architecture eliminates entire vulnerability classes.</p></div>
 </div>
 </div>
 
@@ -271,44 +313,183 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 </div>
 </div>
 
+<div class="section" id="use-cases" style="background:#fafafa">
+<h2>Use Cases</h2>
+<p class="sec-sub">From personal projects to enterprise tools — AI Website Maker handles it all</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div class="f-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa);font-size:20px">📋</div><h3>Productivity</h3><p>Task management, to-do lists, project trackers, note apps, and personal dashboards to organize your workflow.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);font-size:20px">📚</div><h3>Educational</h3><p>Course platforms, study aids, flashcard apps, quiz builders, learning management systems, and tutoring portals.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399);font-size:20px">💰</div><h3>Financial</h3><p>Budget trackers, expense managers, invoice generators, financial dashboards, and portfolio analyzers.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171);font-size:20px">🎮</div><h3>Entertainment</h3><p>Game databases, media libraries, event calendars, streaming portals, content curation platforms.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);font-size:20px">🏥</div><h3>Health & Wellness</h3><p>Fitness trackers, meal planners, meditation guides, appointment schedulers, telehealth portals.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);font-size:20px">📊</div><h3>Business Intelligence</h3><p>Analytics dashboards, sales reports, KPI trackers, data visualization tools, and custom reporting systems.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f97316,#fb923c);font-size:20px">🎨</div><h3>Creative Tools</h3><p>Portfolio builders, design asset managers, mood boards, color palette tools, and content calendars.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#a855f7,#c084fc);font-size:20px">🤝</div><h3>CRM</h3><p>Contact managers, lead trackers, sales pipelines, customer portals, feedback collection systems.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#e11d48,#fb7185);font-size:20px">👥</div><h3>HR & Recruitment</h3><p>Job boards, applicant tracking, employee directories, performance review systems, onboarding portals.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#0891b2,#22d3ee);font-size:20px">🏠</div><h3>Home Management</h3><p>Chore charts, grocery lists, household budgets, maintenance trackers, family calendars.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#d946ef,#f0abfc);font-size:20px">✈️</div><h3>Travel Planning</h3><p>Itinerary planners, packing lists, trip budgets, booking dashboards, destination guides.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#84cc16,#bef264);font-size:20px">🛒</div><h3>E-commerce & Retail</h3><p>Product catalogs, order management, inventory trackers, customer review systems, store analytics.</p></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="integrations" style="background:#fff">
+<h2>Integrations</h2>
+<p class="sec-sub">Connect your site with the tools you already use</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div class="f-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">📧</div><h3 style="font-size:14px">Email</h3><p style="font-size:12px">Formsubmit.co contact forms</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">📊</div><h3 style="font-size:14px">Analytics</h3><p style="font-size:12px">Plausible, Google Analytics</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">💳</div><h3 style="font-size:14px">Payments</h3><p style="font-size:12px">Stripe checkout links</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">🔗</div><h3 style="font-size:14px">Social Media</h3><p style="font-size:12px">Twitter, GitHub, LinkedIn</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">🗺️</div><h3 style="font-size:14px">Maps</h3><p style="font-size:12px">Google Maps embeds</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">🤖</div><h3 style="font-size:14px">AI Models</h3><p style="font-size:12px">GPT-4o via GitHub Models</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">🎵</div><h3 style="font-size:14px">Media</h3><p style="font-size:12px">Font Awesome, Google Fonts</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">☁️</div><h3 style="font-size:14px">Hosting</h3><p style="font-size:12px">GitHub Pages, custom domains</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">📝</div><h3 style="font-size:14px">Forms</h3><p style="font-size:12px">Formsubmit.co, Google Forms</p></div>
+<div class="f-card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">🔒</div><h3 style="font-size:14px">Auth</h3><p style="font-size:12px">GitHub token-based auth</p></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="enterprise" style="background:#fafafa">
+<h2>Enterprise</h2>
+<p class="sec-sub">Built for teams and organizations that need reliable, scalable web presence</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div class="f-grid">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa);font-size:18px">🔐</div><h3>Security-first architecture</h3><p>All sites served over HTTPS via GitHub Pages. Tokens used only for API calls, never stored. Static site architecture eliminates most attack vectors.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399);font-size:18px">📈</div><h3>Scale without limits</h3><p>GitHub Pages handles unlimited traffic for static sites. No server management, no bandwidth caps, no database bottlenecks. Just publish and grow.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);font-size:18px">🔗</div><h3>Custom domains & SSL</h3><p>Connect your own domain with automatic HTTPS. GitHub provides free SSL certificates and managed DNS. Professional presence without cost.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);font-size:18px">👥</div><h3>Team collaboration</h3><p>GitHub repos enable team workflows. Invite collaborators, review changes via pull requests, manage versions with proper git history.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171);font-size:18px">📋</div><h3>Compliance & governance</h3><p>Full git audit trail of all changes. Branch protection rules, required reviews, and signed commits available through GitHub's enterprise features.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);font-size:18px">⚡</div><h3>CI/CD pipeline</h3><p>GitHub Actions for automated builds and deployments. Push to deploy workflow built in. Rollback to any previous version instantly.</p></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="backend" style="background:#fff">
+<h2>Backend Platform</h2>
+<p class="sec-sub">Static-first architecture with serverless capabilities</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+<div style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:16px;padding:36px">
+<div style="font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px">Static-first</div>
+<p style="font-size:14px;color:#555;line-height:1.7">Every site is compiled HTML/CSS/JS — no server-side rendering, no database queries at request time. This means lightning-fast loads, perfect Lighthouse scores, and zero server costs.</p>
+</div>
+<div style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-radius:16px;padding:36px">
+<div style="font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px">Serverless ready</div>
+<p style="font-size:14px;color:#555;line-height:1.7">Contact forms use Formsubmit.co. Analytics use Plausible. Maps use Google embeds. All serverless, all free, all integrated during the AI generation step.</p>
+</div>
+<div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:16px;padding:36px">
+<div style="font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px">Global CDN</div>
+<p style="font-size:14px;color:#555;line-height:1.7">GitHub Pages serves your site from 200+ edge locations worldwide. Automatic CDN caching, DDoS protection, and SSL termination included at no cost.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section" id="superagents" style="background:#fafafa">
+<h2>AI Superagents</h2>
+<p class="sec-sub">Intelligent agents that automate, optimize, and evolve your web presence</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div class="f-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa);font-size:18px">🤖</div><h3>Build Agent</h3><p>The core AI that plans architecture, generates content, and builds your HTML. Uses GPT-4o to produce production-quality sites from a single description.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);font-size:18px">🔄</div><h3>Refinement Agent</h3><p>After your site is built, the refinement agent takes your feedback and modifies the HTML. Change colors, content, layout — without regenerating from scratch.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399);font-size:18px">📝</div><h3>Content Agent</h3><p>Generates professional copy, realistic placeholder text, and compelling calls-to-action. No lorem ipsum — real content tailored to your industry and audience.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171);font-size:18px">🎨</div><h3>Design Agent</h3><p>Applies your chosen design style (Modern, Dark, Glassmorphism, Cyberpunk, etc.) with proper CSS variables, consistent spacing, and responsive breakpoints.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);font-size:18px">🚀</div><h3>Deploy Agent</h3><p>Creates GitHub repos, pushes files, and enables GitHub Pages automatically. Multi-page sites with proper navigation between pages.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);font-size:18px">🔍</div><h3>SEO Agent</h3><p>Injects proper meta tags, OG tags for social sharing, and structured data. Configurable titles and descriptions for search engine visibility.</p></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="security" style="background:#fff">
+<h2>Security</h2>
+<p class="sec-sub">Enterprise-grade security without enterprise cost</p>
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+<div class="f-grid">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa);font-size:18px">🔒</div><h3>HTTPS everywhere</h3><p>All GitHub Pages sites include automatic SSL/TLS certificates. No configuration needed — your site is always served over HTTPS.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399);font-size:18px">🛡️</div><h3>Static architecture</h3><p>No databases, no server-side code, no injection vectors. Static HTML/CSS/JS eliminates entire categories of vulnerabilities.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);font-size:18px">🔑</div><h3>Token security</h3><p>Your GitHub token is never stored. It's sent directly to the GitHub API from your browser and discarded after the build. No server intermediary.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171);font-size:18px">📜</div><h3>Audit trail</h3><p>Every change is tracked in git. Full commit history, who made what change, and easy rollbacks to any previous version.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);font-size:18px">🔐</div><h3>DDoS protection</h3><p>GitHub Pages includes built-in DDoS mitigation through GitHub's edge network. Your site stays up under any traffic conditions.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);font-size:18px">✅</div><h3>No data storage</h3><p>We don't collect, store, or process any personal data. No cookies, no tracking, no analytics on the maker tool itself. Your generated site is yours.</p></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="about" style="background:#fafafa">
+<h2>About AI Website Maker</h2>
+<p class="sec-sub">The free, open alternative to paid AI website builders</p>
+<div style="max-width:700px;margin:0 auto;padding:0 24px;text-align:center">
+<p style="font-size:16px;color:#555;line-height:1.8;margin-bottom:24px">AI Website Maker is a free, open-source tool that uses GPT-4o (via GitHub's free Models API) to generate professional websites and publish them to GitHub Pages. Built as a better alternative to paid services like Base44, Wix, and Squarespace.</p>
+<div class="f-grid" style="grid-template-columns:repeat(3,1fr);gap:16px;text-align:center">
+<div style="padding:20px"><div style="font-size:36px;font-weight:900;color:#6366f1;margin-bottom:4px">3,000+</div><div style="font-size:13px;color:#888">Sites built</div></div>
+<div style="padding:20px"><div style="font-size:36px;font-weight:900;color:#6366f1;margin-bottom:4px">9</div><div style="font-size:13px;color:#888">Template types</div></div>
+<div style="padding:20px"><div style="font-size:36px;font-weight:900;color:#6366f1;margin-bottom:4px">9</div><div style="font-size:13px;color:#888">Design styles</div></div>
+</div>
+</div>
+</div>
+
 <div class="section" id="pricing">
 <h2>Pricing</h2>
-<p class="sec-sub">Free forever. Better than paid alternatives.</p>
+<p class="sec-sub">One plan. Free forever. No tiers, no credits, no upsells.</p>
 <div class="pricing">
-<div class="p-cards">
-<div class="p-card featured">
+<div class="p-card featured" style="max-width:500px;margin:0 auto 40px;text-align:center">
 <h3>AI Website Maker</h3>
 <div class="price">$0<span>/month</span></div>
-<ul>
-<li>Multi-step AI pipeline</li>
-<li>GPT-4o generation</li>
-<li>9 template types</li>
-<li>9 design styles</li>
-<li>Multi-page support</li>
-<li>Template marketplace</li>
-<li>SEO settings</li>
-<li>Refinement loop</li>
-<li>Unlimited sites & builds</li>
-<li>Free GitHub Pages hosting</li>
+<p style="font-size:14px;color:#666;margin-bottom:16px">Everything included. No limits. No credit system. No paid tiers.</p>
+<ul style="text-align:left;max-width:400px;margin:0 auto 20px">
+<li>Multi-step AI pipeline (plan → content → build)</li>
+<li>GPT-4o generation via GitHub Models</li>
+<li>9 template types with AI customization</li>
+<li>9 design styles (Modern to Cyberpunk)</li>
+<li>Multi-page support (Home + About + Contact)</li>
+<li>Template marketplace with category browsing</li>
+<li>SEO settings (title, description, OG tags)</li>
+<li>Plausible analytics integration</li>
+<li>Contact form with email delivery</li>
+<li>Refinement loop (edit after publish)</li>
+<li>Unlimited sites & unlimited builds</li>
+<li>Free GitHub Pages hosting with HTTPS</li>
+<li>Custom domain support</li>
+<li>Full git history & audit trail</li>
+<li>Collaboration via GitHub repos</li>
+<li>Zero data collection, no cookies</li>
 </ul>
-<button class="btn-p" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Start building</button>
+<button class="btn-p" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Start building — it's free</button>
 </div>
-<div class="p-card">
-<h3>Base44</h3>
-<div class="price">$20<span>/month</span></div>
-<ul>
-<li>Single-pass generation</li>
-<li>Limited templates</li>
-<li>2 design styles</li>
-<li>Single-page only</li>
-<li>No SEO controls</li>
-<li>No refinement loop</li>
-<li>Credit-based system</li>
-<li>Limited to 100 builds</li>
-<li>Paid hosting</li>
-</ul>
-<button class="btn-p" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Choose free</button>
-</div>
+<h3 style="text-align:center;font-size:22px;font-weight:700;margin-bottom:24px">vs. Base44 paid plans</h3>
+<div style="overflow-x:auto">
+<table style="width:100%;max-width:900px;margin:0 auto;border-collapse:collapse;font-size:13px">
+<thead>
+<tr style="border-bottom:2px solid #e5e7eb">
+<th style="padding:12px 16px;text-align:left;font-weight:700">Feature</th>
+<th style="padding:12px 16px;text-align:center;font-weight:700;background:#f5f3ff;color:#6366f1">AI Website Maker</th>
+<th style="padding:12px 16px;text-align:center;font-weight:700">Base44 Free</th>
+<th style="padding:12px 16px;text-align:center;font-weight:700">Base44 Starter</th>
+<th style="padding:12px 16px;text-align:center;font-weight:700">Base44 Pro</th>
+<th style="padding:12px 16px;text-align:center;font-weight:700">Base44 Elite</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px;font-weight:600">Monthly price</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#6366f1">$0</td><td style="padding:10px 16px;text-align:center">$0</td><td style="padding:10px 16px;text-align:center">$16</td><td style="padding:10px 16px;text-align:center">$40-80</td><td style="padding:10px 16px;text-align:center">$80-160</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">AI builds per month</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Unlimited</td><td style="padding:10px 16px;text-align:center">25 msgs</td><td style="padding:10px 16px;text-align:center">100 msgs</td><td style="padding:10px 16px;text-align:center">500 msgs</td><td style="padding:10px 16px;text-align:center">1,200 msgs</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Integration credits</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Unlimited</td><td style="padding:10px 16px;text-align:center">100/mo</td><td style="padding:10px 16px;text-align:center">2,000/mo</td><td style="padding:10px 16px;text-align:center">10-20k/mo</td><td style="padding:10px 16px;text-align:center">50k/mo</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Template types</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">9</td><td style="padding:10px 16px;text-align:center">Limited</td><td style="padding:10px 16px;text-align:center">Limited</td><td style="padding:10px 16px;text-align:center">Limited</td><td style="padding:10px 16px;text-align:center">All</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Design styles</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">9</td><td style="padding:10px 16px;text-align:center">2</td><td style="padding:10px 16px;text-align:center">2</td><td style="padding:10px 16px;text-align:center">3</td><td style="padding:10px 16px;text-align:center">5</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Multi-page sites</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Yes</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">SEO controls</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Yes</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Refinement loop</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Yes</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">Yes</td><td style="padding:10px 16px;text-align:center">Yes</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Analytics integration</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Free</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">Built-in</td><td style="padding:10px 16px;text-align:center">Built-in</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Custom domain</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Free</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">$12/yr</td><td style="padding:10px 16px;text-align:center">Free 1yr</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Hosting</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Free</td><td style="padding:10px 16px;text-align:center">Free</td><td style="padding:10px 16px;text-align:center">Free</td><td style="padding:10px 16px;text-align:center">Free</td><td style="padding:10px 16px;text-align:center">Free</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">GitHub integration</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Full</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">No</td><td style="padding:10px 16px;text-align:center">Yes</td><td style="padding:10px 16px;text-align:center">Yes</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Full code access</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">Yes</td><td style="padding:10px 16px;text-align:center">Partial</td><td style="padding:10px 16px;text-align:center">Partial</td><td style="padding:10px 16px;text-align:center">Yes</td><td style="padding:10px 16px;text-align:center">Yes</td></tr>
+<tr style="border-bottom:1px solid #f0f0f0"><td style="padding:10px 16px">Data collection</td><td style="padding:10px 16px;text-align:center;background:#f5f3ff;font-weight:700;color:#10b981">None</td><td style="padding:10px 16px;text-align:center">Yes</td><td style="padding:10px 16px;text-align:center">Yes</td><td style="padding:10px 16px;text-align:center">Yes</td><td style="padding:10px 16px;text-align:center">Yes</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -327,25 +508,34 @@ footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px s
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I make a multi-page website? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. Check the "Multi-page" option before building and your site will include Home, About, and Contact pages with navigation between them. Each page is a separate HTML file with consistent design.</div></div>
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I add analytics or a contact form? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. Expand the SEO settings below the textarea and check the options for Plausible analytics (free, privacy-friendly) or a contact form. Enter your domain or email and the AI will inject the right code into your generated site.</div></div>
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I use my own custom domain? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. After publishing, go to your repo Settings > Pages and enter your custom domain. Add a CNAME record at your domain provider pointing to <code>yourusername.github.io</code>. GitHub will handle HTTPS automatically.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What are integration credits? <i class="fas fa-chevron-down"></i></div><div class="faq-a">AI Website Maker has no credit system. Unlike Base44's paid plans that limit you to 25-1,200 message credits per month, you get unlimited builds with GPT-4o for free. No caps, no meter, no billing.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does this compare to Base44? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Base44 is a full-stack app platform with auth, databases, and APIs — it costs $20-160/mo. AI Website Maker generates static HTML sites and publishes them free on GitHub Pages. For websites, portfolios, landing pages, and blogs, we're better and free. For apps requiring backend logic (user accounts, data storage), Base44 has advantages.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you offer enterprise plans? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Every plan is free. Organizations and enterprises use the same tool — there are no paid tiers. For advanced needs, you can customize generated sites with full code access since the source is in your own GitHub repo.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I collaborate with my team? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. Since your site lives in a GitHub repository, you can add collaborators, use pull requests for changes, and manage permissions through GitHub's built-in team tools.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What happens to my data? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Nothing. This tool runs entirely in your browser. Your GitHub token is sent directly to GitHub's API. Your prompt is sent to GitHub's Models API. No data is stored on any server — the entire tool is a single HTML file.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What security measures are in place? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Generated sites use HTTPS (GitHub Pages). Static architecture eliminates SQL injection, XSS, and server-side attacks. Your token is never stored. All changes are git-tracked for full audit trail.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I build an API with this tool? <i class="fas fa-chevron-down"></i></div><div class="faq-a">This tool generates static front-end sites only. For APIs and backend functionality, you'd need a separate service. However, you can integrate third-party APIs (like Formsubmit.co for forms or Plausible for analytics) into your generated site.</div></div>
 </div>
 </div>
 
 <footer>
-<div class="inner">
+<div class="inner" style="grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr">
 <div class="col">
 <div class="logo">AI<span>Maker</span></div>
-<p>AI Website Maker is the free AI-powered tool that builds and publishes professional websites in minutes. GPT-4o engine. GitHub Pages hosting. No coding required.</p>
+<p>AI Website Maker is the free AI-powered tool that builds and publishes professional websites in minutes. GPT-4o engine. GitHub Pages hosting. No coding required. Unlimited builds, always free.</p>
 <div class="social">
 <a href="#"><i class="fab fa-github"></i></a>
 <a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-discord"></i></a>
 </div>
 </div>
-<div class="col"><h5>Product</h5><a href="#features">Features</a><a href="#templates">Templates</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
-<div class="col"><h5>Types</h5><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=portfolio]'),'portfolio')">Portfolio</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=restaurant]'),'restaurant')">Restaurant</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=event]'),'event')">Event</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=personal]'),'personal')">Personal CV</a></div>
-<div class="col"><h5>Resources</h5><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a><a href="https://github.com/settings/tokens" target="_blank">Get a Token</a><a href="https://plausible.io" target="_blank">Plausible Analytics</a><a href="https://formsubmit.co" target="_blank">Formsubmit.co</a></div>
-<div class="col"><h5>Compare</h5><a href="#pricing">vs Base44</a><a href="#pricing">vs Wix</a><a href="#pricing">vs Squarespace</a></div>
+<div class="col"><h5>Product</h5><a href="#features">Features</a><a href="#templates">Templates</a><a href="#use-cases">Use Cases</a><a href="#integrations">Integrations</a><a href="#enterprise">Enterprise</a><a href="#backend">Backend Platform</a><a href="#superagents">Superagents</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+<div class="col"><h5>Template Types</h5><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=portfolio]'),'portfolio')">Portfolio</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=landing]'),'landing')">Landing Page</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=business]'),'business')">Business</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=blog]'),'blog')">Blog</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=store]'),'store')">Store</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=app]'),'app')">Web App</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=restaurant]'),'restaurant')">Restaurant</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=event]'),'event')">Event</a><a href="#templates" onclick="switchTmCat(document.querySelector('[data-cat=personal]'),'personal')">Personal / CV</a></div>
+<div class="col"><h5>Use Cases</h5><a href="#use-cases">Productivity</a><a href="#use-cases">Educational</a><a href="#use-cases">Financial</a><a href="#use-cases">Entertainment</a><a href="#use-cases">Health & Wellness</a><a href="#use-cases">E-commerce</a><a href="#use-cases">CRM</a><a href="#use-cases">HR & Recruitment</a></div>
+<div class="col"><h5>Resources</h5><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages Docs</a><a href="https://github.com/settings/tokens" target="_blank">Get a Token</a><a href="https://plausible.io" target="_blank">Plausible Analytics</a><a href="https://formsubmit.co" target="_blank">Formsubmit.co</a><a href="#security">Security</a><a href="#about">About Us</a></div>
+<div class="col"><h5>Compare</h5><a href="#pricing">vs Base44</a><a href="#pricing">vs Wix</a><a href="#pricing">vs Squarespace</a><a href="#pricing">vs Webflow</a></div>
 </div>
-<div class="copy">&copy; 2026 AI Website Maker. Free forever.</div>
+<div class="copy">&copy; 2026 AI Website Maker. Free forever. Open source. No data collection. No tracking. No cookies.</div>
 </footer>
 
 <div class="hidden">
