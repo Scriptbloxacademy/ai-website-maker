@@ -8,96 +8,172 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #0d1117; color: #e6edf3; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
+    background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 20px;
   }
+  .container { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 32px; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+  h1 span { background: #238636; font-size: 14px; padding: 2px 10px; border-radius: 99px; font-weight: 500; }
+  .sub { color: #8b949e; margin-bottom: 28px; font-size: 15px; }
   .card {
     background: #161b22; border: 1px solid #30363d; border-radius: 12px;
-    padding: 32px; max-width: 640px; width: 100%;
+    padding: 28px; margin-bottom: 16px;
   }
-  h1 { font-size: 28px; margin-bottom: 4px; }
-  .sub { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
-  label { display: block; font-size: 13px; font-weight: 600; margin-top: 16px; margin-bottom: 6px; color: #e6edf3; }
-  input, textarea {
+  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: #8b949e; text-transform: uppercase; letter-spacing: .5px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > * { flex: 1; min-width: 140px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #e6edf3; }
+  input, textarea, select {
     width: 100%; padding: 10px 12px; border-radius: 8px;
     border: 1px solid #30363d; background: #0d1117; color: #e6edf3;
     font-size: 14px; font-family: inherit;
   }
-  input:focus, textarea:focus { outline: none; border-color: #58a6ff; }
-  textarea { min-height: 100px; resize: vertical; }
+  select { cursor: pointer; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: #58a6ff; }
+  textarea { min-height: 90px; resize: vertical; }
   .hint { font-size: 12px; color: #8b949e; margin-top: 4px; }
-  button {
-    width: 100%; margin-top: 20px; padding: 12px; border: none; border-radius: 8px;
-    font-size: 16px; font-weight: 600; cursor: pointer;
-    background: #238636; color: #fff; transition: background .2s;
+  
+  .pill-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    padding: 6px 16px; border-radius: 99px; border: 1px solid #30363d;
+    font-size: 13px; cursor: pointer; transition: all .15s;
+    background: transparent; color: #c9d1d9;
   }
-  button:hover { background: #2ea043; }
-  button:disabled { opacity: .5; cursor: not-allowed; background: #238636; }
-  #output { margin-top: 16px; padding: 12px; border-radius: 8px; display: none; }
+  .pill:hover { border-color: #58a6ff; color: #58a6ff; }
+  .pill.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+
+  .btn {
+    width: 100%; padding: 14px; border: none; border-radius: 10px;
+    font-size: 16px; font-weight: 600; cursor: pointer;
+    background: #238636; color: #fff; transition: all .2s;
+  }
+  .btn:hover { background: #2ea043; transform: translateY(-1px); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+  #output { margin-top: 12px; padding: 16px; border-radius: 10px; display: none; }
   #output.success { display: block; background: #0d2818; border: 1px solid #2ea043; }
   #output.error { display: block; background: #290a0a; border: 1px solid #da3633; }
   #output a { color: #58a6ff; }
-  #output .url { font-size: 18px; font-weight: 600; margin: 8px 0; word-break: break-all; }
-  .spinner { display: none; width: 20px; height: 20px; border: 3px solid #30363d; border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto; }
-  .spinner.show { display: inline-block; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .step { font-size: 13px; color: #8b949e; margin-top: 12px; text-align: center; display: none; }
-  .step.show { display: block; }
-  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-  .status-dot.loading { background: #d29922; animation: pulse .8s infinite; }
-  .status-dot.done { background: #2ea043; }
-  .status-dot.error { background: #da3633; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+  #output .url { font-size: 20px; font-weight: 700; margin: 10px 0; word-break: break-all; }
+
+  .status-bar { margin-top: 16px; }
+  .status-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: 8px; font-size: 14px;
+    margin-bottom: 4px; background: #0d1117; border: 1px solid #21262d;
+    opacity: .5;
+  }
+  .status-item.active { opacity: 1; border-color: #30363d; }
+  .status-item.done { opacity: 1; border-color: #2ea043; }
+  .status-item.fail { opacity: 1; border-color: #da3633; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    background: #30363d; transition: all .3s;
+  }
+  .status-item.active .dot { background: #d29922; box-shadow: 0 0 8px #d2992266; }
+  .status-item.done .dot { background: #2ea043; }
+  .status-item.fail .dot { background: #da3633; }
+
+  .preview-frame { width: 100%; height: 300px; border: 1px solid #30363d; border-radius: 8px; margin-top: 12px; }
+  
+  @media (max-width: 600px) { .row > * { min-width: 100%; } }
 </style>
 </head>
 <body>
-<div class="card">
-  <h1>AI Website Maker</h1>
-  <p class="sub">Describe a website, get a live published link. Free forever.</p>
+<div class="container">
+  <h1>AI Website Maker <span>Free</span></h1>
+  <p class="sub">Describe what you want. AI builds it. Instantly published.</p>
 
-  <label for="prompt">What website do you want?</label>
-  <textarea id="prompt" placeholder="e.g. Make me a personal portfolio with a dark theme, my name is John, I do photography"></textarea>
+  <div class="card">
+    <div class="card-title">1. What kind of site?</div>
+    <div class="pill-group" id="siteType">
+      <button class="pill" data-value="landing">Landing Page</button>
+      <button class="pill active" data-value="portfolio">Portfolio</button>
+      <button class="pill" data-value="business">Business</button>
+      <button class="pill" data-value="blog">Blog</button>
+      <button class="pill" data-value="store">Store</button>
+      <button class="pill" data-value="app">Web App</button>
+    </div>
+  </div>
 
-  <label for="ghToken">GitHub Token</label>
-  <input id="ghToken" type="password" placeholder="classic token with repo scope">
-  <div class="hint">Create at github.com/settings/tokens — classic token with scopes: repo, read:user</div>
+  <div class="card">
+    <div class="card-title">2. Design style</div>
+    <div class="pill-group" id="designStyle">
+      <button class="pill active" data-value="modern">Modern</button>
+      <button class="pill" data-value="minimal">Minimal</button>
+      <button class="pill" data-value="bold">Bold</button>
+      <button class="pill" data-value="elegant">Elegant</button>
+      <button class="pill" data-value="playful">Playful</button>
+      <button class="pill" data-value="dark">Dark</button>
+    </div>
+  </div>
 
-  <label for="siteName">Site name (optional)</label>
-  <input id="siteName" placeholder="my-site (becomes github.com/you/my-site)">
-  <div class="hint">Leave blank to auto-generate</div>
+  <div class="card">
+    <div class="card-title">3. Describe your site</div>
+    <textarea id="prompt" placeholder="e.g. A photography portfolio with a hero gallery, about section, and contact form. My name is Alex, I shoot landscapes and portraits."></textarea>
+  </div>
 
-  <button id="generateBtn" onclick="generate()">Generate & Publish</button>
+  <div class="card">
+    <div class="card-title">4. Credentials</div>
+    <div class="row">
+      <div>
+        <label for="ghToken">GitHub Token</label>
+        <input id="ghToken" type="password" placeholder="ghp_...">
+        <div class="hint">Classic token with <strong>repo</strong> scope</div>
+      </div>
+      <div>
+        <label for="siteName">Site name</label>
+        <input id="siteName" placeholder="my-site">
+        <div class="hint">Leave blank to auto-generate</div>
+      </div>
+    </div>
+  </div>
 
-  <div id="status">
-    <div class="step" id="step1"><span class="status-dot" id="dot1"></span> Generating website...</div>
-    <div class="step" id="step2"><span class="status-dot" id="dot2"></span> Creating GitHub repo...</div>
-    <div class="step" id="step3"><span class="status-dot" id="dot3"></span> Publishing to GitHub Pages...</div>
+  <button class="btn" id="genBtn" onclick="generate()">Generate & Publish</button>
+
+  <div id="status" class="status-bar">
+    <div class="status-item" id="s1"><span class="dot"></span> AI is designing your site...</div>
+    <div class="status-item" id="s2"><span class="dot"></span> Creating GitHub repository...</div>
+    <div class="status-item" id="s3"><span class="dot"></span> Publishing to GitHub Pages...</div>
+    <div class="status-item" id="s4"><span class="dot"></span> Almost done...</div>
   </div>
 
   <div id="output"></div>
 </div>
 
 <script>
-function $(id) { return document.getElementById(id); }
+const $ = id => document.getElementById(id);
 
-function setStep(n, state) {
-  const step = $('step' + n);
-  const dot = $('dot' + n);
-  step.classList.add('show');
-  dot.className = 'status-dot';
-  if (state === 'loading') dot.classList.add('loading');
-  else if (state === 'done') dot.classList.add('done');
-  else if (state === 'error') dot.classList.add('error');
+document.querySelectorAll('.pill-group').forEach(group => {
+  group.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+});
+
+function getSelected(groupId) {
+  const active = document.querySelector(`#${groupId} .pill.active`);
+  return active ? active.dataset.value : '';
 }
 
-function resetSteps() {
-  for (let i = 1; i <= 3; i++) {
-    $('step' + i).classList.remove('show');
-    $('dot' + i).className = 'status-dot';
+function setStatus(n, state) {
+  const el = $('s' + n);
+  el.classList.remove('active', 'done', 'fail');
+  if (state === 'active') el.classList.add('active');
+  else if (state === 'done') el.classList.add('done');
+  else if (state === 'fail') el.classList.add('fail');
+}
+
+function resetStatus() {
+  for (let i = 1; i <= 4; i++) {
+    setStatus(i, '');
   }
 }
 
 async function generate() {
+  const siteType = getSelected('siteType');
+  const designStyle = getSelected('designStyle');
   const prompt = $('prompt').value.trim();
   const ghToken = $('ghToken').value.trim();
   let siteName = $('siteName').value.trim();
@@ -105,33 +181,49 @@ async function generate() {
   if (!prompt) { showError('Describe what website you want.'); return; }
   if (!ghToken) { showError('Enter your GitHub token.'); return; }
 
-  const btn = $('generateBtn');
-  btn.disabled = true;
-  btn.textContent = 'Working...';
-  resetSteps();
-  $('output').className = 'error';
+  $('genBtn').disabled = true;
+  $('genBtn').textContent = 'Building your site...';
+  resetStatus();
   $('output').style.display = 'none';
 
+  const designGuide = {
+    modern: 'Clean, professional, lots of whitespace, subtle shadows, accent colors, smooth transitions. Font: Inter or system.',
+    minimal: 'Ultra-clean, maximum whitespace, thin borders, minimal colors (mostly black/white/gray), elegant typography. Font: system or Helvetica.',
+    bold: 'Large typography, vibrant colors, high contrast, oversized elements, gradient backgrounds, confident layouts. Font: Poppins or system.',
+    elegant: 'Refined serif typography, warm tones, subtle gradients, gold/cream accents, sophisticated spacing. Font: Playfair Display + system.',
+    playful: 'Bright colors, rounded corners, fun animations, quirky illustrations (CSS-only), friendly typography. Font: system rounded.',
+    dark: 'Dark backgrounds, neon/muted accent colors, glassmorphism effects, low-light optimized, futuristic feel. Font: Inter or system.'
+  };
+
+  const typeGuide = {
+    landing: 'A single-page landing site. Must include: hero section with headline/CTA, features section, about, testimonial or stats, footer with social links. High-converting layout.',
+    portfolio: 'A personal portfolio. Must include: hero with name/title, skills section, project gallery grid, about me, contact section. Clean gallery layout.',
+    business: 'A business website. Must include: hero with value proposition, services section, features/grid, team or about, contact form, footer. Trust-building design.',
+    blog: 'A blog homepage. Must include: site header with nav, featured post hero, article grid/cards, sidebar with categories/tags, footer. Clean reading experience.',
+    store: 'An online store. Must include: header with cart icon, featured products grid, product cards with image/name/price, categories, newsletter signup, footer.',
+    app: 'A web app interface. Must include: top navbar with logo/menu, sidebar or tab navigation, main content area with cards/data display, stats/metrics section, clean utility-focused design.'
+  };
+
   try {
-    // Step 1: Generate website with GitHub Models
-    setStep(1, 'loading');
-    const siteHtml = await generateSite(prompt, ghToken);
-    setStep(1, 'done');
+    setStatus(1, 'active');
+    const siteHtml = await generateSite(prompt, siteType, designStyle, designGuide[designStyle], typeGuide[siteType], ghToken);
+    setStatus(1, 'done');
 
     if (!siteName) {
       siteName = 'site-' + Date.now().toString(36);
     }
 
-    // Step 2: Create GitHub repo
-    setStep(2, 'loading');
+    setStatus(2, 'active');
     const repo = await createRepo(siteName, ghToken, prompt);
-    setStep(2, 'done');
+    setStatus(2, 'done');
 
-    // Step 3: Push file and enable Pages
-    setStep(3, 'loading');
+    setStatus(3, 'active');
     await pushFile(repo.owner, repo.repo, siteHtml, ghToken);
+    setStatus(3, 'done');
+
+    setStatus(4, 'active');
     await enablePages(repo.owner, repo.repo, ghToken);
-    setStep(3, 'done');
+    setStatus(4, 'done');
 
     const url = `https://${repo.owner}.github.io/${repo.repo}/`;
     showSuccess(url, siteName);
@@ -139,21 +231,42 @@ async function generate() {
   } catch (err) {
     console.error(err);
     showError(err.message || 'Something went wrong.');
+    document.querySelectorAll('.status-item.active').forEach(el => {
+      const idx = el.id.replace('s', '');
+      setStatus(idx, 'fail');
+    });
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'Generate & Publish';
+    $('genBtn').disabled = false;
+    $('genBtn').textContent = 'Generate & Publish';
   }
 }
 
-async function generateSite(prompt, token) {
-  const systemPrompt = `You are a web developer. Generate a complete, beautiful, single-file HTML website based on the user's request.
-Requirements:
-- Return ONLY the raw HTML code, no markdown, no explanation
-- Use inline CSS (no external dependencies except Google Fonts if needed)
-- Make it responsive and visually stunning
-- Include a <title> tag
-- Use modern CSS (flexbox/grid, custom properties, smooth animations)
-- The page should be complete and functional`;
+async function generateSite(prompt, siteType, designStyle, designDesc, typeDesc, token) {
+  const sysPrompt = `You are a professional web designer and developer. Generate a complete, production-quality single-file HTML website.
+
+CONTEXT:
+- Site type: ${siteType}
+- Design style: ${designStyle} — ${designDesc}
+- User request: ${prompt}
+
+REQUIREMENTS - ${typeDesc}
+
+TECHNICAL REQUIREMENTS:
+- Return ONLY the raw HTML. No markdown, no backticks, no explanation.
+- Use inline CSS in a <style> block inside <head>
+- Import exactly ONE Google Font if appropriate (via @import or <link>)
+- Every section must have proper padding (80-120px)
+- Use CSS custom properties for colors
+- Must be fully responsive (mobile-first)
+- Include smooth scroll, hover effects, and micro-interactions
+- Use a cohesive color palette (3-5 colors)
+- Proper semantic HTML5 tags (header, nav, main, section, footer)
+- Working navigation that scrolls to sections
+- Font sizes: h1 (48-64px), h2 (32-40px), body (16-18px)
+- Add a subtle gradient or pattern to at least one section
+- Include Font Awesome (CDN link) for icons if useful
+- Max width containers (1100-1200px) centered with margin:auto
+- Footer with copyright and social links`;
 
   const res = await fetch('https://models.inference.ai.azure.com/chat/completions', {
     method: 'POST',
@@ -163,14 +276,12 @@ Requirements:
     },
     body: JSON.stringify({
       model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt + '\n\nUser request: ' + prompt }
-      ]
+      messages: [{ role: 'system', content: sysPrompt }]
     })
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error?.message || 'GitHub Models API error');
+  if (!res.ok) throw new Error(data.error?.message || 'AI API error');
 
   let html = data.choices?.[0]?.message?.content || '';
   html = html.replace(/```html?/gi, '').replace(/```/g, '').trim();
@@ -185,59 +296,40 @@ async function createRepo(name, token, prompt) {
     body: JSON.stringify({
       name: name,
       description: 'Created by AI Website Maker: ' + prompt.slice(0, 100),
-      auto_init: false,
-      private: false
+      auto_init: false, private: false
     })
   });
-
   if (!res.ok) {
     const err = await res.json();
     if (res.status === 422) throw new Error('Repo "' + name + '" already exists. Pick a different name.');
     throw new Error(err.message || 'Failed to create repo');
   }
-
   const data = await res.json();
-  const owner = data.owner.login;
-  const repo = data.name;
-  return { owner, repo };
+  return { owner: data.owner.login, repo: data.name };
 }
 
 async function pushFile(owner, repo, content, token) {
   const encoded = btoa(unescape(encodeURIComponent(content)));
-  
   const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
     method: 'PUT',
     headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      message: 'Add generated website',
-      content: encoded,
-      branch: 'main'
-    })
+    body: JSON.stringify({ message: 'Add generated website', content: encoded, branch: 'main' })
   });
-
   if (!res.ok) {
     const err = await res.json();
     throw new Error(err.message || 'Failed to push file');
   }
-
-  return await res.json();
 }
 
 async function enablePages(owner, repo, token) {
   const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/pages`, {
     method: 'POST',
     headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      source: { branch: 'main', path: '/' }
-    })
+    body: JSON.stringify({ source: { branch: 'main', path: '/' } })
   });
-
   if (!res.ok) {
     const err = await res.json();
-    // If Pages is already enabled or this token can't configure it, that's OK
-    if (res.status !== 403 && res.status !== 409) {
-      throw new Error(err.message || 'Failed to enable Pages');
-    }
+    if (res.status !== 403 && res.status !== 409) throw new Error(err.message || 'Failed to enable Pages');
   }
 }
 
@@ -248,8 +340,8 @@ function showSuccess(url, name) {
   out.innerHTML = `
     <strong>Published!</strong>
     <div class="url"><a href="${url}" target="_blank">${url}</a></div>
-    <div style="font-size:13px;color:#8b949e;">
-      Your site is live! Share the link above.
+    <div style="font-size:14px;color:#8b949e;">
+      Share this link. Site goes live in ~1-2 minutes.
     </div>
   `;
 }
