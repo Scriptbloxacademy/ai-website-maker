@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Website Maker</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0d1117; color: #e6edf3; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 32px; max-width: 640px; width: 100%;
+  }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  .sub { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin-top: 16px; margin-bottom: 6px; color: #e6edf3; }
+  input, textarea {
+    width: 100%; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid #30363d; background: #0d1117; color: #e6edf3;
+    font-size: 14px; font-family: inherit;
+  }
+  input:focus, textarea:focus { outline: none; border-color: #58a6ff; }
+  textarea { min-height: 100px; resize: vertical; }
+  .hint { font-size: 12px; color: #8b949e; margin-top: 4px; }
+  button {
+    width: 100%; margin-top: 20px; padding: 12px; border: none; border-radius: 8px;
+    font-size: 16px; font-weight: 600; cursor: pointer;
+    background: #238636; color: #fff; transition: background .2s;
+  }
+  button:hover { background: #2ea043; }
+  button:disabled { opacity: .5; cursor: not-allowed; background: #238636; }
+  #output { margin-top: 16px; padding: 12px; border-radius: 8px; display: none; }
+  #output.success { display: block; background: #0d2818; border: 1px solid #2ea043; }
+  #output.error { display: block; background: #290a0a; border: 1px solid #da3633; }
+  #output a { color: #58a6ff; }
+  #output .url { font-size: 18px; font-weight: 600; margin: 8px 0; word-break: break-all; }
+  .spinner { display: none; width: 20px; height: 20px; border: 3px solid #30363d; border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto; }
+  .spinner.show { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .step { font-size: 13px; color: #8b949e; margin-top: 12px; text-align: center; display: none; }
+  .step.show { display: block; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .status-dot.loading { background: #d29922; animation: pulse .8s infinite; }
+  .status-dot.done { background: #2ea043; }
+  .status-dot.error { background: #da3633; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>AI Website Maker</h1>
+  <p class="sub">Describe a website, get a live published link. Free forever.</p>
+
+  <label for="prompt">What website do you want?</label>
+  <textarea id="prompt" placeholder="e.g. Make me a personal portfolio with a dark theme, my name is John, I do photography"></textarea>
+
+  <label for="ghToken">GitHub Token</label>
+  <input id="ghToken" type="password" placeholder="classic token with repo scope">
+  <div class="hint">Create at github.com/settings/tokens (classic token, scopes: repo)</div>
+
+  <label for="geminiKey">Gemini API Key</label>
+  <input id="geminiKey" type="password" placeholder="free key from aistudio.google.com">
+  <div class="hint">Free from aistudio.google.com/apikey — no credit card needed</div>
+
+  <label for="siteName">Site name (optional)</label>
+  <input id="siteName" placeholder="my-site (becomes github.com/you/my-site)">
+  <div class="hint">Leave blank to auto-generate</div>
+
+  <button id="generateBtn" onclick="generate()">Generate & Publish</button>
+
+  <div id="status">
+    <div class="step" id="step1"><span class="status-dot" id="dot1"></span> Generating website...</div>
+    <div class="step" id="step2"><span class="status-dot" id="dot2"></span> Creating GitHub repo...</div>
+    <div class="step" id="step3"><span class="status-dot" id="dot3"></span> Publishing to GitHub Pages...</div>
+  </div>
+
+  <div id="output"></div>
+</div>
+
+<script>
+function $(id) { return document.getElementById(id); }
+
+function setStep(n, state) {
+  const step = $('step' + n);
+  const dot = $('dot' + n);
+  step.classList.add('show');
+  dot.className = 'status-dot';
+  if (state === 'loading') dot.classList.add('loading');
+  else if (state === 'done') dot.classList.add('done');
+  else if (state === 'error') dot.classList.add('error');
+}
+
+function resetSteps() {
+  for (let i = 1; i <= 3; i++) {
+    $('step' + i).classList.remove('show');
+    $('dot' + i).className = 'status-dot';
+  }
+}
+
+async function generate() {
+  const prompt = $('prompt').value.trim();
+  const ghToken = $('ghToken').value.trim();
+  const geminiKey = $('geminiKey').value.trim();
+  let siteName = $('siteName').value.trim();
+
+  if (!prompt) { showError('Describe what website you want.'); return; }
+  if (!ghToken) { showError('Enter your GitHub token.'); return; }
+  if (!geminiKey) { showError('Enter your Gemini API key.'); return; }
+
+  const btn = $('generateBtn');
+  btn.disabled = true;
+  btn.textContent = 'Working...';
+  resetSteps();
+  $('output').className = 'error';
+  $('output').style.display = 'none';
+
+  try {
+    // Step 1: Generate website with Gemini
+    setStep(1, 'loading');
+    const siteHtml = await generateSite(prompt, geminiKey);
+    setStep(1, 'done');
+
+    if (!siteName) {
+      siteName = 'site-' + Date.now().toString(36);
+    }
+
+    // Step 2: Create GitHub repo
+    setStep(2, 'loading');
+    const repo = await createRepo(siteName, ghToken, prompt);
+    setStep(2, 'done');
+
+    // Step 3: Push file and enable Pages
+    setStep(3, 'loading');
+    await pushFile(repo.owner, repo.repo, siteHtml, ghToken);
+    await enablePages(repo.owner, repo.repo, ghToken);
+    setStep(3, 'done');
+
+    const url = `https://${repo.owner}.github.io/${repo.repo}/`;
+    showSuccess(url, siteName);
+
+  } catch (err) {
+    console.error(err);
+    showError(err.message || 'Something went wrong.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate & Publish';
+  }
+}
+
+async function generateSite(prompt, key) {
+  const systemPrompt = `You are a web developer. Generate a complete, beautiful, single-file HTML website based on the user's request.
+Requirements:
+- Return ONLY the raw HTML code, no markdown, no explanation
+- Use inline CSS (no external dependencies except Google Fonts if needed)
+- Make it responsive and visually stunning
+- Include a <title> tag
+- Use modern CSS (flexbox/grid, custom properties, smooth animations)
+- The page should be complete and functional`;
+
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{
+        parts: [{ text: systemPrompt + '\n\nUser request: ' + prompt }]
+      }]
+    })
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error?.message || 'Gemini API error');
+  
+  let html = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  html = html.replace(/```html?/gi, '').replace(/```/g, '').trim();
+  if (!html) throw new Error('AI returned empty response');
+  return html;
+}
+
+async function createRepo(name, token, prompt) {
+  const res = await fetch('https://api.github.com/user/repos', {
+    method: 'POST',
+    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: name,
+      description: 'Created by AI Website Maker: ' + prompt.slice(0, 100),
+      auto_init: false,
+      private: false
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    if (res.status === 422) throw new Error('Repo "' + name + '" already exists. Pick a different name.');
+    throw new Error(err.message || 'Failed to create repo');
+  }
+
+  const data = await res.json();
+  const owner = data.owner.login;
+  const repo = data.name;
+  return { owner, repo };
+}
+
+async function pushFile(owner, repo, content, token) {
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+  
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
+    method: 'PUT',
+    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: 'Add generated website',
+      content: encoded,
+      branch: 'main'
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Failed to push file');
+  }
+
+  return await res.json();
+}
+
+async function enablePages(owner, repo, token) {
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/pages`, {
+    method: 'POST',
+    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      source: { branch: 'main', path: '/' }
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    // If Pages is already enabled or this token can't configure it, that's OK
+    if (res.status !== 403 && res.status !== 409) {
+      throw new Error(err.message || 'Failed to enable Pages');
+    }
+  }
+}
+
+function showSuccess(url, name) {
+  const out = $('output');
+  out.className = 'success';
+  out.style.display = 'block';
+  out.innerHTML = `
+    <strong>Published!</strong>
+    <div class="url"><a href="${url}" target="_blank">${url}</a></div>
+    <div style="font-size:13px;color:#8b949e;">
+      Repo: <a href="https://github.com/Scriptbloxacademy/${name}" target="_blank">github.com/Scriptbloxacademy/${name}</a>
+    </div>
+  `;
+}
+
+function showError(msg) {
+  const out = $('output');
+  out.className = 'error';
+  out.style.display = 'block';
+  out.textContent = 'Error: ' + msg;
+}
+</script>
+</body>
+</html>
