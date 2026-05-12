@@ -3,121 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Website Maker — The best AI website builder. Period.</title>
+<title>AI Website Maker — Turn your ideas into websites</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#09090f;color:#fff;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
-.bg-anim{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.bg-anim .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12;animation:orb 25s ease-in-out infinite}
-.bg-anim .orb:nth-child(1){width:700px;height:700px;background:#6366f1;top:-25%;left:-15%;animation-delay:0s}
-.bg-anim .orb:nth-child(2){width:600px;height:600px;background:#a78bfa;bottom:-25%;right:-15%;animation-delay:-8s}
-.bg-anim .orb:nth-child(3){width:500px;height:500px;background:#06b6d4;top:50%;left:50%;animation-delay:-16s;opacity:.08}
-.bg-anim .orb:nth-child(4){width:400px;height:400px;background:#f472b6;top:10%;right:30%;animation-delay:-24s;opacity:.06}
-@keyframes orb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-40px) scale(1.15)}66%{transform:translate(-30px,30px) scale(.85)}}
-nav{position:fixed;top:0;width:100%;z-index:100;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(9,9,15,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05)}
-nav .logo{font-size:18px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
-nav .logo .badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:rgba(99,102,241,.2);color:#818cf8;letter-spacing:0}
-.chips{position:relative;z-index:2;display:flex;gap:6px;flex-wrap:wrap;padding:72px 24px 8px;max-width:800px;margin:0 auto;justify-content:center}
-.chips button{font-size:12px;padding:6px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;color:rgba(255,255,255,.5);transition:all .25s;font-family:'Inter',sans-serif;font-weight:500;backdrop-filter:blur(8px)}
-.chips button:hover{border-color:#6366f1;color:#fff;background:rgba(99,102,241,.12);transform:translateY(-1px)}
-.chips button.active{border-color:#6366f1;color:#fff;background:rgba(99,102,241,.15)}
-.chat{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;max-width:800px;margin:0 auto;width:100%;padding-top:0}
-.msgs{flex:1;overflow-y:auto;padding:16px 24px 8px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
-.msgs::-webkit-scrollbar{width:4px}
-.msgs::-webkit-scrollbar-track{background:transparent}
-.msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:4px}
-.msg{display:flex;gap:10px;max-width:88%;animation:fadeUp .35s ease-out;opacity:0;animation-fill-mode:forwards}
-.msg.user{flex-direction:row-reverse;align-self:flex-end}
-.msg.ai{align-self:flex-start}
-.msg .av{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
-.msg.ai .av{background:linear-gradient(135deg,#6366f1,#a78bfa);color:#fff;font-size:10px}
-.msg.user .av{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.1);font-size:11px}
-.msg .bubble{padding:10px 16px;border-radius:14px;font-size:14px;line-height:1.6;color:#e5e7eb}
-.msg.ai .bubble{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-top-left-radius:4px;box-shadow:0 2px 20px rgba(0,0,0,.2)}
-.msg.user .bubble{background:#6366f1;color:#fff;border-top-right-radius:4px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.typing{display:none;align-self:flex-start;align-items:center;gap:10px;padding:10px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:14px;border-top-left-radius:4px;max-width:88%;margin-left:24px;animation:fadeUp .3s ease-out}
-.typing .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#a78bfa);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
-.typing .dots{display:flex;gap:4px}
-.typing .dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);animation:typing 1.4s infinite}
-.typing .dots span:nth-child(2){animation-delay:.2s}
-.typing .dots span:nth-child(3){animation-delay:.4s}
-@keyframes typing{0%,60%,100%{opacity:.3;transform:scale(.8)}30%{opacity:1;transform:scale(1)}}
-.input-area{padding:10px 24px 20px;border-top:1px solid rgba(255,255,255,.05);background:rgba(9,9,15,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.token-row{display:flex;align-items:center;max-width:800px;margin:0 auto 8px;gap:8px}
-.token-row label{font-size:11px;color:rgba(255,255,255,.25);font-weight:600;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
-.token-row input{flex:1;padding:7px 12px;border:1px solid rgba(255,255,255,.06);border-radius:8px;font-size:12px;font-family:'Inter',sans-serif;outline:none;background:rgba(255,255,255,.03);color:rgba(255,255,255,.5);transition:all .2s;max-width:280px}
-.token-row input:focus{border-color:#6366f1;color:#fff;background:rgba(99,102,241,.05)}
-.token-row input::placeholder{color:rgba(255,255,255,.2)}
-.token-row .gh-info{font-size:11px;color:rgba(255,255,255,.2);cursor:help}
-.input-row{display:flex;gap:8px;align-items:flex-end;max-width:800px;margin:0 auto}
-.input-row .wrap{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:3px;transition:all .25s;display:flex;align-items:flex-end}
-.input-row .wrap:focus-within{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.08)}
-.input-row textarea{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:14px;font-family:'Inter',sans-serif;padding:9px 14px;resize:none;min-height:42px;max-height:120px;line-height:1.5}
-.input-row textarea::placeholder{color:rgba(255,255,255,.2)}
-.input-row .send{width:38px;height:38px;border-radius:9px;border:none;background:#6366f1;color:#fff;cursor:pointer;font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin:2px}
-.input-row .send:hover{background:#4f46e5;transform:scale(1.05)}
-.input-row .send:disabled{opacity:.3;cursor:not-allowed;transform:none}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:#111;-webkit-font-smoothing:antialiased}
+.inner{max-width:1200px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;width:100%;z-index:1000;border-bottom:1px solid #e5e7eb;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+nav .inner{display:flex;justify-content:space-between;align-items:center;height:64px}
+nav .logo{font-size:20px;font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;gap:8px;text-decoration:none;color:#111}
+nav .logo span{color:#6366f1}
+nav .nav-center{display:flex;align-items:center;gap:32px}
+nav .nav-center a{text-decoration:none;color:#555;font-size:14px;font-weight:500;transition:color .2s}
+nav .nav-center a:hover{color:#111}
+nav .nav-right{display:flex;align-items:center;gap:16px}
+nav .nav-right .lang{font-size:13px;color:#888;cursor:pointer;display:flex;align-items:center;gap:4px}
+nav .btn-nav{padding:8px 20px;background:#111;color:#fff!important;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 40px;background:linear-gradient(180deg,#f5f3ff 0%,#fff 50%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(99,102,241,.08),transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:720px;width:100%;text-align:center}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#eef2ff;color:#4f46e5;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:20px;text-decoration:none}
+.hero h1{font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1.1;letter-spacing:-1.5px;margin-bottom:12px}
+.hero h1 span{background:linear-gradient(135deg,#6366f1,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{font-size:17px;color:#666;max-width:560px;margin:0 auto 32px;line-height:1.6}
+.input-area{border:2px solid #e5e7eb;border-radius:16px;overflow:hidden;transition:all .2s;background:#fff;margin-bottom:12px}
+.input-area:focus-within{border-color:#6366f1;box-shadow:0 0 0 4px rgba(99,102,241,.1)}
+.input-area .top{display:flex;align-items:stretch;border-bottom:1px solid #f0f0f0}
+.input-area .type-select{display:flex;align-items:center;gap:6px;padding:10px 16px;border-right:1px solid #f0f0f0;font-size:13px;font-weight:600;color:#888;cursor:pointer;background:#fafafa;flex-shrink:0}
+.input-area .type-select select{border:none;background:transparent;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;color:#111;outline:none;cursor:pointer}
+.input-area .type-select i{color:#888;font-size:12px}
+.input-area textarea{flex:1;border:none;outline:none;font-size:15px;font-family:'Inter',sans-serif;padding:16px 18px;min-height:56px;resize:none;color:#111;background:transparent;width:100%}
+.input-area textarea::placeholder{color:#bbb}
+.input-area .bottom{display:flex;justify-content:space-between;align-items:center;padding:8px 14px 10px;flex-wrap:wrap;gap:8px}
+.input-area .bottom .examples{display:flex;gap:6px;flex-wrap:wrap}
+.input-area .bottom .examples button{font-size:12px;padding:5px 14px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;color:#666;transition:all .2s;font-family:'Inter',sans-serif;font-weight:500}
+.input-area .bottom .examples button:hover{border-color:#6366f1;color:#6366f1}
+.input-area .bottom .btn-build{padding:10px 28px;background:#111;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+.input-area .bottom .btn-build:hover{background:#333;transform:translateY(-1px)}
+.input-area .bottom .btn-build:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.token-row{display:flex;align-items:center;gap:8px;padding:6px 14px 4px;margin-top:-4px}
+.token-row label{font-size:10px;color:#bbb;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.token-row input{flex:1;padding:6px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;max-width:260px}
+.token-row input:focus{border-color:#6366f1}
+.token-row input::placeholder{color:#ccc}
+.promo{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.promo a{font-size:12px;padding:6px 14px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;text-decoration:none;color:#555;transition:all .2s;font-weight:500}
+.promo a:hover{border-color:#6366f1;color:#6366f1}
+#msgs{display:none;flex-direction:column;gap:10px;margin-top:16px;text-align:left;max-height:300px;overflow-y:auto;padding:4px;scroll-behavior:smooth}
+#msgs::-webkit-scrollbar{width:4px}
+#msgs::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:4px}
+#msgs .msg{display:flex;gap:10px;max-width:90%;animation:fadeUp .3s ease-out}
+#msgs .msg.user{flex-direction:row-reverse;align-self:flex-end}
+#msgs .msg.ai{align-self:flex-start}
+#msgs .msg .av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+#msgs .msg.ai .av{background:linear-gradient(135deg,#6366f1,#a78bfa);color:#fff}
+#msgs .msg.user .av{background:#f0f0f0;color:#555}
+#msgs .msg .bubble{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;color:#333}
+#msgs .msg.ai .bubble{background:#f5f3ff;border:1px solid #ede9fe}
+#msgs .msg.user .bubble{background:#6366f1;color:#fff}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+#typing{display:none;align-items:center;gap:8px;padding:8px 14px;background:#f5f3ff;border:1px solid #ede9fe;border-radius:12px;align-self:flex-start;margin-left:38px;margin-top:2px}
+#typing .dots{display:flex;gap:3px}
+#typing .dots span{width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:typing 1.4s infinite}
+#typing .dots span:nth-child(2){animation-delay:.2s}
+#typing .dots span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3}30%{opacity:1}}
+#typing .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#a78bfa);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700}
 .msg .bubble .steps{margin:4px 0}
-.msg .bubble .step{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;color:rgba(255,255,255,.6)}
-.msg .bubble .step .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,.1);transition:all .3s}
-.msg .bubble .step.done{color:rgba(255,255,255,.8)}
-.msg .bubble .step.done .dot{background:#10b981;box-shadow:0 0 8px rgba(16,185,129,.3)}
-.msg .bubble .step.active{color:#fff}
-.msg .bubble .step.active .dot{background:#6366f1;box-shadow:0 0 10px rgba(99,102,241,.5);animation:pulse 1.2s infinite}
+.msg .bubble .step{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:12px;color:#888}
+.msg .bubble .step .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:#e5e7eb;transition:all .3s}
+.msg .bubble .step.done{color:#555}
+.msg .bubble .step.done .dot{background:#10b981}
+.msg .bubble .step.active{color:#4f46e5}
+.msg .bubble .step.active .dot{background:#6366f1;animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
-.msg .bubble .url{font-size:17px;font-weight:700;margin:10px 0 4px;word-break:break-all}
-.msg .bubble .url a{background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.msg .bubble .url{font-size:15px;font-weight:700;margin:8px 0 2px;word-break:break-all}
+.msg .bubble .url a{color:#4f46e5;text-decoration:none}
 .msg .bubble .url a:hover{text-decoration:underline}
-.msg .bubble .sub{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:12px}
-.msg .bubble .refine-row{display:flex;gap:8px;margin-top:10px}
-.msg .bubble .refine-row input{flex:1;padding:9px 12px;border:1px solid rgba(255,255,255,.08);border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;outline:none;background:rgba(255,255,255,.04);color:#fff;transition:border-color .2s}
+.msg .bubble .refine-row{display:flex;gap:6px;margin-top:8px}
+.msg .bubble .refine-row input{flex:1;padding:7px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;outline:none}
 .msg .bubble .refine-row input:focus{border-color:#6366f1}
-.msg .bubble .refine-row input::placeholder{color:rgba(255,255,255,.25)}
-.msg .bubble .refine-row button{padding:9px 14px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;transition:all .2s;white-space:nowrap}
-.msg .bubble .refine-row button:hover{transform:translateY(-1px)}
-.status-msg .bubble{min-width:300px}
-@media(max-width:640px){.msg{max-width:95%}.msgs{padding:12px 16px 8px}.chips{padding:68px 12px 6px;gap:4px}.chips button{font-size:11px;padding:4px 12px}.input-area{padding:8px 12px 16px}.token-row{flex-direction:column;align-items:stretch}.token-row input{max-width:100%}}
+.msg .bubble .refine-row button{padding:7px 12px;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;white-space:nowrap}
+.section{padding:80px 0}
+.section h2{font-size:clamp(28px,4vw,36px);font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+.section .sec-sub{color:#666;text-align:center;font-size:16px;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6}
+.f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:1100px;margin:0 auto;padding:0 24px}
+.f-card{padding:32px;border:1px solid #e5e7eb;border-radius:14px;background:#fff;transition:all .3s}
+.f-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.04);border-color:#d1d5db;transform:translateY(-2px)}
+.f-card .num{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;margin-bottom:14px}
+.f-card h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.f-card p{font-size:14px;color:#666;line-height:1.7}
+.examples{max-width:1100px;margin:0 auto;padding:0 24px}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.ex-card{border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;transition:all .3s;cursor:pointer}
+.ex-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.04);transform:translateY(-2px)}
+.ex-card .ex-img{height:180px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);display:flex;align-items:center;justify-content:center;font-size:32px;color:#6366f1}
+.ex-card .ex-info{padding:16px 20px}
+.ex-card .ex-info h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.ex-card .ex-info p{font-size:13px;color:#666}
+.pricing{max-width:700px;margin:0 auto;padding:0 24px}
+.p-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.p-card{padding:32px;border:1px solid #e5e7eb;border-radius:16px;text-align:left;transition:all .3s}
+.p-card.featured{border-color:#6366f1;background:linear-gradient(180deg,#f5f3ff,#fff)}
+.p-card h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.p-card .price{font-size:36px;font-weight:800;margin:8px 0}
+.p-card .price span{font-size:16px;color:#666;font-weight:400}
+.p-card ul{list-style:none;margin:16px 0}
+.p-card ul li{padding:5px 0;font-size:14px;color:#555}
+.p-card ul li::before{content:'\2713 ';color:#10b981;font-weight:700}
+.p-card .btn-p{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;background:#111;color:#fff;transition:all .2s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+.p-card.featured .btn-p{background:#6366f1}
+.faq{max-width:700px;margin:0 auto;padding:0 24px}
+.faq-item{border-bottom:1px solid #e5e7eb;padding:16px 0}
+.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:15px;padding:4px 0;user-select:none}
+.faq-q i{color:#999;transition:transform .2s;font-size:14px}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{display:none;padding:12px 0 4px;font-size:14px;color:#666;line-height:1.7}
+footer{background:#fafafa;border-top:1px solid #e5e7eb;padding:48px 24px 32px;margin-top:80px}
+footer .inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:32px}
+footer .col h5{font-size:13px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px;color:#888}
+footer .col a{display:block;font-size:13px;color:#666;text-decoration:none;margin-bottom:8px;transition:color .2s}
+footer .col a:hover{color:#111}
+footer .col .logo{font-size:18px;font-weight:800;margin-bottom:12px}
+footer .col .logo span{color:#6366f1}
+footer .col p{font-size:12px;color:#999;line-height:1.6}
+footer .social{display:flex;gap:12px;margin-top:12px}
+footer .social a{width:32px;height:32px;border-radius:50%;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;color:#888;font-size:14px;transition:all .2s}
+footer .social a:hover{border-color:#6366f1;color:#6366f1}
+footer .copy{text-align:center;padding-top:32px;margin-top:32px;border-top:1px solid #e5e7eb;font-size:13px;color:#999}
+.hidden{display:none}
+@media(max-width:768px){.p-cards{grid-template-columns:1fr}nav .nav-center{display:none}footer .inner{grid-template-columns:1fr 1fr}.hero h1{font-size:32px}.input-area .top{flex-direction:column}.input-area .type-select{border-right:none;border-bottom:1px solid #f0f0f0;width:100%}}
 </style>
 </head>
 <body>
-<div class="bg-anim"><div class="orb"></div><div class="orb"></div><div class="orb"></div><div class="orb"></div></div>
 <nav>
-<div class="logo">AI<span style="color:#6366f1">Maker</span> <span class="badge">GPT-4o</span></div>
-<span style="font-size:11px;color:rgba(255,255,255,.2)">Better than Base44 · 100% free</span>
+<div class="inner">
+<a href="#" class="logo">AI<span>Maker</span></a>
+<div class="nav-center">
+<a href="#features">Features</a>
+<a href="#examples">Examples</a>
+<a href="#pricing">Pricing</a>
+<a href="#faq">FAQ</a>
+</div>
+<div class="nav-right">
+<span class="lang"><i class="fas fa-globe"></i> EN</span>
+<a href="#" class="btn-nav" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Start Building</a>
+</div>
+</div>
 </nav>
-<div class="chips" id="chips">
-<button onclick="chatChip('portfolio')">🎨 Portfolio</button>
-<button onclick="chatChip('landing')">🚀 Landing</button>
-<button onclick="chatChip('business')">🏢 Business</button>
-<button onclick="chatChip('blog')">📝 Blog</button>
-<button onclick="chatChip('store')">🛍️ Store</button>
-<button onclick="chatChip('app')">📊 Web App</button>
+
+<div class="hero">
+<div class="hero-inner">
+<a class="badge" href="#pricing">Free forever. Better than Base44 ($20/mo).</a>
+<h1>Turn your ideas into<br><span>professional websites</span></h1>
+<p class="sub">AI Website Maker lets you build complete, professional websites in minutes with just your words. GPT-4o powered, GitHub Pages hosted, completely free.</p>
+
+<div class="promo">
+<a href="#"><i class="fas fa-bolt"></i> GPT-4o engine</a>
+<a href="#"><i class="fas fa-rocket"></i> Instant publish</a>
+<a href="#"><i class="fas fa-sync"></i> Refinement loop</a>
 </div>
-<div class="chat">
-<div class="msgs" id="msgs"></div>
-<div class="typing" id="typing">
-<div class="av">AI</div>
-<div class="dots"><span></span><span></span><span></span></div>
+
+<div class="input-area" id="inputArea">
+<div class="top">
+<div class="type-select">
+<select id="st">
+<option value="portfolio">Portfolio</option>
+<option value="landing">Landing Page</option>
+<option value="business">Business</option>
+<option value="blog">Blog</option>
+<option value="store">Store</option>
+<option value="app">Web App</option>
+</select>
+<i class="fas fa-chevron-down"></i>
 </div>
-<div class="input-area">
+<textarea id="chatInput" rows="1" placeholder="Describe your dream website... e.g. A modern portfolio for a UX designer with a project gallery, case studies, skills section, and contact form. Dark theme."></textarea>
+</div>
 <div class="token-row">
 <label>TOKEN</label>
-<input id="gt" type="password" placeholder="GitHub classic token (ghp_...)" style="max-width:300px">
-<span class="gh-info" onclick="addMsg(null,'ai','You need a GitHub classic token with <b>repo</b> scope. Get one at github.com/settings/tokens')">ⓘ</span>
+<input id="gt" type="password" placeholder="GitHub classic token (ghp_...)" style="max-width:260px">
 </div>
-<div class="input-row">
-<div class="wrap">
-<textarea id="chatInput" rows="1" placeholder="Describe your dream website..."></textarea>
-<button class="send" id="sendBtn" onclick="handleChat()">→</button>
+<div class="bottom">
+<div class="examples">
+<button onclick="document.getElementById('chatInput').value='A premium portfolio for a photographer with a fullscreen gallery, about section, booking calendar, and client testimonials. Dark theme.';document.getElementById('chatInput').focus()">🎨 Portfolio</button>
+<button onclick="document.getElementById('chatInput').value='A SaaS landing page for FlowTask with hero, feature grid, pricing table with 3 tiers, FAQ accordion, and email capture. Modern blue theme.';document.getElementById('chatInput').focus()">🚀 Landing</button>
+<button onclick="document.getElementById('chatInput').value='A business website for a luxury architecture firm with services, project portfolio, team profiles, and inquiry form. Elegant theme.';document.getElementById('chatInput').focus()">🏢 Business</button>
+</div>
+<button class="btn-build" id="gb" onclick="handleChat()">Start the build</button>
+</div>
+</div>
+
+<div id="msgs"></div>
+<div id="typing"><div class="av">AI</div><div class="dots"><span></span><span></span><span></span></div></div>
+</div>
+</div>
+
+<div class="section" id="features">
+<h2>Why this is better</h2>
+<p class="sec-sub">Multi-step AI pipeline produces professional results — not random HTML</p>
+<div class="f-grid">
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#6366f1,#a78bfa)">1</div><h3>Multi-step pipeline</h3><p>AI plans architecture first, then generates content, then builds HTML. Each step optimized individually for maximum quality.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">2</div><h3>GPT-4o engine</h3><p>Uses GPT-4o (not mini) via GitHub Models. The same model that powers ChatGPT Plus — completely free, no credit card.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#10b981,#34d399)">3</div><h3>Refinement loop</h3><p>Don't like something? Tell the AI to change it. Adjust layout, colors, content — all without regenerating from scratch.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#ef4444,#f87171)">4</div><h3>Ready to use, instantly</h3><p>GitHub Pages publishes your site in ~1-2 minutes. Built-in hosting, instant URL, automatic HTTPS. No deployment hassles.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">5</div><h3>Professional templates</h3><p>Hand-crafted templates with animations, glassmorphism, gradients, and proper typography. 6 types, 6 design styles.</p></div>
+<div class="f-card"><div class="num" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">6</div><h3>Free forever</h3><p>No credit card. No subscription. Powered by GitHub's free Models API. Unlimited sites. The only cost is your time.</p></div>
+</div>
+</div>
+
+<div class="section" id="examples" style="background:#fafafa">
+<h2>Beautiful sites, every time</h2>
+<p class="sec-sub">Each template is hand-optimized and then customized by AI for your needs</p>
+<div class="examples">
+<div class="ex-grid">
+<div class="ex-card"><div class="ex-img">🎨</div><div class="ex-info"><h4>Portfolio</h4><p>Dark theme with project gallery, skills, testimonials, and contact form. Perfect for creatives.</p></div></div>
+<div class="ex-card"><div class="ex-img">🚀</div><div class="ex-info"><h4>Landing Page</h4><p>SaaS landing with hero, feature cards, pricing table, testimonials, stats counter, and CTA.</p></div></div>
+<div class="ex-card"><div class="ex-img">🏢</div><div class="ex-info"><h4>Business</h4><p>Corporate site with services grid, team profiles, about section, and contact info. Clean and professional.</p></div></div>
+<div class="ex-card"><div class="ex-img">📝</div><div class="ex-info"><h4>Blog</h4><p>Magazine-style blog with featured articles, category grid, newsletter signup, and modern typography.</p></div></div>
+<div class="ex-card"><div class="ex-img">🛍️</div><div class="ex-info"><h4>Store</h4><p>Online store with product grid, categories, search, featured items, and shopping cart UI.</p></div></div>
+<div class="ex-card"><div class="ex-img">📊</div><div class="ex-info"><h4>Web App</h4><p>Dashboard layout with sidebar, stats cards, data tables, charts, and user management panel.</p></div></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="pricing">
+<h2>Pricing</h2>
+<p class="sec-sub">Free forever. Better than paid alternatives.</p>
+<div class="pricing">
+<div class="p-cards">
+<div class="p-card featured">
+<h3>AI Website Maker</h3>
+<div class="price">$0<span>/month</span></div>
+<ul>
+<li>Multi-step AI pipeline</li>
+<li>GPT-4o generation</li>
+<li>6 professional templates</li>
+<li>6 design styles</li>
+<li>Refinement loop</li>
+<li>Unlimited sites</li>
+<li>GitHub Pages hosting</li>
+</ul>
+<button class="btn-p" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Start building</button>
+</div>
+<div class="p-card">
+<h3>Base44</h3>
+<div class="price">$20<span>/month</span></div>
+<ul>
+<li>Single-pass generation</li>
+<li>Limited templates</li>
+<li>No refinement loop</li>
+<li>Credit-based system</li>
+<li>Proprietary model</li>
+<li>Limited to 100 builds</li>
+<li>Paid hosting</li>
+</ul>
+<button class="btn-p" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Choose free</button>
 </div>
 </div>
 </div>
 </div>
-<div style="display:none">
-<select id="st"><option value="portfolio">Portfolio</option><option value="landing">Landing Page</option><option value="business">Business</option><option value="blog">Blog</option><option value="store">Store</option><option value="app">Web App</option></select>
+
+<div class="section" id="faq">
+<h2>Frequently asked questions</h2>
+<p class="sec-sub">Everything you need to know about AI Website Maker</p>
+<div class="faq">
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is AI Website Maker? <i class="fas fa-chevron-down"></i></div><div class="faq-a">AI Website Maker is a free tool that uses GPT-4o to build complete professional websites from a description. You describe what you want, and it plans the architecture, generates content, builds the HTML, and publishes it live on GitHub Pages — all in under 2 minutes.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does it work? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Describe your website in plain English. Pick a template type and style. Our AI runs a multi-step pipeline: first it plans the site architecture, then generates professional content, then builds the HTML using hand-crafted templates. Finally, it creates a GitHub repository and publishes the site via GitHub Pages. You can then refine the site by telling the AI what to change.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need coding experience? <i class="fas fa-chevron-down"></i></div><div class="faq-a">No. Just describe what you want in plain English. The AI handles all the technical implementation — HTML, CSS, responsive design, animations. You don't need to write a single line of code.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What do I need a GitHub token for? <i class="fas fa-chevron-down"></i></div><div class="faq-a">A GitHub classic token with the repo scope is required so the tool can create a repository and publish your site via GitHub Pages. Get one free at github.com/settings/tokens. Your token is sent directly to GitHub's API — it is not stored anywhere.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is it really free? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes, completely free. No credit card required, no subscription, no hidden costs. We use GitHub's free Models API for GPT-4o and GitHub Pages for free hosting. The only thing you need is a free GitHub account.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I customize the generated site? <i class="fas fa-chevron-down"></i></div><div class="faq-a">Yes. After the site is built, you can tell the AI what to change using the refinement box. Change colors, layout, content, add sections — the AI will modify the HTML and you can publish the updated version with one click.</div></div>
+</div>
+</div>
+
+<footer>
+<div class="inner">
+<div class="col">
+<div class="logo">AI<span>Maker</span></div>
+<p>AI Website Maker is the free AI-powered tool that builds and publishes professional websites in minutes. GPT-4o engine. GitHub Pages hosting. No coding required.</p>
+<div class="social">
+<a href="#"><i class="fab fa-github"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+</div>
+</div>
+<div class="col"><h5>Product</h5><a href="#features">Features</a><a href="#examples">Examples</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+<div class="col"><h5>Compare</h5><a href="#pricing">vs Base44</a><a href="#pricing">vs Wix</a><a href="#pricing">vs Squarespace</a></div>
+<div class="col"><h5>Resources</h5><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a><a href="https://github.com/settings/tokens" target="_blank">Get a Token</a></div>
+<div class="col"><h5>Legal</h5><a href="#">Privacy</a><a href="#">Terms</a></div>
+</div>
+<div class="copy">&copy; 2026 AI Website Maker. Free forever.</div>
+</footer>
+
+<div class="hidden">
 <select id="ds"><option value="modern">Modern</option><option value="minimal">Minimal</option><option value="bold">Bold</option><option value="elegant">Elegant</option><option value="playful">Playful</option><option value="dark">Dark</option></select>
 <input id="sn">
 <textarea id="prompt"></textarea>
@@ -133,6 +313,7 @@ nav .logo .badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99
 <div id="refineBox"><textarea id="refineInput"></textarea></div>
 </div>
 <script>
+
 // ===== ULTRA-PREMIUM TEMPLATES =====
 const TX = {};
 
@@ -404,13 +585,13 @@ RULES:
     } else {
       addMsg(null, 'ai', reply);
       chatState = 'idle';
-      document.getElementById('sendBtn').disabled = false;
+      document.getElementById('gb').disabled = false;
     }
   } catch(e) {
     hideTyping();
     addMsg(null, 'ai', 'Error: ' + e.message);
     chatState = 'idle';
-    document.getElementById('sendBtn').disabled = false;
+    document.getElementById('gb').disabled = false;
   }
 }
 
@@ -423,13 +604,13 @@ function handleChat() {
   input.style.height = 'auto';
   addMsg(text, 'user');
   chatState = 'building';
-  document.getElementById('sendBtn').disabled = true;
+  document.getElementById('gb').disabled = true;
   
   const token = document.getElementById('gt').value.trim();
   if (!token) {
     addMsg(null, 'ai', 'Paste your GitHub token in the TOKEN field above first.');
     chatState = 'idle';
-    document.getElementById('sendBtn').disabled = false;
+    document.getElementById('gb').disabled = false;
     return;
   }
   
@@ -498,7 +679,7 @@ window.showOK = function(url) {
   }
   stepsInited = false;
   chatState = 'idle';
-  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('gb').disabled = false;
 };
 
 const origShowE = window.showE;
@@ -513,7 +694,7 @@ window.showE = function(m) {
   }
   stepsInited = false;
   chatState = 'idle';
-  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('gb').disabled = false;
 };
 
 function chatRefine() {
@@ -545,5 +726,12 @@ document.getElementById('chatInput').addEventListener('keydown', function(e) {
     handleChat();
   }
 });
+
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  const answer = el.nextElementSibling;
+  answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+}
 </script>
-</body></html>
+</body>
+</html>
