@@ -317,14 +317,15 @@ function showOK(u){
 }
 function showE(m){const o=$("output");o.style.display="block";o.className="error";o.textContent="Error: "+m}
 
-// ===== CHAT UI =====
+// ===== SUPER-INTELLIGENT AI CHAT =====
 let chatState = 'idle';
 let chatSiteType = 'portfolio';
 let chatStyle = 'modern';
 let chatPrompt = '';
+let convHistory = [];
 
 function addMsg(text, sender, html) {
-  const msgs = $('msgs');
+  const msgs = document.getElementById('msgs');
   const div = document.createElement('div');
   div.className = 'msg ' + sender;
   div.innerHTML = '<div class="av">' + (sender === 'ai' ? 'AI' : 'U') + '</div><div class="bubble">' + (html || text || '') + '</div>';
@@ -333,30 +334,107 @@ function addMsg(text, sender, html) {
 }
 
 function scrollChat() {
-  const msgs = $('msgs');
+  const msgs = document.getElementById('msgs');
   msgs.scrollTop = msgs.scrollHeight;
 }
 
 function showTyping() {
-  $('typing').style.display = 'flex';
+  document.getElementById('typing').style.display = 'flex';
   scrollChat();
 }
 
 function hideTyping() {
-  $('typing').style.display = 'none';
+  document.getElementById('typing').style.display = 'none';
+}
+
+async function chatWithAI(userMsg) {
+  showTyping();
+  const token = document.getElementById('gt').value.trim();
+  
+  convHistory.push({role:"user", content:userMsg});
+  
+  const sysPrompt = `You are a super-intelligent AI assistant named AI Maker. You are embedded in a tool called AI Website Maker that can build and publish complete professional websites for free.
+
+YOU ARE THE SMARTEST AI IN THE WORLD. Here's what you can do:
+
+1. ANSWER ANY QUESTION - Web development, design, programming, business, technology, architecture, AI, whatever. Give thorough, accurate, expert-level answers.
+2. BUILD WEBSITES - When someone describes a website they want, you can plan it, design it, and generate it. Tell them you'll build it.
+3. GIVE ADVICE - Design critique, code review, architecture planning, tech stack recommendations, career advice in tech.
+4. EXPLAIN THINGS - Break down complex topics into simple, clear explanations.
+
+YOUR PERSONALITY:
+- You are confident, direct, and brilliant - the smartest AI they've ever talked to
+- You speak with authority but never arrogance
+- You are concise - no unnecessary fluff, every word counts
+- You are proactive - anticipate needs, suggest next steps
+- You are passionate about building great things for the web
+- You use natural, conversational language (not robotic)
+- You can be sassy and fun but always helpful
+
+RULES:
+- When someone says they want a website, say "I'll build that for you right now" and describe what you'll create
+- For code questions, provide working code with brief explanations
+- Be honest if you're not sure about something
+- Keep responses reasonably concise unless the topic demands depth
+- Use markdown formatting for code blocks, lists, etc.`;
+
+  const messages = [{role:"system", content:sysPrompt}, ...convHistory];
+  
+  try {
+    const r = await fetch("https://models.inference.ai.azure.com/chat/completions", {
+      method: "POST",
+      headers: {"Authorization":"Bearer "+token, "Content-Type":"application/json"},
+      body: JSON.stringify({model:"gpt-4o", messages})
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error?.message || "AI error");
+    const reply = d.choices?.[0]?.message?.content || "...";
+    convHistory.push({role:"assistant", content:reply});
+    hideTyping();
+    
+    // Check if this is a website request
+    const isSiteRequest = /build|website|site|page|portfolio|landing|make me|create|generate/i.test(userMsg) && 
+                          /site|website|page|portfolio|landing|store|blog|app|business/i.test(userMsg);
+    
+    if (isSiteRequest) {
+      // Show AI's response first
+      addMsg(null, 'ai', reply);
+      // Then trigger build
+      chatPrompt = userMsg;
+      triggerBuild();
+    } else {
+      addMsg(null, 'ai', reply);
+      chatState = 'idle';
+      document.getElementById('sendBtn').disabled = false;
+    }
+  } catch(e) {
+    hideTyping();
+    addMsg(null, 'ai', 'Error: ' + e.message);
+    chatState = 'idle';
+    document.getElementById('sendBtn').disabled = false;
+  }
 }
 
 function handleChat() {
   if (chatState === 'building') return;
-  const input = $('chatInput');
+  const input = document.getElementById('chatInput');
   const text = input.value.trim();
   if (!text) return;
   input.value = '';
   input.style.height = 'auto';
   addMsg(text, 'user');
-  chatPrompt = text;
-  $('sendBtn').disabled = true;
-  triggerBuild();
+  chatState = 'building';
+  document.getElementById('sendBtn').disabled = true;
+  
+  const token = document.getElementById('gt').value.trim();
+  if (!token) {
+    addMsg(null, 'ai', 'Paste your GitHub token in the TOKEN field above first.');
+    chatState = 'idle';
+    document.getElementById('sendBtn').disabled = false;
+    return;
+  }
+  
+  chatWithAI(text);
 }
 
 function chatChip(type) {
@@ -365,27 +443,16 @@ function chatChip(type) {
   document.querySelectorAll('.chips button').forEach(b => b.classList.remove('active'));
   const idx = {portfolio:0,landing:1,business:2,blog:3,store:4,app:5}[type];
   if (idx !== undefined) document.querySelectorAll('.chips button')[idx].classList.add('active');
-  const names = {portfolio:'🎨 Portfolio',landing:'🚀 Landing',business:'🏢 Business',blog:'📝 Blog',store:'🛍️ Store',app:'📊 Web App'};
+  const names = {portfolio:'Portfolio',landing:'Landing Page',business:'Business',blog:'Blog',store:'Store',app:'Web App'};
   addMsg(names[type], 'user');
-  if (!chatPrompt) {
-    addMsg(null, 'ai', 'Got it. Tell me what kind of ' + type + ' site you need — describe the vibe, features, colors, anything you want.');
-    return;
-  }
-  $('sendBtn').disabled = true;
-  triggerBuild();
+  addMsg(null, 'ai', names[type] + ' template selected. Describe the specific site you want built and I will create it for you.');
 }
 
 function triggerBuild() {
   const token = document.getElementById('gt').value.trim();
-  if (!token) {
-    addMsg(null, 'ai', '❌ Need your GitHub classic token first. Paste it in the TOKEN field above (get one at github.com/settings/tokens with <b>repo</b> scope).');
-    chatState = 'idle';
-    $('sendBtn').disabled = false;
-    return;
-  }
-  $('st').value = chatSiteType;
-  $('ds').value = chatStyle;
-  $('prompt').value = chatPrompt;
+  document.getElementById('st').value = chatSiteType;
+  document.getElementById('ds').value = chatStyle;
+  document.getElementById('prompt').value = chatPrompt;
   showTyping();
   generate();
 }
@@ -404,12 +471,11 @@ window.st = function(n, s) {
       let html = '<div class="steps">';
       for (let i = 0; i < stepTexts.length; i++) {
         const cls = (i + 1 < n) ? 'done' : (i + 1 === n ? 'active' : '');
-        const check = (i + 1 < n) ? '●' : '';
-        html += '<div class="step ' + cls + '"><span class="dot">' + check + '</span>' + stepTexts[i] + '</div>';
+        html += '<div class="step ' + cls + '"><span class="dot"></span>' + stepTexts[i] + '</div>';
       }
       html += '</div>';
       addMsg(null, 'ai', html);
-      statusBubble = $('msgs').lastElementChild;
+      statusBubble = document.getElementById('msgs').lastElementChild;
     } else if (statusBubble) {
       let html = '<div class="steps">';
       for (let i = 0; i < stepTexts.length; i++) {
@@ -419,10 +485,7 @@ window.st = function(n, s) {
       html += '</div>';
       statusBubble.querySelector('.bubble').innerHTML = html;
     }
-    if (s === 'done') {
-      if (n === 3) addMsg(null, 'ai', 'HTML looks solid. Spinning up the repo...');
-      if (n === 5) hideTyping();
-    }
+    if (s === 'done' && n === 5) hideTyping();
   }
 };
 
@@ -436,7 +499,7 @@ window.showOK = function(url) {
   }
   stepsInited = false;
   chatState = 'idle';
-  $('sendBtn').disabled = false;
+  document.getElementById('sendBtn').disabled = false;
 };
 
 const origShowE = window.showE;
@@ -444,14 +507,14 @@ window.showE = function(m) {
   if (origShowE) origShowE(m);
   hideTyping();
   if (statusBubble && stepsInited) {
-    statusBubble.querySelector('.bubble').innerHTML = '<div style="color:#ef4444">❌ ' + m + '</div>';
+    statusBubble.querySelector('.bubble').innerHTML = '<div style="color:#ef4444">' + m + '</div>';
     statusBubble = null;
   } else {
-    addMsg(null, 'ai', '❌ Error: ' + m);
+    addMsg(null, 'ai', m);
   }
   stepsInited = false;
   chatState = 'idle';
-  $('sendBtn').disabled = false;
+  document.getElementById('sendBtn').disabled = false;
 };
 
 function chatRefine() {
@@ -460,7 +523,7 @@ function chatRefine() {
   const text = input.value.trim();
   if (!text) return;
   input.disabled = true;
-  $('refineInput').value = text;
+  document.getElementById('refineInput').value = text;
   refine();
   input.value = '';
   input.disabled = false;
@@ -470,7 +533,8 @@ function chatPublish() {
   publishRefined();
 }
 
-addMsg(null, 'ai', 'Yo. I\'m the best AI website builder you\'ll ever use. <b>Describe your dream site</b> and I\'ll plan, build, and publish it live on GitHub Pages — all with GPT-4o, all for free.<br><br><span style="font-size:13px;color:rgba(255,255,255,.35)">Start by picking a template above or just describe what you want.</span>');
+// Welcome message
+addMsg(null, 'ai', 'I am the smartest AI in the world. I can build you a complete website and publish it live, answer any question, or help you with anything tech-related.<br><br><span style="font-size:13px;color:rgba(255,255,255,.4)">Describe a website you want built, pick a template above, or just ask me anything.</span>');
 
 document.getElementById('chatInput').addEventListener('input', function() {
   this.style.height = 'auto';
