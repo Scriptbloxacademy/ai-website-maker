@@ -870,6 +870,7 @@ const styleLabels = {modern:'Modern',minimal:'Minimal',bold:'Bold',elegant:'Eleg
 
 function addMsg(text, sender, html) {
   const msgs = document.getElementById('msgs');
+  msgs.style.display = 'flex';
   const div = document.createElement('div');
   div.className = 'msg ' + sender;
   div.innerHTML = '<div class="av">' + (sender === 'ai' ? 'AI' : 'U') + '</div><div class="bubble">' + (html || text || '') + '</div>';
