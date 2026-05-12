@@ -732,8 +732,8 @@ ${opts.multiPage ? '4. This will be the HOME page. Add navigation links for Abou
 9. Include Font Awesome CDN in head.
 ${opts.siteTitle ? '10. Set the <title> to: "' + opts.siteTitle + '"' : '10. Set an appropriate <title> tag.'}
 ${opts.siteDesc ? '11. Add meta description: <meta name="description" content="' + opts.siteDesc + '">. Also add OG meta tags with the same description.' : '11. Add appropriate meta description and OG tags.'}
-${opts.analyticsOn && opts.analyticsDomain ? '12. INCLUDE Plausible analytics script in <head>: <script defer data-domain="' + opts.analyticsDomain + '" src="https://plausible.io/js/script.js"></script>' : ''}
-${opts.contactFormOn && opts.contactEmail ? '13. Include a functional contact form on the page. Use: <form action="https://formsubmit.co/' + opts.contactEmail + '" method="POST"> with name, email, message fields and a submit button. Style it to match the site design.' : ''}
+${opts.analyticsOn && opts.analyticsDomain ? '12. INCLUDE Plausible analytics script in &lt;head&gt;: &lt;script defer data-domain="' + opts.analyticsDomain + '" src="https://plausible.io/js/script.js"&gt;&lt;\/script&gt;' : ''}
+${opts.contactFormOn && opts.contactEmail ? '13. Include a functional contact form on the page. Use: &lt;form action="https://formsubmit.co/' + opts.contactEmail + '" method="POST"&gt; with name, email, message fields and a submit button. Style it to match the site design.' : ''}
 14. Return ONLY the raw HTML. No markdown, no backticks, no explanation.
 15. Make all placeholder content specific and realistic — never use lorem ipsum.`;
   }
@@ -781,8 +781,8 @@ RULES:
 6. Make it responsive, professional, with realistic content.
 7. No image URLs — use emoji or CSS gradients.
 ${opts.siteTitle && i > 0 ? '8. Set the <title> to: "' + opts.siteTitle + ' - ' + titles[i] + '"' : ''}
-${opts.analyticsOn && opts.analyticsDomain ? '9. INCLUDE Plausible analytics in <head>: <script defer data-domain="' + opts.analyticsDomain + '" src="https://plausible.io/js/script.js"></script>' : ''}
-${opts.contactFormOn && opts.contactEmail && i === 2 ? '10. Include a functional contact form on this page. Use: <form action="https://formsubmit.co/' + opts.contactEmail + '" method="POST"> with name, email, message fields.' : ''}
+${opts.analyticsOn && opts.analyticsDomain ? '9. INCLUDE Plausible analytics in &lt;head&gt;: &lt;script defer data-domain="' + opts.analyticsDomain + '" src="https://plausible.io/js/script.js"&gt;&lt;\/script&gt;' : ''}
+${opts.contactFormOn && opts.contactEmail && i === 2 ? '10. Include a functional contact form on this page. Use: &lt;form action="https://formsubmit.co/' + opts.contactEmail + '" method="POST"&gt; with name, email, message fields.' : ''}
 - Return ONLY raw HTML. No backticks, no markdown.`;
     
     const r=await fetch("https://models.inference.ai.azure.com/chat/completions",{
